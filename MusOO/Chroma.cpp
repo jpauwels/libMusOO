@@ -164,7 +164,7 @@ static const pair<int,char> theCirclePositionToName[] = {pair<int,char>(1,'F'), 
 const map<int,char> Chroma::s_CirclePositionToName(theCirclePositionToName, theCirclePositionToName+7);
 
 Chroma::Chroma() 
-: m_CirclePosition(Chroma::undefined().m_CirclePosition), m_HasSpelling(false)
+: m_CirclePosition(Chroma::undefined().m_CirclePosition), m_HasSpelling(true)
 {
 }
 
@@ -173,7 +173,7 @@ Chroma::Chroma(const int inCirclePosition, const bool inHasSpelling)
 {
 }
 
-Chroma::Chroma(const std::string& inName, const bool inHasSpelling /*= false*/)
+Chroma::Chroma(const std::string& inName, const bool inHasSpelling /*= true*/)
 : m_HasSpelling(inHasSpelling)
 {
 	if (inName.empty())

@@ -324,6 +324,14 @@ std::ostream& operator<<(std::ostream& inOutputStream, const QMChord& inChord)
 	return inOutputStream;
 }
 
+std::istream& operator>>(std::istream& inInputStream, QMChord& inChord)
+{
+	string theChordString;
+	inInputStream >> theChordString;
+	inChord = QMChord(theChordString);
+	return inInputStream;
+}
+
 std::istream& operator>>(std::istream& inInputStream, QMChordType& outChordType)
 {
 	std::string theString;
@@ -338,10 +346,16 @@ std::ostream& operator<<(std::ostream& inOutputStream, const QMChordType& inChor
 	return inOutputStream;
 }
 
-std::istream& operator>>(std::istream& inInputStream, QMChord& inChord)
+std::ostream& operator<<(std::ostream& inOutputStream, const ChordinoChord& inChord)
+{
+	inOutputStream << inChord.str();
+	return inOutputStream;
+}
+
+std::istream& operator>>(std::istream& inInputStream, ChordinoChord& inChord)
 {
 	string theChordString;
 	inInputStream >> theChordString;
-	inChord = QMChord(theChordString);
+	inChord = ChordinoChord(theChordString);
 	return inInputStream;
 }

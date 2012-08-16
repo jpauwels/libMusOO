@@ -67,7 +67,6 @@ static const pair<string,ChordType> typeStringMap[] =
 	pair<string,ChordType>("maj7",ChordType::majorSeventh()),
 	pair<string,ChordType>("m7",ChordType::minorSeventh()),
 	pair<string,ChordType>("7",ChordType::dominantSeventh()),
-	pair<string,ChordType>("dim",ChordType::diminishedSeventh()),
 	pair<string,ChordType>("m7b5",ChordType::halfDiminished()),
 	pair<string,ChordType>("4",ChordType::suspendedFourth()),
 	pair<string,ChordType>("7+",ChordType::augmentedSeventh()),
@@ -96,7 +95,7 @@ static const pair<string,ChordType> typeStringMap[] =
 	pair<string,ChordType>("7alt",ChordType::rootOnly()),
 	pair<string,ChordType>("13alt",ChordType::rootOnly())
 };
-const map<string,ChordType> ProsemusChordType::s_TypeStringMap(typeStringMap, typeStringMap+32);
+const map<string,ChordType> ProsemusChordType::s_TypeStringMap(typeStringMap, typeStringMap+31);
 
 ProsemusChordType::ProsemusChordType()
 {

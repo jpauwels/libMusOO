@@ -137,6 +137,31 @@ const bool Chord::isDiatonic(const Key& inKey) const
 	return true;
 }
 
+void Chord::addChroma(const Chroma& inChroma)
+{
+	type().addInterval(Interval(root(), inChroma));
+}
+
+void Chord::deleteChroma(const Chroma& inChroma)
+{
+	type().deleteInterval(Interval(root(), inChroma));
+}
+
+void Chord::replaceChroma(const Chroma& inChromaToReplace, const Chroma& inReplacementChroma)
+{
+	type().replaceInterval(Interval(root(), inChromaToReplace), Interval(root(), inReplacementChroma));
+}
+
+void Chord::addBass(const Chroma& inChroma)
+{
+	type().addBass(Interval(root(), inChroma));
+}
+
+void Chord::deleteBass(const Chroma& inChroma)
+{
+	type().deleteBass();
+}
+
 const std::vector<Chroma> Chord::chromaList() const
 {
 	vector<Chroma> theChromaList;

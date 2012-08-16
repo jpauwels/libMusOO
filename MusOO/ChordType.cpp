@@ -311,6 +311,16 @@ void ChordType::subtract(const ChordType& inType)
 	}
 }
 
+void ChordType::subtract(const ChordType& inType, std::vector<Interval>& outRestIntervals, std::vector<Interval>& outMissingIntervals) const
+{
+	outRestIntervals = vector<Interval>(size());
+	vector<Interval>::iterator theNewEndIt = set_difference(m_Formula.begin(), m_Formula.end(), inType.m_Formula.begin(), inType.m_Formula.end(), outRestIntervals.begin());
+	outRestIntervals.erase(theNewEndIt, outRestIntervals.end());
+	outMissingIntervals = vector<Interval>(inType.size());
+	theNewEndIt = set_difference(inType.m_Formula.begin(), inType.m_Formula.end(), m_Formula.begin(), m_Formula.end(), outMissingIntervals.begin());
+	outMissingIntervals.erase(theNewEndIt, outMissingIntervals.end());
+}
+
 const size_t ChordType::size() const
 {
 	return m_Formula.size();
@@ -624,6 +634,12 @@ ChordType& ChordType::deleteInterval(const Interval& inInterval)
 	{
 		m_Bass = Interval::unknown();
 	}
+	return *this;
+}
+
+ChordType& ChordType::deleteBass()
+{
+	m_Bass = Interval::unknown();
 	return *this;
 }
 

@@ -51,6 +51,12 @@ public:
 	virtual ~Chord();
 
 	const bool isDiatonic(const Key& inKey) const;
+	
+	void addChroma(const Chroma& inChroma);
+	void deleteChroma(const Chroma& inChroma);
+	void replaceChroma(const Chroma& inChromaToReplace, const Chroma& inReplacementChroma);
+	void addBass(const Chroma& inChroma);
+	void deleteBass(const Chroma& inChroma);
 
 protected:
 	

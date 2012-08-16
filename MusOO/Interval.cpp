@@ -182,6 +182,11 @@ const std::vector<std::string> Interval::s_MajorDegrees(majorDegrees, majorDegre
 const std::string minorDegrees[] = {"I", "bII", "II", "III", "#III", "IV", "bV", "V", "VI", "#VI", "VII", "#VII"};
 const std::vector<std::string> Interval::s_MinorDegrees(minorDegrees, minorDegrees+12);
 
+Interval::Interval()
+: m_Octaves(0), m_HasSpelling(true), m_CircleSteps(std::numeric_limits<int>::max())
+{
+}
+
 Interval::Interval(const Chroma& inRoot, const Chroma& inOther, const bool inUp /*= true*/)
 : m_Octaves(0)
 {

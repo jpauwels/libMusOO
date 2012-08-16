@@ -111,6 +111,7 @@ public:
 	ChordType& addInterval(const Interval& inInterval);
 	ChordType& addBass(const Interval& inInterval);
 	ChordType& deleteInterval(const Interval& inInterval);
+	ChordType& deleteBass();
 	ChordType& replaceInterval(const Interval& inIntervalToReplace, const Interval& inReplacementInterval);
 
 	/**
@@ -123,6 +124,7 @@ public:
 protected:
 	
 	void subtract(const ChordType& inType);
+	void subtract(const ChordType& inType, std::vector<Interval>& outRestIntervals, std::vector<Interval>& outMissingIntervals) const;
 	std::set<Interval> m_Formula;
 	Interval m_Bass;
 

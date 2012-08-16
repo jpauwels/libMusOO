@@ -92,5 +92,7 @@ std::ostream& operator<<(std::ostream& inOutputStream, const QMChord& inChord);
 std::istream& operator>>(std::istream& inInputStream, QMChord& inChord);
 std::ostream& operator<<(std::ostream& inOutputStream, const QMChordType& inChordType);
 std::istream& operator>>(std::istream& inInputStream, QMChordType& inChordType);
+std::ostream& operator<<(std::ostream& inOutputStream, const ChordinoChord& inChord);
+std::istream& operator>>(std::istream& inInputStream, ChordinoChord& inChord);
 
 #endif	// #ifndef QMChord_h

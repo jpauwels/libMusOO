@@ -53,6 +53,7 @@ public:
 	//to access m_CircleSteps in Chroma::operator+=(Interval), Chroma::operator+=(Interval) and Chroma::Chroma(Chroma, Interval)
 
 	/** Default constructor. */
+	Interval();
 	Interval(const Chroma& inRoot, const Chroma& inOther, const bool inUp = true);
 	Interval(const std::string& inMajorDegree, const bool inUp = true);
 	Interval(const std::string& inDegree, const Mode& inMode);

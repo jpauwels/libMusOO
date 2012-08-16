@@ -50,10 +50,10 @@ public:
 
 	/** Default constructor. */
 	Chroma();
-	Chroma(const std::string& inName, const bool inHasSpelling = false);
+	Chroma(const std::string& inName, const bool inHasSpelling = true);
 	Chroma(const Chroma& inReference, const Interval& inInterval);
 
-	const std::string str() const;
+	virtual const std::string str() const;
 	/** Destructor. */
 	virtual ~Chroma();
 
@@ -77,13 +77,13 @@ protected:
 
 	static const std::map<char,int> s_NameToCirclePosition;
 	static const std::map<int,char> s_CirclePositionToName;
-
+	
+	ptrdiff_t m_CirclePosition;
+	bool m_HasSpelling;
+	
 private:
 	//only for creation of static chromas
 	Chroma(const int inCirclePosition, const bool inHasSpelling);
-
-	ptrdiff_t m_CirclePosition;
-	bool m_HasSpelling;
 
 };
 
