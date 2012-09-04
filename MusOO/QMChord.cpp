@@ -192,8 +192,17 @@ static const pair<string,ChordType> typeStringMap[] = {
 	//additions Rik
 	pair<string,ChordType>("sus2",ChordType::suspendedSecond()), 
 	pair<string,ChordType>("7sus4",ChordType::suspendedFourthSeventh()),
-	pair<string,ChordType>("aug7",ChordType::augmentedSeventh())};
-const map<string,ChordType> QMChordType::s_TypeStringMap(typeStringMap, typeStringMap+20);
+	pair<string,ChordType>("aug7",ChordType::augmentedSeventh()),
+    //billboard additions
+    pair<string,ChordType>("1",ChordType::rootOnly()),
+    pair<string,ChordType>("5",ChordType::power()),
+    pair<string,ChordType>("maj11",ChordType::majorEleventh()),
+    pair<string,ChordType>("11",ChordType::dominantEleventh()),
+    pair<string,ChordType>("min11",ChordType::minorEleventh()),
+    pair<string,ChordType>("maj13",ChordType::majorThirteenth()),
+    pair<string,ChordType>("13",ChordType::dominantEleventh()),
+    pair<string,ChordType>("min13",ChordType::minorEleventh())};
+const map<string,ChordType> QMChordType::s_TypeStringMap(typeStringMap, typeStringMap+28);
 
 QMChordType::QMChordType(std::string inName)
 {

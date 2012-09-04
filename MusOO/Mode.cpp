@@ -144,11 +144,11 @@ const std::string Mode::str() const
 	if (!m_IntervalList.empty())
 	{
 		theModeStream << m_IntervalList.begin()->circleStepsCW();
-	}
-	for (set<Interval>::const_iterator i = ++m_IntervalList.begin(); i != m_IntervalList.end(); ++i)
-	{
-		theModeStream << ",";
-		theModeStream << i->majorDegree();
+        for (set<Interval>::const_iterator i = ++m_IntervalList.begin(); i != m_IntervalList.end(); ++i)
+        {
+            theModeStream << ",";
+            theModeStream << i->circleStepsCW();
+        }
 	}
 	theModeStream << "]";
 	return theModeStream.str();

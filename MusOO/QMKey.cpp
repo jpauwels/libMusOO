@@ -12,6 +12,7 @@
 	using std::string;
 #include <sstream>
 	using std::istringstream;
+    using std::ostringstream;
 #include <stdexcept>
 	using std::invalid_argument;
 #include "QMKey.h"
@@ -100,7 +101,7 @@ QMMode::QMMode(const std::string& inString)
 	{
 		*this = major();
 	}
-	else if (!inString.compare("minor"))
+	else if (!inString.compare("minor") || !inString.compare("minor-harmonic"))
 	{
 		*this = minorHarmonic();
 	}
@@ -154,7 +155,19 @@ const std::string QMMode::str() const
 	}
 	else
 	{
-		return Mode::str();
+		ostringstream theModeStream;
+        theModeStream << "(";
+        if (!m_IntervalList.empty())
+        {
+            theModeStream << m_IntervalList.begin()->majorDegree();
+            for (std::set<Interval>::const_iterator i = ++m_IntervalList.begin(); i != m_IntervalList.end(); ++i)
+            {
+                theModeStream << ",";
+                theModeStream << i->majorDegree();
+            }
+        }
+        theModeStream << ")";
+        return theModeStream.str();
 	}
 }
 
