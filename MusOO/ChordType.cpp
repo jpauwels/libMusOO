@@ -355,14 +355,14 @@ const ChordType ChordType::triad() const
 	//if the formula contains major third
 	else if (m_Formula.count(Interval::majorThird()) > 0)
 	{
-		//if formula contains augmented fifth
-		if (m_Formula.count(Interval::augmentedFifth()) > 0)
+		//if formula contains only augmented fifth
+		if (m_Formula.count(Interval::augmentedFifth()) > 0 && m_Formula.count(Interval::perfectFifth()) == 0)
 		{
 			//augmented triad
 			return augmented();
 		}
-		//if formula contains diminished fifth
-		else if (m_Formula.count(Interval::diminishedFifth()) > 0)
+		//if formula contains only diminished fifth
+		else if (m_Formula.count(Interval::diminishedFifth()) > 0 && m_Formula.count(Interval::perfectFifth()) == 0)
 		{
 			//majorb5 triad
 			return majorFlatFifth();
@@ -377,14 +377,14 @@ const ChordType ChordType::triad() const
 	//if formula contains minor third
 	else if (m_Formula.count(Interval::minorThird()) > 0)
 	{
-		//if formula contains diminished fifth
-		if (m_Formula.count(Interval::diminishedFifth()) > 0)
+		//if formula contains only diminished fifth
+		if (m_Formula.count(Interval::diminishedFifth()) > 0 && m_Formula.count(Interval::perfectFifth()) == 0)
 		{
 			//diminished triad
 			return diminished();
 		}
-		//if formula contains augmented fifth
-		else if (m_Formula.count(Interval::augmentedFifth()) > 0)
+		//if formula contains only augmented fifth
+		else if (m_Formula.count(Interval::augmentedFifth()) > 0 && m_Formula.count(Interval::perfectFifth()) == 0)
 		{
 			return minorSharpFifth();
 		}
@@ -429,8 +429,8 @@ const ChordType ChordType::tetrad() const
 	//if the formula contains major third
 	else if (m_Formula.count(Interval::majorThird()) > 0)
 	{
-		//if formula contains augmented fifth
-		if (m_Formula.count(Interval::augmentedFifth()) > 0)
+		//if formula contains only augmented fifth
+		if (m_Formula.count(Interval::augmentedFifth()) > 0 && m_Formula.count(Interval::perfectFifth()) == 0)
 		{
 			if (m_Formula.count(Interval::minorSeventh()) > 0)
 			{
@@ -446,8 +446,8 @@ const ChordType ChordType::tetrad() const
 				return augmented();
 			}
 		}
-		//if formula contains diminished fifth
-		else if (m_Formula.count(Interval::diminishedFifth()) > 0)
+		//if formula contains only diminished fifth
+		else if (m_Formula.count(Interval::diminishedFifth()) > 0 && m_Formula.count(Interval::perfectFifth()) == 0)
 		{
 			if (m_Formula.count(Interval::minorSeventh()) > 0)
 			{
@@ -488,8 +488,8 @@ const ChordType ChordType::tetrad() const
 	//if formula contains minor third
 	else if (m_Formula.count(Interval::minorThird()) > 0)
 	{
-		//if formula contains diminished fifth
-		if (m_Formula.count(Interval::diminishedFifth()) > 0)
+		//if formula contains only diminished fifth
+		if (m_Formula.count(Interval::diminishedFifth()) > 0 && m_Formula.count(Interval::perfectFifth()) == 0)
 		{
 			if (m_Formula.count(Interval::minorSeventh()) > 0)
 			{
@@ -505,8 +505,8 @@ const ChordType ChordType::tetrad() const
 				return diminished();
 			}
 		}
-		//if formula contains augmented fifth
-		else if (m_Formula.count(Interval::augmentedFifth()) > 0)
+		//if formula contains only augmented fifth
+		else if (m_Formula.count(Interval::augmentedFifth()) > 0 && m_Formula.count(Interval::perfectFifth()) == 0)
 		{
 			if (m_Formula.count(Interval::minorSeventh()) > 0)
 			{
