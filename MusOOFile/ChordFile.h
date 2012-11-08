@@ -16,13 +16,13 @@ class ChordFile
 {
 public:
 
-	ChordFile();
+	ChordFile(const bool inPitchSpelled);
 	/** Destructor. */
 	virtual ~ChordFile();
 
-	const ChordSequence& readAll();
-	const ChordSequence readRange(double inStartTime, double inEndTime);
-	void writeAll(ChordSequence& inTimedChords);
+	const TimedChordSequence& readAll();
+	const TimedChordSequence readRange(double inStartTime, double inEndTime);
+	void writeAll(TimedChordSequence& inTimedChords);
 	bool isEmpty() const;
 
 	virtual void open(const std::string& inFileName) = 0;
@@ -31,7 +31,8 @@ public:
 protected:
 
 	bool m_FileHasChanged;
-	ChordSequence m_TimedChords;
+	TimedChordSequence m_TimedChords;
+    bool m_PitchSpelled;
 };
 
 #endif	// #ifndef ChordFile_h

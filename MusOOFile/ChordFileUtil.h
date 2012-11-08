@@ -25,27 +25,27 @@ class ChordFileUtil
 {
 public:
 
-	static ChordFile* newChordFileFromExtension(boost::filesystem::path inFileName, std::string inFileTypeSelect = "auto")
+	static ChordFile* newChordFileFromExtension(boost::filesystem::path inFileName, const bool inPitchSpelled, std::string inFileTypeSelect = "auto")
 	{
 		if (inFileTypeSelect == "QMUL" || (inFileTypeSelect == "auto" && (inFileName.extension() == ".lab" || inFileName.extension() == ".txt")))
 		{
-			return new QMChordFile(inFileName.string());
+			return new QMChordFile(inFileName.string(), inPitchSpelled);
 		}
 		else if (inFileTypeSelect == "Prosemus" || (inFileTypeSelect == "auto" && inFileName.extension() == ".chords"))
 		{
-			return new ProsemusChordFile(inFileName.string());
+			return new ProsemusChordFile(inFileName.string(), inPitchSpelled);
 		}
 		else if (inFileTypeSelect == "SonicAnnotator" || (inFileTypeSelect == "auto" && inFileName.extension() == ".csv"))
 		{
-			return new SonicAnnotatorCSVChordFile<QMChord>(inFileName.string());
+			return new SonicAnnotatorCSVChordFile<QMChord>(inFileName.string(), inPitchSpelled);
 		}
 		else if (inFileTypeSelect == "QuaeroLocal" || (inFileTypeSelect == "auto" && ends_with(inFileName.stem().string(), ".f") && inFileName.extension() == ".xml"))
 		{
-			return new ChordFileMuDesc<ChordinoChord>(inFileName.string());
+			return new ChordFileMuDesc<ChordinoChord>(inFileName.string(), inPitchSpelled);
 		}
 		else if (inFileTypeSelect == "MuDesc" || (inFileTypeSelect == "auto" && inFileName.extension() == ".xml"))
 		{
-			return new ChordFileMuDesc<ChordinoChord>(inFileName.string());
+			return new ChordFileMuDesc<ChordinoChord>(inFileName.string(), inPitchSpelled);
 		}
 		else if (inFileTypeSelect == "auto")
 		{

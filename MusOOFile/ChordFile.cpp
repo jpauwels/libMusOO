@@ -10,8 +10,8 @@
 // Includes
 #include "ChordFile.h"
 
-ChordFile::ChordFile() 
-: m_FileHasChanged(false)
+ChordFile::ChordFile(const bool inPitchSpelled) 
+: m_FileHasChanged(false), m_PitchSpelled(inPitchSpelled)
 {
 }
 
@@ -19,12 +19,12 @@ ChordFile::~ChordFile()
 {
 }
 
-const ChordSequence& ChordFile::readAll()
+const TimedChordSequence& ChordFile::readAll()
 {
 	return m_TimedChords;
 }
 
-const ChordSequence ChordFile::readRange(double inStartTime, double inEndTime)
+const TimedChordSequence ChordFile::readRange(double inStartTime, double inEndTime)
 {
 	//range check
 	if (!m_TimedChords.empty() && inStartTime < m_TimedChords.front().onset())
@@ -36,13 +36,13 @@ const ChordSequence ChordFile::readRange(double inStartTime, double inEndTime)
 		inEndTime = m_TimedChords.back().offset();
 	}
 	//find first label in range
-	ChordSequence::const_iterator it = m_TimedChords.begin();
+	TimedChordSequence::const_iterator it = m_TimedChords.begin();
 	while (it != m_TimedChords.end() && it->offset() <= inStartTime)
 	{
 		++it;
 	}
 	//add range
-	ChordSequence theChordsRange;
+	TimedChordSequence theChordsRange;
 	while (it != m_TimedChords.end() && it->onset() < inEndTime)
 	{
 		theChordsRange.push_back(*it);
@@ -57,7 +57,7 @@ const ChordSequence ChordFile::readRange(double inStartTime, double inEndTime)
 	return theChordsRange;
 }
 
-void ChordFile::writeAll(ChordSequence& inTimedChords)
+void ChordFile::writeAll(TimedChordSequence& inTimedChords)
 {
 	m_TimedChords = inTimedChords;
 	m_FileHasChanged = true;
@@ -68,14 +68,20 @@ bool ChordFile::isEmpty() const
 	return m_TimedChords.empty();
 }
 
-
 void ChordFile::open(const std::string& inFileName)
 {
+    if (!m_PitchSpelled)
+    {
+        for (TimedChordSequence::iterator it = m_TimedChords.begin(); it != m_TimedChords.end(); ++it)
+        {
+//            it->label() = it->label().ignoreSpelling();
+        }
+    }
 }
 
 void ChordFile::close()
 {
-	const ChordSequence theTimedChords = m_TimedChords;
+	const TimedChordSequence theTimedChords = m_TimedChords;
 	m_TimedChords.clear();
 	// add silence at beginning if necessary
 	if (!theTimedChords.empty())

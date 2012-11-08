@@ -14,6 +14,6 @@
 #include "Chord.h"
 
 typedef TimedLabel<Chord> TimedChord;
-typedef std::vector<TimedLabel<Chord> > ChordSequence;
+typedef std::vector<TimedLabel<Chord> > TimedChordSequence;
 
 #endif	// #ifndef TimedChord_h

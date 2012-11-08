@@ -17,8 +17,8 @@ class ChordFileMuDesc : public ChordFile
 {
 public:
 	
-	ChordFileMuDesc();
-	ChordFileMuDesc(std::string inFileName);
+	ChordFileMuDesc(const bool inPitchSpelled);
+	ChordFileMuDesc(std::string inFileName, const bool inPitchSpelled);
 	/** Destructor. */
 	virtual ~ChordFileMuDesc();
 	
@@ -28,7 +28,7 @@ public:
 private:
 	
 	typedef TimedLabel<ChordLabel> TimedMDChord;
-	typedef std::vector<TimedChord> MDChordSequence;
+	typedef std::vector<TimedChord> TimedMDChordSequence;
 	
 	std::string m_FileName;
 };

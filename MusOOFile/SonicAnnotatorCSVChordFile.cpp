@@ -19,12 +19,14 @@ using std::string;
 using std::istringstream;
 
 template <typename T>
-SonicAnnotatorCSVChordFile<T>::SonicAnnotatorCSVChordFile()
+SonicAnnotatorCSVChordFile<T>::SonicAnnotatorCSVChordFile(const bool inPitchSpelled)
+: ChordFile(inPitchSpelled)
 {
 }
 
 template <typename T>
-SonicAnnotatorCSVChordFile<T>::SonicAnnotatorCSVChordFile(std::string inFileName)
+SonicAnnotatorCSVChordFile<T>::SonicAnnotatorCSVChordFile(std::string inFileName, const bool inPitchSpelled)
+: ChordFile(inPitchSpelled)
 {
 	open(inFileName);
 }
@@ -67,6 +69,7 @@ void SonicAnnotatorCSVChordFile<T>::open(const std::string& inFileName)
 		}
 		m_TimedChords.back().offset() = m_TimedChords.back().onset();
 	}
+    ChordFile::open(inFileName);
 }
 
 template <typename T>
@@ -75,7 +78,7 @@ void SonicAnnotatorCSVChordFile<T>::close()
 	if (m_FileHasChanged)
 	{
 		ChordFile::close();
-		SAChordSequence theSAChords(m_TimedChords.begin(), m_TimedChords.end());
+		TimedSAChordSequence theSAChords(m_TimedChords.begin(), m_TimedChords.end());
 		//TODO: implement writing theSAChords to csv file
 	}
 }

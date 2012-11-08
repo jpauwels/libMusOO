@@ -20,8 +20,8 @@ class ProsemusChordFile : public ChordFile
 public:
 
 	/** Default constructor. */
-	ProsemusChordFile();
-	ProsemusChordFile(std::string inFilePath);
+	ProsemusChordFile(const bool inPitchSpelled);
+	ProsemusChordFile(std::string inFilePath, const bool inPitchSpelled);
 
 	/** Destructor. */
 	virtual ~ProsemusChordFile();

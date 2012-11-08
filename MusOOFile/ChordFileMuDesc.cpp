@@ -21,12 +21,14 @@ using tinyxml2::XMLElement;
 using tinyxml2::XMLConstHandle;
 
 template <typename T>
-ChordFileMuDesc<T>::ChordFileMuDesc()
+ChordFileMuDesc<T>::ChordFileMuDesc(const bool inPitchSpelled)
+: ChordFile(inPitchSpelled)
 {
 }
 
 template <typename T>
-ChordFileMuDesc<T>::ChordFileMuDesc(std::string inFileName)
+ChordFileMuDesc<T>::ChordFileMuDesc(std::string inFileName, const bool inPitchSpelled)
+: ChordFile(inPitchSpelled)
 {
 	open(inFileName);
 }
@@ -62,6 +64,7 @@ void ChordFileMuDesc<T>::open(const std::string& inFileName)
 			theSegmentHandle = theSegmentHandle.NextSiblingElement();
 		}
 	}
+    ChordFile::open(inFileName);
 }
 
 template <typename T>
@@ -70,7 +73,7 @@ void ChordFileMuDesc<T>::close()
 	if (m_FileHasChanged)
 	{
 		ChordFile::close();
-		//TODO: implement writing MDChordSequence to MusicDescription XML file
+		//TODO: implement writing TimedMDChordSequence to MusicDescription XML file
 		XMLDocument theXMLFile;
 		theXMLFile.NewDeclaration("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 		XMLElement* theXMLRoot = theXMLFile.NewElement("musicdescription");
@@ -78,7 +81,7 @@ void ChordFileMuDesc<T>::close()
 		theXMLRoot->SetAttribute("xmlns:ns1", "http://www.w3.org/2001/XMLSchema-instance");
 		theXMLRoot->SetAttribute("format", "20090701A");
 		theXMLRoot->SetAttribute("ns1:schemaLocation", "http://www.quaero.org/Music_6/1.0 http://recherche.ircam.fr/anasyn/quaero/quaero_ctc_6_music.xsd");
-		for (ChordSequence::const_iterator theChordIt = m_TimedChords.begin(); theChordIt != m_TimedChords.end(); ++theChordIt)
+		for (TimedChordSequence::const_iterator theChordIt = m_TimedChords.begin(); theChordIt != m_TimedChords.end(); ++theChordIt)
 		{
 			XMLElement* theCurSegment = theXMLFile.NewElement("segment");
 			theXMLRoot->InsertEndChild(theCurSegment);

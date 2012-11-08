@@ -19,8 +19,8 @@ class SonicAnnotatorCSVChordFile : public ChordFile
 {
 public:
 
-	SonicAnnotatorCSVChordFile();
-	SonicAnnotatorCSVChordFile(std::string inFileName);
+	SonicAnnotatorCSVChordFile(const bool inPitchSpelled);
+	SonicAnnotatorCSVChordFile(std::string inFileName, const bool inPitchSpelled);
 	/** Destructor. */
 	virtual ~SonicAnnotatorCSVChordFile();
 
@@ -30,7 +30,7 @@ public:
 private:
 
 	typedef TimedLabel<ChordLabel> TimedSAChord;
-	typedef std::vector<TimedChord> SAChordSequence;
+	typedef std::vector<TimedChord> TimedSAChordSequence;
 
 	std::fstream m_File;
 	std::string m_FileName;

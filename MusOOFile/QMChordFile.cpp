@@ -10,11 +10,13 @@
 // Includes
 #include "QMChordFile.h"
 
-QMChordFile::QMChordFile()
+QMChordFile::QMChordFile(const bool inPitchSpelled)
+: ChordFile(inPitchSpelled)
 {
 }
 
-QMChordFile::QMChordFile(std::string inFileName)
+QMChordFile::QMChordFile(std::string inFileName, const bool inPitchSpelled)
+: ChordFile(inPitchSpelled)
 {
 	open(inFileName);
 }
@@ -28,7 +30,8 @@ void QMChordFile::open(const std::string& inFileName)
 {
 	m_FileHasChanged = false;
 	m_File.open(inFileName);
-	m_TimedChords = ChordSequence(m_File.readAll().begin(), m_File.readAll().end());
+	m_TimedChords = TimedChordSequence(m_File.readAll().begin(), m_File.readAll().end());
+    ChordFile::open(inFileName);
 }
 
 void QMChordFile::close()
@@ -36,7 +39,7 @@ void QMChordFile::close()
 	if (m_FileHasChanged)
 	{
 		ChordFile::close();
-		QMChordSequence theQMChords(m_TimedChords.begin(), m_TimedChords.end());
+		TimedQMChordSequence theQMChords(m_TimedChords.begin(), m_TimedChords.end());
  		m_File.writeAll(theQMChords);
 	}
 }

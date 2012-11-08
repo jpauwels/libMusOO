@@ -20,8 +20,8 @@ class QMChordFile : public ChordFile
 {
 public:
 
-	QMChordFile();
-	QMChordFile(std::string inFileName);
+	QMChordFile(const bool inPitchSpelled);
+	QMChordFile(std::string inFileName, const bool inPitchSpelled);
 	/** Destructor. */
 	virtual ~QMChordFile();
 
@@ -31,7 +31,7 @@ public:
 private:
 
 	typedef TimedLabel<QMChord> TimedQMChord;
-	typedef std::vector<TimedQMChord> QMChordSequence;
+	typedef std::vector<TimedQMChord> TimedQMChordSequence;
 
 	LabFile<QMChord> m_File;
 };

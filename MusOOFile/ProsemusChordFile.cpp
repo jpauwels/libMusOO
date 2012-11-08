@@ -15,12 +15,14 @@
 using std::string;
 using std::istringstream;
 
-ProsemusChordFile::ProsemusChordFile()
+ProsemusChordFile::ProsemusChordFile(const bool inPitchSpelled)
+: ChordFile(inPitchSpelled)
 {
 	
 }
 
-ProsemusChordFile::ProsemusChordFile(std::string inFilePath)
+ProsemusChordFile::ProsemusChordFile(std::string inFilePath, const bool inPitchSpelled)
+: ChordFile(inPitchSpelled)
 {
 	open(inFilePath);
 }
@@ -56,6 +58,7 @@ void ProsemusChordFile::open(const std::string& inFilePath)
 			this->m_TimedChords.push_back(theCurrentChord);
 		}
 	}
+    ChordFile::open(inFilePath);
 }
 
 void ProsemusChordFile::close()
