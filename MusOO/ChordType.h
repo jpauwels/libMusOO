@@ -64,7 +64,7 @@ public:
 	static ChordType power();
 	static ChordType tristan();
 
-	friend class Chord; //to access m_Formula in Chord::chromaList()
+	friend class Chord; //to access m_Formula in Chord::chromas()
 	friend class LerdahlDistance; //to access m_Formula in LerdahlDistance::basicSpace()
 
 	ChordType();
@@ -106,6 +106,8 @@ public:
 	const bool contains(const Interval& inInterval) const;
 
 	const bool hasChordalBass() const;
+    
+	const std::vector<ChordType> inversions() const;
 
 	/** Modifiers */
 	ChordType& addInterval(const Interval& inInterval);
@@ -131,7 +133,7 @@ protected:
 private:
 
 	// only used for construction of static modes
-	ChordType(const Interval* inIntervalList, const int inNumOfIntervals, const Interval& inBass = Interval::unknown());
+	ChordType(const Interval* inIntervalList, const int inNumOfIntervals, const Interval& inBass = Interval::undefined());
 };
 
 #endif	// #ifndef ChordType_h

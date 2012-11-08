@@ -22,7 +22,7 @@ class Chroma
 public:
 
 	const static Chroma& silence();
-	const static Chroma& noChroma();
+	const static Chroma& none();
 	const static Chroma& undefined();
 	const static Chroma& Fb();
 	const static Chroma& Cb();
@@ -66,6 +66,7 @@ public:
 	const bool operator!=(const Chroma& inChroma) const;
 	Chroma& operator+=(const Interval& inInterval);
 	Chroma& operator-=(const Interval& inInterval);
+	bool operator<(const Chroma& inChroma) const;
 	//const Chroma operator+(const Interval& inInterval) const; as friend function
 	//const Chroma operator-(const Interval& inInterval) const;
 

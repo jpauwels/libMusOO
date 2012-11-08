@@ -33,7 +33,7 @@ public:
 	static const Mode& locrian();
 	static const Mode& modal();
 
-	friend class Key; // to access m_IntervalList in Key::chromaList()
+	friend class Key; // to access m_IntervalList in Key::chromas()
 	friend class LerdahlDistance; //to access m_IntervalList in LerdahlDistance::basicSpace()
 	/** Default constructor. */
 	Mode();

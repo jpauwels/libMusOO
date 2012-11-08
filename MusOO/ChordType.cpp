@@ -15,7 +15,7 @@
 #include <algorithm>
 	using std::includes;
 #include <stdexcept>
-	using std::invalid_argument;
+    using std::invalid_argument;
 #include "ChordType.h"
 
 using std::set;
@@ -237,7 +237,7 @@ ChordType ChordType::tristan()
 }
 
 ChordType::ChordType()
-: m_Bass(Interval::unknown())
+: m_Bass(Interval::undefined())
 {
 }
 
@@ -246,7 +246,7 @@ ChordType::~ChordType()
 	// Nothing to do...
 }
 
-ChordType::ChordType(const Interval* inIntervalList, const int inNumOfIntervals, const Interval& inBass /*= Interval::unknown()*/)
+ChordType::ChordType(const Interval* inIntervalList, const int inNumOfIntervals, const Interval& inBass /*= Interval::undefined()*/)
 : m_Formula(inIntervalList, inIntervalList+inNumOfIntervals), m_Bass(inBass)
 {
 }
@@ -607,7 +607,7 @@ const bool ChordType::isTriad() const
 
 const bool ChordType::hasChordalBass() const
 {
-	return m_Formula.count(m_Bass) > 0 || m_Bass == Interval::unknown();
+	return m_Formula.count(m_Bass) > 0 || m_Bass == Interval::undefined();
 }
 
 ChordType& ChordType::addInterval(const Interval& inInterval)
@@ -632,14 +632,14 @@ ChordType& ChordType::deleteInterval(const Interval& inInterval)
 	}
 	if (m_Bass == inInterval)
 	{
-		m_Bass = Interval::unknown();
+		m_Bass = Interval::undefined();
 	}
 	return *this;
 }
 
 ChordType& ChordType::deleteBass()
 {
-	m_Bass = Interval::unknown();
+	m_Bass = Interval::undefined();
 	return *this;
 }
 
@@ -661,7 +661,7 @@ ChordType& ChordType::replaceInterval(const Interval& inIntervalToReplace, const
 const ChordType ChordType::withoutBass() const
 {
 	ChordType theChordType(*this);
-	theChordType.m_Bass = Interval::unknown();
+	theChordType.m_Bass = Interval::undefined();
 	return theChordType;
 }
 
@@ -675,4 +675,14 @@ const Interval& ChordType::getInterval(const size_t inDiatonicNumber) const
 		}
 	}
 	return Interval::none();
+}
+
+const std::vector<ChordType> ChordType::inversions() const
+{
+    vector<ChordType> theInversions(1, this->withoutBass());
+    for (set<Interval>::const_iterator theIntervalIt = m_Formula.begin(); theIntervalIt != m_Formula.end(); ++theIntervalIt)
+    {
+        theInversions.push_back(ChordType(*this).addBass(*theIntervalIt));
+    }
+    return theInversions;
 }

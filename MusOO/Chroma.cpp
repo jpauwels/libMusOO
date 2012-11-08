@@ -25,17 +25,17 @@
 
 const Chroma& Chroma::silence()
 {
-	static const Chroma silence(numeric_limits<int>::max(), false);
+	static const Chroma silence(numeric_limits<int>::max()-2, false);
 	return silence;
 }
-const Chroma& Chroma::noChroma()
+const Chroma& Chroma::none()
 {
 	static const Chroma noChroma(numeric_limits<int>::max()-1, false);
 	return noChroma;
 }
 const Chroma& Chroma::undefined()
 {
-	static const Chroma undefined(-numeric_limits<int>::max(), false);
+	static const Chroma undefined(numeric_limits<int>::max(), false);
 	return undefined;
 }
 const Chroma& Chroma::Fb()
@@ -194,6 +194,11 @@ Chroma::Chroma(const Chroma& inReference, const Interval& inInterval)
 : m_CirclePosition(inReference.m_CirclePosition + inInterval.m_CircleSteps),
   m_HasSpelling(inReference.m_HasSpelling && inInterval.hasSpelling())
 {
+    if (!inInterval.isTrueInterval())
+    {
+        m_CirclePosition = inInterval.m_CircleSteps;
+        m_HasSpelling = true;
+    }
 }
 
 Chroma::~Chroma()
@@ -230,7 +235,7 @@ const std::string Chroma::str() const
 	{
 		return "S";
 	}
-	else if (*this == noChroma())
+	else if (*this == none())
 	{
 		return "N";
 	}
@@ -291,9 +296,35 @@ Chroma& Chroma::operator-=(const Interval& inInterval)
 	return *this;
 }
 
+bool Chroma::operator<(const Chroma& inChroma) const
+{
+	if (!isTrueChroma() || !inChroma.isTrueChroma())
+	{
+		return m_CirclePosition < inChroma.m_CirclePosition;
+	}
+	else
+	{
+		if (((m_CirclePosition % 12) + 12) % 12 != ((inChroma.m_CirclePosition % 12) + 12) % 12)
+		{
+			return ((m_CirclePosition % 12) + 12) % 12 < ((inChroma.m_CirclePosition % 12) + 12) % 12;
+		}
+		else
+		{
+			if (m_HasSpelling && inChroma.m_HasSpelling)
+			{
+				return m_CirclePosition < inChroma.m_CirclePosition;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+}
+
 const bool Chroma::isTrueChroma() const
 {
-	return *this != silence() && *this != noChroma() && *this != undefined();
+	return *this != silence() && *this != none() && *this != undefined();
 }
 
 std::ostream& operator<<(std::ostream& inOutputStream, const Chroma& inChroma)

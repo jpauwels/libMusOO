@@ -30,12 +30,12 @@ const RelativeChord& RelativeChord::none()
 
 const RelativeChord& RelativeChord::unknown()
 {
-	static const RelativeChord unknown(Interval::unknown(), ChordType::none());
+	static const RelativeChord unknown(Interval::undefined(), ChordType::none());
 	return unknown;
 }
 
 RelativeChord::RelativeChord()
-: m_RootInterval(Interval::unknown()), m_Type(ChordType::none())
+: m_RootInterval(Interval::undefined()), m_Type(ChordType::none())
 {
 }
 
@@ -51,11 +51,11 @@ RelativeChord::RelativeChord(const Key& inKey, const Chord& inChord)
 	{
 		*this = silence();
 	}
-	else if (inChord == Chord::noChord())
+	else if (inChord == Chord::none())
 	{
 		*this = none();
 	}
-	else if (inChord == Chord::unknown())
+	else if (inChord == Chord::undefined())
 	{
 		*this = unknown();
 	}

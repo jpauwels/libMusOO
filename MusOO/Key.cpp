@@ -86,14 +86,14 @@ bool Key::operator!=(const Key& inKey) const
 	return m_Mode != inKey.m_Mode || m_Tonic != inKey.m_Tonic;
 }
 
-const std::vector<Chroma> Key::chromaList() const
+const std::set<Chroma> Key::chromas() const
 {
-	vector<Chroma> theChromaList;
+	set<Chroma> theChromaSet;
 	for (set<Interval>::const_iterator it = m_Mode.m_IntervalList.begin(); it != m_Mode.m_IntervalList.end(); ++it)
 	{
-		theChromaList.push_back(Chroma(m_Tonic, *it));
+		theChromaSet.insert(Chroma(m_Tonic, *it));
 	}
-	return theChromaList;
+	return theChromaSet;
 }
 
 const size_t Key::chromaticCOFDistance(const Key& inKey) const

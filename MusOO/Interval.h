@@ -22,7 +22,7 @@ public:
 
 	const static Interval& silence();
 	const static Interval& none();
-	const static Interval& unknown();
+	const static Interval& undefined();
 	const static Interval& unison(); //1
 	const static Interval& minorSecond(); //b2
 	const static Interval& majorSecond(); //2

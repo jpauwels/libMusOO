@@ -19,9 +19,9 @@ class Chord
 {
 public:
 
-	static const Chord& noChord();
+	static const Chord& none();
 	static const Chord& silence();
-	static const Chord& unknown();
+	static const Chord& undefined();
 
 	//default constructor
 	Chord();
@@ -43,7 +43,9 @@ public:
 	const ChordType& type() const;
 //	virtual const std::string str() const;
 
-	const std::vector<Chroma> chromaList() const;
+	const std::set<Chroma> chromas() const;
+    const std::set<Chroma> commonChromas(const Chord& inOtherChord) const;
+    const Chroma bass(bool inDefaultToRoot) const;
 
 	const bool isRealChord() const;
 

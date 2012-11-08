@@ -67,7 +67,7 @@ const std::string ChromaSolfege::str() const
 	{
 		return "S";
 	}
-	else if (*this == Chroma::noChroma())
+	else if (*this == Chroma::none())
 	{
 		return "N";
 	}

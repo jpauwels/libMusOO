@@ -39,4 +39,7 @@ private:
 
 };
 
+std::ostream& operator<<(std::ostream& inOutputStream, const MidiNote& inNote);
+std::istream& operator>>(std::istream& inInputStream, MidiNote& inNote);
+
 #endif	// #ifndef MidiNote_h

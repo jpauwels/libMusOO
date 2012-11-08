@@ -66,3 +66,18 @@ const std::string MidiNote::str() const
 	theNoteNumberStream << number();
 	return theNoteNumberStream.str();
 }
+
+std::ostream& operator<<(std::ostream& inOutputStream, const MidiNote& inNote)
+{
+	inOutputStream << inNote.str();
+	return inOutputStream;
+}
+
+std::istream& operator>>(std::istream& inInputStream, MidiNote& inNote)
+{
+	string theNoteString;
+	inInputStream >> theNoteString;
+	inNote = MidiNote(theNoteString);
+	return inInputStream;
+}
+

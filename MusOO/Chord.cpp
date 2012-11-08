@@ -19,20 +19,20 @@ using std::vector;
 using std::set;
 using std::ostringstream;
 
-const Chord& Chord::noChord()
+const Chord& Chord::none()
 {
-	static const Chord noChord(Chroma::noChroma(), ChordType::none());
-	return noChord;
+	static const Chord none(Chroma::none(), ChordType::none());
+	return none;
 }
 const Chord& Chord::silence()
 {
 	static const Chord silence(Chroma::silence(), ChordType::none());
 	return silence;
 }
-const Chord& Chord::unknown()
+const Chord& Chord::undefined()
 {
-	static const Chord unknown(Chroma::undefined(), ChordType::none());
-	return unknown;
+	static const Chord undefined(Chroma::undefined(), ChordType::none());
+	return undefined;
 }
 
 Chord::Chord(const Chord& inChord)
@@ -124,9 +124,9 @@ const bool Chord::isDiatonic(const Key& inKey) const
 	{
 		return false;
 	}
-	vector<Chroma> theChordChromas = chromaList();
-	vector<Chroma> theKeyChromas = inKey.chromaList();
-	for (vector<Chroma>::const_iterator it = theChordChromas.begin(); it != theChordChromas.end(); ++it)
+	set<Chroma> theChordChromas = chromas();
+    set<Chroma> theKeyChromas = inKey.chromas();
+	for (set<Chroma>::const_iterator it = theChordChromas.begin(); it != theChordChromas.end(); ++it)
 	{
 		// return false as soon as one chroma is not part of key
 		if (find(theKeyChromas.begin(), theKeyChromas.end(), *it) == theKeyChromas.end())
@@ -162,12 +162,33 @@ void Chord::deleteBass(const Chroma& inChroma)
 	type().deleteBass();
 }
 
-const std::vector<Chroma> Chord::chromaList() const
+const std::set<Chroma> Chord::chromas() const
 {
-	vector<Chroma> theChromaList;
+	set<Chroma> theChromaSet;
 	for (set<Interval>::const_iterator it = m_Type.m_Formula.begin(); it != m_Type.m_Formula.end(); ++it)
 	{
-		theChromaList.push_back(Chroma(m_Root, *it));
+        //TODO: correct pitch spelling handling, so that .ignoreSpelling here can be removed
+		theChromaSet.insert(Chroma(m_Root, *it).ignoreSpelling());
 	}
-	return theChromaList;
+	return theChromaSet;
 }
+
+const std::set<Chroma> Chord::commonChromas(const Chord& inOtherChord) const
+{
+    set<Chroma> theChromaSet = chromas();
+    set<Chroma> theOtherChromaSet = inOtherChord.chromas();
+    set<Chroma> theCommonChromas;
+	set_intersection(theChromaSet.begin(), theChromaSet.end(), theOtherChromaSet.begin(), theOtherChromaSet.end(), std::inserter(theCommonChromas, theCommonChromas.begin()));
+    return theCommonChromas;
+}
+
+const Chroma Chord::bass(bool inDefaultToRoot) const
+{
+	Chroma theBassChroma(m_Root, m_Type.m_Bass);
+    if (inDefaultToRoot && theBassChroma == Chroma::undefined())
+    {
+        theBassChroma = root();
+    }
+    return theBassChroma;
+}
+

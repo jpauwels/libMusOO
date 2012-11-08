@@ -339,7 +339,7 @@ const std::string ChordTypeQuaero::str(const Chroma& inRootChroma /*= Chroma::un
 	{
 		theString += " - " + getConstrainedString(ChromaSolfege(inRootChroma, *theMissingIt));
 	}
-	if (m_Bass != Interval::unknown())
+	if (m_Bass != Interval::undefined())
 	{
 		theString += " / " + getConstrainedString(ChromaSolfege(inRootChroma, m_Bass));
 	}

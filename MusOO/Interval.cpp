@@ -45,10 +45,10 @@ const  Interval& Interval::none()
 	static const Interval none(std::numeric_limits<int>::max()-1, true, 0);
 	return none;
 }
-const  Interval& Interval::unknown()
+const  Interval& Interval::undefined()
 {
-	static const Interval unknown(std::numeric_limits<int>::max(), true, 0);
-	return unknown;
+	static const Interval undefined(std::numeric_limits<int>::max(), true, 0);
+	return undefined;
 }
 const Interval& Interval::unison()
 {
@@ -192,7 +192,7 @@ Interval::Interval(const Chroma& inRoot, const Chroma& inOther, const bool inUp 
 {
 	if (!inRoot.isTrueChroma() || !inOther.isTrueChroma())
 	{
-		*this = unknown();
+		*this = undefined();
 	}
 	else
 	{
@@ -384,7 +384,7 @@ const std::string Interval::majorDegree() const
 const bool Interval::isTrueInterval() const
 {
 	return m_CircleSteps != silence().m_CircleSteps && m_CircleSteps != none().m_CircleSteps && 
-		m_CircleSteps != unknown().m_CircleSteps;
+		m_CircleSteps != undefined().m_CircleSteps;
 }
 
 const ptrdiff_t Interval::diatonicNumber() const

@@ -39,7 +39,7 @@ public:
 	/** Destructor. */
 	virtual ~Key();
 
-	const std::vector<Chroma> chromaList() const;
+	const std::set<Chroma> chromas() const;
 
 	const size_t chromaticCOFDistance(const Key& inKey) const;
 	

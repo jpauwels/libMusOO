@@ -41,7 +41,7 @@ QMChord::QMChord(const std::string& inChordString)
 	else if (!inChordString.compare(0,1,"N"))
 	{
 		// No-chord
-		*this = Chord::noChord();
+		*this = Chord::none();
 	}
 	else
 	{
@@ -84,7 +84,7 @@ QMChord::~QMChord()
 const std::string QMChord::str() const
 {
 	string theChordString = m_Root.str();
-	if (*this != Chord::silence() && *this != Chord::noChord() && m_Type != ChordType::major())
+	if (*this != Chord::silence() && *this != Chord::none() && m_Type != ChordType::major())
 	{
 		theChordString += ":" + QMChordType(m_Type).str();
 	}
@@ -108,7 +108,7 @@ ChordinoChord::ChordinoChord(std::string inChordString)
 	else if (!inChordString.compare(0,1,"N"))
 	{
 		// No-chord
-		*this = Chord::noChord();
+		*this = Chord::none();
 	}
 	else
 	{
@@ -156,7 +156,7 @@ ChordinoChord::~ChordinoChord()
 const std::string ChordinoChord::str() const
 {
 	string theChordString = m_Root.str();
-	if (*this != Chord::silence() && *this != Chord::noChord() && m_Type != ChordType::major())
+	if (*this != Chord::silence() && *this != Chord::none() && m_Type != ChordType::major())
 	{
 		theChordString += QMChordType(m_Type).str();
 	}
@@ -320,7 +320,7 @@ const std::string QMChordType::str() const
 		}
 		theString += ")";
 	}
-	if (this->m_Bass != Interval::unison() && this->m_Bass != Interval::unknown())
+	if (this->m_Bass != Interval::unison() && this->m_Bass != Interval::undefined())
 	{
 		theString += "/" + this->m_Bass.majorDegree();
 	}
