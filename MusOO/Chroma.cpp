@@ -25,120 +25,120 @@
 
 const Chroma& Chroma::silence()
 {
-	static const Chroma silence(numeric_limits<int>::max()-2, false);
+	static const Chroma silence(numeric_limits<int>::max()-2, true);
 	return silence;
 }
 const Chroma& Chroma::none()
 {
-	static const Chroma noChroma(numeric_limits<int>::max()-1, false);
+	static const Chroma noChroma(numeric_limits<int>::max()-1, true);
 	return noChroma;
 }
 const Chroma& Chroma::undefined()
 {
-	static const Chroma undefined(numeric_limits<int>::max(), false);
+	static const Chroma undefined(numeric_limits<int>::max(), true);
 	return undefined;
 }
-const Chroma& Chroma::Fb()
+Chroma Chroma::Fb()
 {
 	static const Chroma Fb(-6, true);
 	return Fb;
 }
-const Chroma& Chroma::Cb()
+Chroma Chroma::Cb()
 {
 	static const Chroma Cb(-5, true);
 	return Cb;
 }
-const Chroma& Chroma::Gb()
+Chroma Chroma::Gb()
 {
 	static const Chroma Gb(-4, true);
 	return Gb;
 }
-const Chroma& Chroma::Db()
+Chroma Chroma::Db()
 {
 	static const Chroma Db(-3, true);
 	return Db;
 }
-const Chroma& Chroma::Ab()
+Chroma Chroma::Ab()
 {
 	static const Chroma Ab(-2, true);
 	return Ab;
 }
-const Chroma& Chroma::Eb()
+Chroma Chroma::Eb()
 {
 	static const Chroma Eb(-1, true);
 	return Eb;
 }
-const Chroma& Chroma::Bb()
+Chroma Chroma::Bb()
 {
 	static const Chroma Bb(0, true);
 	return Bb;
 }
-const Chroma& Chroma::F()
+Chroma Chroma::F()
 {
 	static const Chroma F(1, true);
 	return F;
 }
-const Chroma& Chroma::C()
+Chroma Chroma::C()
 {
 	static const Chroma C(2, true);
 	return C;
 }
-const Chroma& Chroma::G()
+Chroma Chroma::G()
 {
 	static const Chroma G(3, true);
 	return G;
 }
-const Chroma& Chroma::D()
+Chroma Chroma::D()
 {
 	static const Chroma D(4, true);
 	return D;
 }
-const Chroma& Chroma::A()
+Chroma Chroma::A()
 {
 	static const Chroma A(5, true);
 	return A;
 }
-const Chroma& Chroma::E()
+Chroma Chroma::E()
 {
 	static const Chroma E(6, true);
 	return E;
 }
-const Chroma& Chroma::B()
+Chroma Chroma::B()
 {
 	static const Chroma B(7, true);
 	return B;
 }
-const Chroma& Chroma::Fs()
+Chroma Chroma::Fs()
 {
 	static const Chroma Fs(8, true);
 	return Fs;
 }
-const Chroma& Chroma::Cs()
+Chroma Chroma::Cs()
 {
 	static const Chroma Cs(9, true);
 	return Cs;
 }
-const Chroma& Chroma::Gs()
+Chroma Chroma::Gs()
 {
 	static const Chroma Gs(10, true);
 	return Gs;
 }
-const Chroma& Chroma::Ds()
+Chroma Chroma::Ds()
 {
 	static const Chroma Ds(11, true);
 	return Ds;
 }
-const Chroma& Chroma::As()
+Chroma Chroma::As()
 {
 	static const Chroma As(12, true);
 	return As;
 }
-const Chroma& Chroma::Es()
+Chroma Chroma::Es()
 {
 	static const Chroma Es(13, true);
 	return Es;
 }
-const Chroma& Chroma::Bs()
+Chroma Chroma::Bs()
 {
 	static const Chroma Bs(14, true);
 	return Bs;
@@ -148,7 +148,7 @@ const std::vector<Chroma>& Chroma::circleOfFifths(const Chroma& inStartChroma /*
 	static vector<Chroma> theCircleOfFifths(12);
 	for(int i = 0; i < 12; ++i)
 	{
-		theCircleOfFifths[i] = Chroma((inStartChroma.m_CirclePosition+i)%12, false);
+		theCircleOfFifths[i] = Chroma((inStartChroma.m_LinePosition+i)%12, false);
 	}
 	return theCircleOfFifths;
 }
@@ -164,12 +164,12 @@ static const pair<int,char> theCirclePositionToName[] = {pair<int,char>(1,'F'), 
 const map<int,char> Chroma::s_CirclePositionToName(theCirclePositionToName, theCirclePositionToName+7);
 
 Chroma::Chroma() 
-: m_CirclePosition(Chroma::undefined().m_CirclePosition), m_HasSpelling(true)
+: m_LinePosition(Chroma::undefined().m_LinePosition), m_HasSpelling(true)
 {
 }
 
 Chroma::Chroma(const int inCirclePosition, const bool inHasSpelling)
-: m_CirclePosition(inCirclePosition), m_HasSpelling(inHasSpelling)
+: m_LinePosition(inCirclePosition), m_HasSpelling(inHasSpelling)
 {
 }
 
@@ -185,18 +185,18 @@ Chroma::Chroma(const std::string& inName, const bool inHasSpelling /*= true*/)
 		throw invalid_argument("Illegal input: " + inName);
 	}
 	//convert base note
-	m_CirclePosition = s_NameToCirclePosition.find(inName[0])->second;
+	m_LinePosition = s_NameToCirclePosition.find(inName[0])->second;
 	//convert modifier
-	m_CirclePosition += stringModifierToCircleSteps(inName.substr(1));
+	m_LinePosition += stringModifierToCircleSteps(inName.substr(1));
 }
 
 Chroma::Chroma(const Chroma& inReference, const Interval& inInterval)
-: m_CirclePosition(inReference.m_CirclePosition + inInterval.m_CircleSteps),
+: m_LinePosition(inReference.m_LinePosition + inInterval.m_LinePosition),
   m_HasSpelling(inReference.m_HasSpelling && inInterval.hasSpelling())
 {
     if (!inInterval.isTrueInterval())
     {
-        m_CirclePosition = inInterval.m_CircleSteps;
+        m_LinePosition = inInterval.m_LinePosition;
         m_HasSpelling = true;
     }
 }
@@ -244,7 +244,7 @@ const std::string Chroma::str() const
 		return "U";
 	}
 	//limit the position on the circle to the allowed basic range by adding modifiers
-	int theRangeLimitedCirclePosition = m_CirclePosition;
+	int theRangeLimitedCirclePosition = m_LinePosition;
 	string theModifierString = "";
 	while (theRangeLimitedCirclePosition < s_CirclePositionToName.begin()->first)
 	{
@@ -265,34 +265,50 @@ const bool Chroma::hasSpelling() const
 	return m_HasSpelling;
 }
 
-Chroma Chroma::ignoreSpelling() const
+//Chroma Chroma::ignoreSpelling() const
+//{
+//	Chroma theNewChroma(*this);
+//	theNewChroma.m_HasSpelling = false;
+//	return theNewChroma;
+//}
+
+Chroma& Chroma::ignoreSpelling()
 {
-	Chroma theNewChroma(*this);
-	theNewChroma.m_HasSpelling = false;
-	return theNewChroma;
+    if (isTrueChroma())
+    {
+        m_HasSpelling = false;
+    }
+	return *this;
 }
 
 const bool Chroma::operator==(const Chroma& inChroma) const
 {
-	return inChroma.m_CirclePosition == m_CirclePosition;
+	if (!isTrueChroma() || !inChroma.isTrueChroma() || (m_HasSpelling && inChroma.m_HasSpelling))
+	{
+		return m_LinePosition == inChroma.m_LinePosition;
+	}
+	else
+	{
+        return ((m_LinePosition % 12) + 12) % 12 != ((inChroma.m_LinePosition % 12) + 12) % 12;
+	}
 }
 
 const bool Chroma::operator!=(const Chroma& inChroma) const
 {
-	return inChroma.m_CirclePosition != m_CirclePosition;
+	return inChroma.m_LinePosition != m_LinePosition;
 }
 
 Chroma& Chroma::operator+=(const Interval& inInterval)
 {
-	m_CirclePosition += inInterval.m_CircleSteps;
-	m_HasSpelling = m_HasSpelling && inInterval.m_CircleSteps;
+	m_LinePosition += inInterval.m_LinePosition;
+	m_HasSpelling = m_HasSpelling && inInterval.m_LinePosition;
 	return *this;
 }
 
 Chroma& Chroma::operator-=(const Interval& inInterval)
 {
-	m_CirclePosition += inInterval.m_CircleSteps;
-	m_HasSpelling = m_HasSpelling && inInterval.m_CircleSteps;
+	m_LinePosition += inInterval.m_LinePosition;
+	m_HasSpelling = m_HasSpelling && inInterval.m_LinePosition;
 	return *this;
 }
 
@@ -300,19 +316,19 @@ bool Chroma::operator<(const Chroma& inChroma) const
 {
 	if (!isTrueChroma() || !inChroma.isTrueChroma())
 	{
-		return m_CirclePosition < inChroma.m_CirclePosition;
+		return m_LinePosition < inChroma.m_LinePosition;
 	}
 	else
 	{
-		if (((m_CirclePosition % 12) + 12) % 12 != ((inChroma.m_CirclePosition % 12) + 12) % 12)
+		if (((m_LinePosition % 12) + 12) % 12 != ((inChroma.m_LinePosition % 12) + 12) % 12)
 		{
-			return ((m_CirclePosition % 12) + 12) % 12 < ((inChroma.m_CirclePosition % 12) + 12) % 12;
+			return ((m_LinePosition % 12) + 12) % 12 < ((inChroma.m_LinePosition % 12) + 12) % 12;
 		}
 		else
 		{
 			if (m_HasSpelling && inChroma.m_HasSpelling)
 			{
-				return m_CirclePosition < inChroma.m_CirclePosition;
+				return m_LinePosition < inChroma.m_LinePosition;
 			}
 			else
 			{

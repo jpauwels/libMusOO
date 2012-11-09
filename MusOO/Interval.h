@@ -23,34 +23,34 @@ public:
 	const static Interval& silence();
 	const static Interval& none();
 	const static Interval& undefined();
-	const static Interval& unison(); //1
-	const static Interval& minorSecond(); //b2
-	const static Interval& majorSecond(); //2
-	const static Interval& minorThird(); //b3
-	const static Interval& majorThird(); //3
-	const static Interval& perfectFourth(); //4
-	const static Interval& augmentedFourth(); //#4
-	const static Interval& diminishedFifth(); //b5
-	const static Interval& perfectFifth(); //5
-	const static Interval& augmentedFifth(); //#5
-	const static Interval& minorSixth(); //b6
-	const static Interval& majorSixth(); //6
-	const static Interval& augmentedSixth(); //#6
-	const static Interval& diminishedSeventh(); //bb7
-	const static Interval& minorSeventh(); //b7
-	const static Interval& majorSeventh(); //7
-	const static Interval& octave(); //8
-	const static Interval& minorNinth(); //b9
-	const static Interval& majorNinth(); //9
-	const static Interval& augmentedNinth(); //#9
-	const static Interval& diminishedEleventh(); //b11
-	const static Interval& perfectEleventh(); //11
-	const static Interval& augmentedEleventh(); //#11
-	const static Interval& minorThirteenth(); //b13
-	const static Interval& majorThirteenth(); //13
+	static Interval unison(); //1
+	static Interval minorSecond(); //b2
+	static Interval majorSecond(); //2
+	static Interval minorThird(); //b3
+	static Interval majorThird(); //3
+	static Interval perfectFourth(); //4
+	static Interval augmentedFourth(); //#4
+	static Interval diminishedFifth(); //b5
+	static Interval perfectFifth(); //5
+	static Interval augmentedFifth(); //#5
+	static Interval minorSixth(); //b6
+	static Interval majorSixth(); //6
+	static Interval augmentedSixth(); //#6
+	static Interval diminishedSeventh(); //bb7
+	static Interval minorSeventh(); //b7
+	static Interval majorSeventh(); //7
+	static Interval octave(); //8
+	static Interval minorNinth(); //b9
+	static Interval majorNinth(); //9
+	static Interval augmentedNinth(); //#9
+	static Interval diminishedEleventh(); //b11
+	static Interval perfectEleventh(); //11
+	static Interval augmentedEleventh(); //#11
+	static Interval minorThirteenth(); //b13
+	static Interval majorThirteenth(); //13
 
 	friend class Chroma; 
-	//to access m_CircleSteps in Chroma::operator+=(Interval), Chroma::operator+=(Interval) and Chroma::Chroma(Chroma, Interval)
+	//to access m_LinePosition in Chroma::operator+=(Interval), Chroma::operator+=(Interval) and Chroma::Chroma(Chroma, Interval)
 
 	/** Default constructor. */
 	Interval();
@@ -82,10 +82,12 @@ public:
 
 	/** Destructor. */
 	virtual ~Interval();
-
-	const bool hasSpelling() const;
-	const Interval& ignoreSpelling();
+    
 	const bool isTrueInterval() const;
+    
+	const bool hasSpelling() const;
+//    Interval withoutSpelling() const;
+    Interval& ignoreSpelling();
 
 protected:
 
@@ -93,7 +95,7 @@ protected:
 private:
 	//only for creation of static distances
 	Interval(const int inCircleSteps, const bool inHasSpelling, const size_t inOctaves);
-	ptrdiff_t m_CircleSteps;
+	ptrdiff_t m_LinePosition;
 	size_t m_Octaves;
 	bool m_HasSpelling;
 	static const std::map<size_t,ptrdiff_t> s_MajorDegreeToCircleSteps;

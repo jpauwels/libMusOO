@@ -311,10 +311,10 @@ const std::string QMChordType::str() const
 			break;
  		}
 	}
-	if (theChordType.size() != 0)
+	if (theChordType.cardinality() != 0)
 	{
-		theString += "(" + theChordType.m_Formula.begin()->majorDegree();
-		for (set<Interval>::const_iterator it = ++theChordType.m_Formula.begin(); it != theChordType.m_Formula.end(); ++it)
+		theString += "(" + theChordType.m_IntervalList.begin()->majorDegree();
+		for (set<Interval>::const_iterator it = ++theChordType.m_IntervalList.begin(); it != theChordType.m_IntervalList.end(); ++it)
 		{
 			theString += "," + it->majorDegree();
 		}

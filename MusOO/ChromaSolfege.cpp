@@ -34,7 +34,7 @@ ChromaSolfege::ChromaSolfege(const std::string& inName)
 	const map<string,ptrdiff_t>::const_iterator theMapPos = s_stringToLinePositionMap.find(inName.substr(0,theModPosition));
 	if (theMapPos != s_stringToLinePositionMap.end())
 	{
-		m_CirclePosition = theMapPos->second;
+		m_LinePosition = theMapPos->second;
 	}
 	else
 	{
@@ -42,7 +42,7 @@ ChromaSolfege::ChromaSolfege(const std::string& inName)
 	}
 	if (theModPosition != string::npos)
 	{
-		m_CirclePosition += this->stringModifierToCircleSteps(inName.substr(theModPosition));
+		m_LinePosition += this->stringModifierToCircleSteps(inName.substr(theModPosition));
 	}
 	m_HasSpelling = true;
 }
@@ -77,8 +77,8 @@ const std::string ChromaSolfege::str() const
 	}
 	else
 	{
-		string theBaseString = s_linePositionToString[((m_CirclePosition-1) % 7 + 7) % 7];
-		ptrdiff_t theNumOfModifiers = floor((m_CirclePosition-1.) / 7);
+		string theBaseString = s_linePositionToString[((m_LinePosition-1) % 7 + 7) % 7];
+		ptrdiff_t theNumOfModifiers = floor((m_LinePosition-1.) / 7);
 		if (theNumOfModifiers > 0)
 		{
 			return theBaseString + string(theNumOfModifiers, '#');

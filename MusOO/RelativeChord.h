@@ -16,16 +16,15 @@ class RelativeChord
 {
 public:
 
-	const static RelativeChord& silence();
-	const static RelativeChord& none();
-	const static RelativeChord& unknown();
+	static const RelativeChord& silence();
+	static const RelativeChord& none();
+	static const RelativeChord& unknown();
 
 	/** Default constructor. */
 	RelativeChord();
 	RelativeChord(const Interval& inRootInterval, const ChordType& inType);
 	RelativeChord(const Key& inKey, const Chord& inChord);
 	RelativeChord(const std::string& inDegree, const ChordType& inChordType, const Mode& inMode);
-//	RelativeChord(const RelativeChord& inRelativeChord);
 
 	/** Destructor. */
 	virtual ~RelativeChord();
@@ -33,15 +32,18 @@ public:
 	bool operator==(const RelativeChord& inRelativeChord) const;
 	bool operator!=(const RelativeChord& inRelativeChord) const;
 	bool operator<(const RelativeChord& inRelativeChord) const;
-	// assignment operator
-	RelativeChord& operator=(const RelativeChord& inRelativeChord);
 
 //	const std::string str() const;
 	const std::string asDegree(const Mode& inMode) const;
 
 	const Interval& rootInterval() const;
 	const ChordType& type() const;
-
+    
+    const bool isTrueRelativeChord() const;
+    
+    const bool hasSpelling() const;
+    RelativeChord& ignoreSpelling();
+    
 protected:
 
 	Interval m_RootInterval;

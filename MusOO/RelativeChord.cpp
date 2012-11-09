@@ -70,12 +70,6 @@ RelativeChord::RelativeChord( const std::string& inDegree, const ChordType& inCh
 {
 }
 
-/*
-RelativeChord::RelativeChord( const RelativeChord& inRelativeChord )
-	: m_RootInterval(inRelativeChord.m_RootInterval), m_Type(inRelativeChord.m_Type)
-{
-}*/
-
 RelativeChord::~RelativeChord()
 {
 	// Nothing to do...
@@ -101,13 +95,6 @@ bool RelativeChord::operator<(const RelativeChord& inRelativeChord) const
 	{
 		return m_Type < inRelativeChord.m_Type;
 	}
-}
-
-RelativeChord& RelativeChord::operator=(const RelativeChord& inRelativeChord)
-{
-	m_RootInterval = inRelativeChord.m_RootInterval;
-	m_Type = inRelativeChord.m_Type;
-	return *this;
 }
 
 const std::string RelativeChord::asDegree(const Mode& inMode) const
@@ -157,6 +144,26 @@ const Interval& RelativeChord::rootInterval() const
 const ChordType& RelativeChord::type() const
 {
 	return m_Type;
+}
+
+const bool RelativeChord::isTrueRelativeChord() const
+{
+	return m_Type != ChordType::none();
+}
+
+const bool RelativeChord::hasSpelling() const
+{
+    return m_RootInterval.hasSpelling() && m_Type.hasSpelling();
+}
+
+RelativeChord& RelativeChord::ignoreSpelling()
+{
+    if (isTrueRelativeChord())
+    {
+        m_RootInterval.ignoreSpelling();
+        m_Type.ignoreSpelling();
+    }
+    return *this;
 }
 
 

@@ -21,12 +21,12 @@ using std::set;
 
 const Key& Key::silence()
 {
-	static const Key silence(Chroma::silence(), Mode::noMode());
+	static const Key silence(Chroma::silence(), Mode::none());
 	return silence;
 }
 
 Key::Key()
-: m_Tonic(Chroma::undefined()), m_Mode(Mode::noMode())
+: m_Tonic(Chroma::undefined()), m_Mode(Mode::none())
 {
 }
 
@@ -110,4 +110,24 @@ Chord Key::chord(const RelativeChord& inRelChord) const
 RelativeChord Key::relativeChord(const Chord& inChord) const
 {
 	return RelativeChord(Interval(tonic(), inChord.root()), inChord.type());
+}
+
+const bool Key::isTrueKey() const
+{
+	return m_Mode != Mode::none();
+}
+
+const bool Key::hasSpelling() const
+{
+    return m_Tonic.hasSpelling() && m_Mode.hasSpelling();
+}
+
+Key& Key::ignoreSpelling()
+{
+    if (isTrueKey())
+    {
+        m_Tonic.ignoreSpelling();
+        m_Mode.ignoreSpelling();
+    }
+    return *this;
 }

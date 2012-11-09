@@ -113,14 +113,14 @@ bool Chord::operator!=(const Chord& inChord) const
 	return m_Root != inChord.m_Root || m_Type != inChord.m_Type;
 }
 
-const bool Chord::isRealChord() const
+const bool Chord::isTrueChord() const
 {
 	return m_Type != ChordType::none();
 }
 
 const bool Chord::isDiatonic(const Key& inKey) const
 {
-	if (!isRealChord())
+	if (!isTrueChord())
 	{
 		return false;
 	}
@@ -165,10 +165,9 @@ void Chord::deleteBass(const Chroma& inChroma)
 const std::set<Chroma> Chord::chromas() const
 {
 	set<Chroma> theChromaSet;
-	for (set<Interval>::const_iterator it = m_Type.m_Formula.begin(); it != m_Type.m_Formula.end(); ++it)
+	for (set<Interval>::const_iterator it = m_Type.m_IntervalList.begin(); it != m_Type.m_IntervalList.end(); ++it)
 	{
-        //TODO: correct pitch spelling handling, so that .ignoreSpelling here can be removed
-		theChromaSet.insert(Chroma(m_Root, *it).ignoreSpelling());
+		theChromaSet.insert(Chroma(m_Root, *it));
 	}
 	return theChromaSet;
 }
@@ -192,3 +191,17 @@ const Chroma Chord::bass(bool inDefaultToRoot) const
     return theBassChroma;
 }
 
+const bool Chord::hasSpelling() const
+{
+    return m_Root.hasSpelling() && m_Type.hasSpelling();
+}
+
+Chord& Chord::ignoreSpelling()
+{
+    if (isTrueChord())
+    {
+        m_Root.ignoreSpelling();
+        m_Type.ignoreSpelling();
+    }
+    return *this;
+}

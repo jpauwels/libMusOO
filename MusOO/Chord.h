@@ -47,7 +47,7 @@ public:
     const std::set<Chroma> commonChromas(const Chord& inOtherChord) const;
     const Chroma bass(bool inDefaultToRoot) const;
 
-	const bool isRealChord() const;
+	const bool isTrueChord() const;
 
 	/** Destructor. */
 	virtual ~Chord();
@@ -59,7 +59,10 @@ public:
 	void replaceChroma(const Chroma& inChromaToReplace, const Chroma& inReplacementChroma);
 	void addBass(const Chroma& inChroma);
 	void deleteBass(const Chroma& inChroma);
-
+    
+    const bool hasSpelling() const;
+    Chord& ignoreSpelling();
+    
 protected:
 	
 	Chroma m_Root;

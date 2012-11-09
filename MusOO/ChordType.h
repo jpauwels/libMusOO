@@ -11,9 +11,9 @@
 //============================================================================
 #include <string>
 #include <set>
-#include "Interval.h"
+#include "IntervalClassSet.h"
 
-class ChordType
+class ChordType: public IntervalClassSet
 {
 public:
 
@@ -64,17 +64,15 @@ public:
 	static ChordType power();
 	static ChordType tristan();
 
-	friend class Chord; //to access m_Formula in Chord::chromas()
-	friend class LerdahlDistance; //to access m_Formula in LerdahlDistance::basicSpace()
+	friend class Chord; //to access m_IntervalList in Chord::chromas() and m_Bass in Chord::bass()
 
 	ChordType();
 	~ChordType();
-
-	/** Operators */
+    
 	bool operator==(const ChordType& inChordType) const;
 	bool operator!=(const ChordType& inChordType) const;
 	bool operator<(const ChordType& inChordType) const;
-
+    
 	/** Returns the basic triad the current chord can be mapped to
 		@return		a ChordType object of size 3 or ChordType::rootOnly() */
 	const ChordType triad() const;
@@ -83,51 +81,24 @@ public:
 
 	const ChordType withoutBass() const;
 
-	const size_t size() const;
-
 //	virtual const std::string str() const;
-
-	/** 
-	Checks if this chord type is equal to a given one
-
-	@param		inType		the type to compare with this one
-	@return		true if the types are equal
-	*/
-	const bool equalTypes(const ChordType inType) const;
-
-	/**
-	Checks if this chord type contains all the notes of a given chord type
-
-	@param		inType1		the type contained by this type
-	@return		true if this type contains all notes of <inType>
-	*/
-	const bool contains(const ChordType inType) const;
-	
-	const bool contains(const Interval& inInterval) const;
-
-	const bool hasChordalBass() const;
     
 	const std::vector<ChordType> inversions() const;
 
 	/** Modifiers */
-	ChordType& addInterval(const Interval& inInterval);
-	ChordType& addBass(const Interval& inInterval);
+    ChordType& addInterval(const Interval& inInterval);
 	ChordType& deleteInterval(const Interval& inInterval);
-	ChordType& deleteBass();
 	ChordType& replaceInterval(const Interval& inIntervalToReplace, const Interval& inReplacementInterval);
-
-	/**
-	Returns the interval of a given diatonic number
-	@param	inDiatonicNumber	the diatonic numnber the interval should have
-	@return an Interval of the given diatonic number or Interval::none() if no such interval belongs to the chord type
-	*/
-	const Interval& getInterval(const size_t inDiatonicNumber) const;
+	ChordType& addBass(const Interval& inInterval);
+	ChordType& deleteBass();
+    
+    const bool hasSpelling() const;
+    ChordType& ignoreSpelling();
 
 protected:
 	
 	void subtract(const ChordType& inType);
 	void subtract(const ChordType& inType, std::vector<Interval>& outRestIntervals, std::vector<Interval>& outMissingIntervals) const;
-	std::set<Interval> m_Formula;
 	Interval m_Bass;
 
 private:

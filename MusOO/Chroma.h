@@ -21,30 +21,30 @@ class Chroma
 {
 public:
 
-	const static Chroma& silence();
-	const static Chroma& none();
-	const static Chroma& undefined();
-	const static Chroma& Fb();
-	const static Chroma& Cb();
-	const static Chroma& Gb();
-	const static Chroma& Db();
-	const static Chroma& Ab();
-	const static Chroma& Eb();
-	const static Chroma& Bb();
-	const static Chroma& F();
-	const static Chroma& C();
-	const static Chroma& G();
-	const static Chroma& D();
-	const static Chroma& A();
-	const static Chroma& E();
-	const static Chroma& B();
-	const static Chroma& Fs();
-	const static Chroma& Cs();
-	const static Chroma& Gs();
-	const static Chroma& Ds();
-	const static Chroma& As();
-	const static Chroma& Es();
-	const static Chroma& Bs();
+	static const Chroma& silence();
+	static const Chroma& none();
+	static const Chroma& undefined();
+	static Chroma Fb();
+	static Chroma Cb();
+	static Chroma Gb();
+	static Chroma Db();
+	static Chroma Ab();
+	static Chroma Eb();
+	static Chroma Bb();
+	static Chroma F();
+	static Chroma C();
+	static Chroma G();
+	static Chroma D();
+	static Chroma A();
+	static Chroma E();
+	static Chroma B();
+	static Chroma Fs();
+	static Chroma Cs();
+	static Chroma Gs();
+	static Chroma Ds();
+	static Chroma As();
+	static Chroma Es();
+	static Chroma Bs();
 
 	static const std::vector<Chroma>& circleOfFifths(const Chroma& inStartChroma = Chroma::A());
 
@@ -58,7 +58,7 @@ public:
 	virtual ~Chroma();
 
 	const bool hasSpelling() const;
-	Chroma ignoreSpelling() const;
+    Chroma& ignoreSpelling();
 
 	const bool isTrueChroma() const;
 
@@ -70,7 +70,7 @@ public:
 	//const Chroma operator+(const Interval& inInterval) const; as friend function
 	//const Chroma operator-(const Interval& inInterval) const;
 
-	friend class Interval; //to access stringModifierToCircleSteps() and m_CirclePosition in Interval::Interval(...)
+	friend class Interval; //to access stringModifierToCircleSteps() and m_LinePosition in Interval::Interval(...)
 
 protected:
 
@@ -79,7 +79,7 @@ protected:
 	static const std::map<char,int> s_NameToCirclePosition;
 	static const std::map<int,char> s_CirclePositionToName;
 	
-	ptrdiff_t m_CirclePosition;
+	ptrdiff_t m_LinePosition;
 	bool m_HasSpelling;
 	
 private:

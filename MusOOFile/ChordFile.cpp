@@ -74,7 +74,7 @@ void ChordFile::open(const std::string& inFileName)
     {
         for (TimedChordSequence::iterator it = m_TimedChords.begin(); it != m_TimedChords.end(); ++it)
         {
-//            it->label() = it->label().ignoreSpelling();
+            it->label().ignoreSpelling();
         }
     }
 }

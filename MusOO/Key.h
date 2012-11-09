@@ -47,7 +47,12 @@ public:
 	Chord chord(const RelativeChord& inRelChord) const;
 	/* Returns the relative chord that arises from interpreting a given chord in this key */
 	RelativeChord relativeChord(const Chord& inChord) const;
-
+    
+    const bool isTrueKey() const;
+    
+    const bool hasSpelling() const;
+    Key& ignoreSpelling();
+    
 protected:
 
 	Chroma m_Tonic;
