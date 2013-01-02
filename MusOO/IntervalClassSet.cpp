@@ -129,12 +129,12 @@ IntervalClassSet& IntervalClassSet::ignoreSpelling()
 {
     if (hasSpelling())
     {
-        for (set<Interval>::iterator it = m_IntervalList.begin(); it != m_IntervalList.end(); ++it)
+        set<Interval> theNewIntervalList;
+        for (set<Interval>::const_iterator it = m_IntervalList.begin(); it != m_IntervalList.end(); ++it)
         {
-            Interval theIntervalWithoutSpelling = Interval(*it).ignoreSpelling();
-            m_IntervalList.erase(it);
-            m_IntervalList.insert(theIntervalWithoutSpelling);
+            theNewIntervalList.insert(it->withoutSpelling());
         }
+        m_IntervalList = theNewIntervalList;
     }
 	return *this;
 }

@@ -84,7 +84,7 @@ QMChord::~QMChord()
 const std::string QMChord::str() const
 {
 	string theChordString = m_Root.str();
-	if (*this != Chord::silence() && *this != Chord::none() && m_Type != ChordType::major())
+	if (isTrueChord())
 	{
 		theChordString += ":" + QMChordType(m_Type).str();
 	}
@@ -293,34 +293,168 @@ void QMChordType::deleteNote(const std::string& inDegree)
 const std::string QMChordType::str() const
 {
  	string theString;
-	QMChordType theChordType(*this);
+    set<Interval> theRestIntervals;
+    set<Interval> theMissingIntervals;
 
-	for (map<string,ChordType>::const_reverse_iterator theCurType = s_TypeStringMap.rbegin();
-		theCurType != s_TypeStringMap.rend(); theCurType++)
+    if (*this == ChordType::none())
 	{
-		if (theChordType == theCurType->second)
-		{
-			theString = theCurType->first;
-			theChordType = ChordType::none();
-			break;
-		}
- 		if (theChordType.contains(theCurType->second))
- 		{
- 			theString = theCurType->first;
-			theChordType.subtract(theCurType->second);
-			break;
- 		}
+		return "";
 	}
-	if (theChordType.cardinality() != 0)
-	{
-		theString += "(" + theChordType.m_IntervalList.begin()->majorDegree();
-		for (set<Interval>::const_iterator it = ++theChordType.m_IntervalList.begin(); it != theChordType.m_IntervalList.end(); ++it)
-		{
-			theString += "," + it->majorDegree();
-		}
-		theString += ")";
-	}
-	if (this->m_Bass != Interval::unison() && this->m_Bass != Interval::undefined())
+	else
+    {
+        //if the formula contains major third
+        if (m_IntervalList.count(Interval::majorThird()) > 0)
+        {
+            //if formula contains only augmented fifth
+            if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            {
+                theString = "aug";
+                subtract(augmented(), theRestIntervals, theMissingIntervals);
+            }
+            //if formula contains minor seventh (no fifth necessary)
+            else if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+            {
+                if (m_IntervalList.count(Interval::majorSecond()) > 0)
+                {
+                    theString = "9";
+                    subtract(dominantNinth(), theRestIntervals, theMissingIntervals);
+                }
+                else
+                {
+                    theString = "7";
+                    subtract(dominantSeventh(), theRestIntervals, theMissingIntervals);
+                }
+            }
+            //if formula contains major seventh (no fifth necessary)
+            else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+            {
+                if (m_IntervalList.count(Interval::majorSecond()) > 0)
+                {
+                    theString = "maj9";
+                    subtract(majorNinth(), theRestIntervals, theMissingIntervals);
+                }
+                else
+                {
+                    theString = "maj7";
+                    subtract(majorSeventh(), theRestIntervals, theMissingIntervals);
+                }
+            }
+            //if formula contains major sixth (no fifth necessary)
+            else if (m_IntervalList.count(Interval::majorSixth()) > 0)
+            {
+                theString = "maj6";
+                subtract(majorSixth(), theRestIntervals, theMissingIntervals);
+            }
+            //if formula contains perfect fifth
+            else //if (m_IntervalList.count(Interval::perfectFifth()) > 0)
+            {
+                //major triad
+                theString = "maj";
+                subtract(major(), theRestIntervals, theMissingIntervals);
+            }
+        }
+        //if formula contains minor third
+        else if (m_IntervalList.count(Interval::minorThird()) > 0)
+        {
+            //if formula contains only diminished fifth
+            if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            {
+                if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+                {
+                    theString = "hdim7";
+                    subtract(halfDiminished(), theRestIntervals, theMissingIntervals);
+                }
+                else if (m_IntervalList.count(Interval::diminishedSeventh()) > 0)
+                {
+                    theString = "dim7";
+                    subtract(diminishedSeventh(), theRestIntervals, theMissingIntervals);
+                }
+                else
+                {
+                    //diminished triad
+                    theString = "dim";
+                    subtract(diminished(), theRestIntervals, theMissingIntervals);
+                }
+            }
+            //if formula contains minor seventh (no fifth necessary)
+            else if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+            {
+                if (m_IntervalList.count(Interval::majorSecond()) > 0)
+                {
+                    theString = "min9";
+                    subtract(minorNinth(), theRestIntervals, theMissingIntervals);
+                }
+                else
+                {
+                    theString = "min7";
+                    subtract(minorSeventh(), theRestIntervals, theMissingIntervals);
+                }
+            }
+            //if formula contains major seventh (no fifth necessary)
+            else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+            {
+                theString = "minmaj7";
+                subtract(minorMajorSeventh(), theRestIntervals, theMissingIntervals);
+            }
+            //if formula contains major sixth (no fifth necessary)
+            else if (m_IntervalList.count(Interval::majorSixth()) > 0)
+            {
+                theString = "min6";
+                subtract(minorSixth(), theRestIntervals, theMissingIntervals);
+            }
+            //if the formula contains perfect fifth
+            else //if (m_IntervalList.count(Interval::perfectFifth()) > 0)
+            {
+                //minor triad
+                theString = "min";
+                subtract(minor(), theRestIntervals, theMissingIntervals);
+            }
+        }
+        //if the formula contains perfect fourth (and no third or major second)
+        else if (m_IntervalList.count(Interval::perfectFourth()) > 0 && m_IntervalList.count(Interval::majorSecond()) == 0)
+        {
+            theString = "sus4";
+            subtract(suspendedFourth(), theRestIntervals, theMissingIntervals);
+        }
+        //if the formula contains major second (and no third or perfect fourth)
+        else if (m_IntervalList.count(Interval::majorSecond()) > 0 && m_IntervalList.count(Interval::perfectFourth()) == 0)
+        {
+            theString = "sus2";
+            subtract(suspendedSecond(), theRestIntervals, theMissingIntervals);
+        }
+        else
+        {
+            theString = "";
+            theRestIntervals = m_IntervalList;
+        }
+    }
+    
+    if (!theRestIntervals.empty() || !theMissingIntervals.empty())
+    {
+        theString += "(";
+        if (!theRestIntervals.empty())
+        {
+            theString += theRestIntervals.begin()->majorDegree();
+            for (set<Interval>::const_iterator it = ++theRestIntervals.begin(); it != theRestIntervals.end(); ++it)
+            {
+                theString += "," + it->majorDegree();
+            }
+        }
+        if (!theMissingIntervals.empty())
+        {
+            if (!theRestIntervals.empty())
+            {
+                theString += ",";
+            }
+            theString += "*" + theMissingIntervals.begin()->majorDegree();
+            for (set<Interval>::const_iterator it = ++theMissingIntervals.begin(); it != theMissingIntervals.end(); ++it)
+            {
+                theString += ",*" + it->majorDegree();
+            }
+        }
+        theString += ")";
+    }
+	if (this->m_Bass != Interval::undefined())
 	{
 		theString += "/" + this->m_Bass.majorDegree();
 	}

@@ -75,8 +75,8 @@ public:
     
 	/** Returns the basic triad the current chord can be mapped to
 		@return		a ChordType object of size 3 or ChordType::rootOnly() */
-	const ChordType triad() const;
-	const ChordType tetrad() const;
+	const ChordType triad(bool inWithBass) const;
+	const ChordType tetrad(bool inWithBass) const;
 	const bool isTriad() const;
 
 	const ChordType withoutBass() const;
@@ -98,7 +98,7 @@ public:
 protected:
 	
 	void subtract(const ChordType& inType);
-	void subtract(const ChordType& inType, std::vector<Interval>& outRestIntervals, std::vector<Interval>& outMissingIntervals) const;
+	void subtract(const ChordType& inType, std::set<Interval>& outRestIntervals, std::set<Interval>& outMissingIntervals) const;
 	Interval m_Bass;
 
 private:

@@ -28,10 +28,10 @@ public:
 	Chord(const Chroma& inRoot, const ChordType& inChordType);
 
 	//copy constructor
-	Chord(const Chord& inChord);
+	//Chord(const Chord& inChord) = default;
 
 	// assignment operator
-	Chord& operator=(const Chord& inChord);
+	//Chord& operator=(const Chord& inChord) = default;
 
 	/** Operators */
 	bool operator==(const Chord& inChord) const;

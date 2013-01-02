@@ -277,7 +277,7 @@ bool Interval::operator==(const Interval& inInterval) const
         }
         else
         {
-            return ((m_LinePosition % 12) + 12) % 12 != ((inInterval.m_LinePosition % 12) + 12) % 12;
+            return ((m_LinePosition % 12) + 12) % 12 == ((inInterval.m_LinePosition % 12) + 12) % 12;
         }
 	}
 }
@@ -322,15 +322,15 @@ const bool Interval::hasSpelling() const
 	return m_HasSpelling;
 }
 
-//Interval Interval::withoutSpelling() const
-//{
-//    Interval theNewInterval(*this);
-//    if (isTrueInterval())
-//    {
-//        theNewInterval.m_HasSpelling = false;
-//    }
-//	return theNewInterval;
-//}
+Interval Interval::withoutSpelling() const
+{
+    Interval theNewInterval(*this);
+    if (isTrueInterval())
+    {
+        theNewInterval.m_HasSpelling = false;
+    }
+	return theNewInterval;
+}
 
 Interval& Interval::ignoreSpelling()
 {

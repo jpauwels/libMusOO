@@ -320,258 +320,276 @@ const std::vector<ChordType> ChordType::inversions() const
 //}
 
 
-const ChordType ChordType::triad() const
+const ChordType ChordType::triad(bool inWithBass) const
 {
 	if (*this == ChordType::none())
 	{
 		return *this;
 	}
-	//if the formula contains major third
-	else if (m_IntervalList.count(Interval::majorThird()) > 0)
-	{
-		//if formula contains only augmented fifth
-		if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
-		{
-			//augmented triad
-			return augmented();
-		}
-		//if formula contains only diminished fifth
-		else if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
-		{
-			//majorb5 triad
-			return majorFlatFifth();
-		}
-		//if formula contains perfect fifth
-		else //if (m_IntervalList.count(Interval::perfectFifth()) > 0)
-		{
-			//major triad
-			return major();
-		}
-	}
-	//if formula contains minor third
-	else if (m_IntervalList.count(Interval::minorThird()) > 0)
-	{
-		//if formula contains only diminished fifth
-		if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
-		{
-			//diminished triad
-			return diminished();
-		}
-		//if formula contains only augmented fifth
-		else if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
-		{
-			return minorSharpFifth();
-		}
-		//if the formula contains perfect fifth
-		else //if (m_IntervalList.count(Interval::perfectFifth()) > 0)
-		{
-			//minor triad
-			return minor();
-		}
-	}
-	//if the formula contains perfect fourth (and no third or major second)
-	else if (m_IntervalList.count(Interval::perfectFourth()) > 0 && m_IntervalList.count(Interval::majorSecond()) == 0)
-	{
-		//suspended fourth triad
-		return suspendedFourth();
-	}
-	//if the formula contains major second (and no third or perfect fourth)
-	else if (m_IntervalList.count(Interval::majorSecond()) > 0 && m_IntervalList.count(Interval::perfectFourth()) == 0)
-	{
-		//suspended second triad
-		return suspendedSecond();
-	}
-	//if the formula only contains root and perfect fifth
-	else if (m_IntervalList.count(Interval::unison()) > 0 && m_IntervalList.count(Interval::perfectFifth()) > 0)
-	{
-		//power chord
-		return power();
-	}
 	else
-	{
-		//if nothing else matches
-		return rootOnly();
-	}
+    {
+        ChordType theTriadType;
+        //if the formula contains major third
+        if (m_IntervalList.count(Interval::majorThird()) > 0)
+        {
+            //if formula contains only augmented fifth
+            if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            {
+                //augmented triad
+                theTriadType = augmented();
+            }
+            //if formula contains only diminished fifth
+            else if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            {
+                //majorb5 triad
+                theTriadType = majorFlatFifth();
+            }
+            //if formula contains perfect fifth
+            else //if (m_IntervalList.count(Interval::perfectFifth()) > 0)
+            {
+                //major triad
+                theTriadType = major();
+            }
+        }
+        //if formula contains minor third
+        else if (m_IntervalList.count(Interval::minorThird()) > 0)
+        {
+            //if formula contains only diminished fifth
+            if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            {
+                //diminished triad
+                theTriadType = diminished();
+            }
+            //if formula contains only augmented fifth
+            else if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            {
+                theTriadType = minorSharpFifth();
+            }
+            //if the formula contains perfect fifth
+            else //if (m_IntervalList.count(Interval::perfectFifth()) > 0)
+            {
+                //minor triad
+                theTriadType = minor();
+            }
+        }
+        //if the formula contains perfect fourth (and no third or major second)
+        else if (m_IntervalList.count(Interval::perfectFourth()) > 0 && m_IntervalList.count(Interval::majorSecond()) == 0)
+        {
+            //suspended fourth triad
+            theTriadType = suspendedFourth();
+        }
+        //if the formula contains major second (and no third or perfect fourth)
+        else if (m_IntervalList.count(Interval::majorSecond()) > 0 && m_IntervalList.count(Interval::perfectFourth()) == 0)
+        {
+            //suspended second triad
+            theTriadType = suspendedSecond();
+        }
+        //if the formula only contains root and perfect fifth
+        else if (m_IntervalList.count(Interval::unison()) > 0 && m_IntervalList.count(Interval::perfectFifth()) > 0)
+        {
+            //power chord
+            theTriadType = power();
+        }
+        else
+        {
+            //if nothing else matches
+            theTriadType = rootOnly();
+        }
+        if (inWithBass)
+        {
+            theTriadType.m_Bass = this->m_Bass;
+        }
+        return theTriadType;
+    }
 }
 
-const ChordType ChordType::tetrad() const
+const ChordType ChordType::tetrad(bool inWithBass) const
 {
 	if (*this == ChordType::none())
 	{
 		return *this;
 	}
-	//if the formula contains major third
-	else if (m_IntervalList.count(Interval::majorThird()) > 0)
-	{
-		//if formula contains only augmented fifth
-		if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
-		{
-			if (m_IntervalList.count(Interval::minorSeventh()) > 0)
-			{
-				return augmentedSeventh();
-			}
-			else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
-			{
-				return augmentedMajorSeventh();
-			}
-			else
-			{
-				//augmented triad
-				return augmented();
-			}
-		}
-		//if formula contains only diminished fifth
-		else if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
-		{
-			if (m_IntervalList.count(Interval::minorSeventh()) > 0)
-			{
-				return majorFlatFifth().addInterval(Interval::minorSeventh());
-			}
-			else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
-			{
-				return majorFlatFifth().addInterval(Interval::majorSeventh());
-			}
-			else
-			{
-				//majorb5 triad
-				return majorFlatFifth();
-			}
-		}
-		//if formula contains minor seventh (no fifth necessary)
-		else if (m_IntervalList.count(Interval::minorSeventh()) > 0)
-		{
-			return dominantSeventh();
-		}
-		//if formula contains major seventh (no fifth necessary)
-		else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
-		{
-			return majorSeventh();
-		}
-		//if formula contains major sixth (no fifth necessary)
-		else if (m_IntervalList.count(Interval::majorSixth()) > 0)
-		{
-			return majorSixth();
-		}
-		//if formula contains perfect fifth
-		else //if (m_IntervalList.count(Interval::perfectFifth()) > 0)
-		{
-			//major triad
-			return major();
-		}
-	}
-	//if formula contains minor third
-	else if (m_IntervalList.count(Interval::minorThird()) > 0)
-	{
-		//if formula contains only diminished fifth
-		if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
-		{
-			if (m_IntervalList.count(Interval::minorSeventh()) > 0)
-			{
-				return halfDiminished();
-			}
-			else if (m_IntervalList.count(Interval::diminishedSeventh()) > 0)
-			{
-				return diminishedSeventh();
-			}
-			else
-			{
-				//diminished triad
-				return diminished();
-			}
-		}
-		//if formula contains only augmented fifth
-		else if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
-		{
-			if (m_IntervalList.count(Interval::minorSeventh()) > 0)
-			{
-				return minorSharpFifth().addInterval(Interval::minorSeventh());
-			}
-			else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
-			{
-				return minorSharpFifth().addInterval(Interval::majorSeventh());
-			}
-			else
-			{
-				return minorSharpFifth();
-			}
-		}
-		//if formula contains minor seventh (no fifth necessary)
-		else if (m_IntervalList.count(Interval::minorSeventh()) > 0)
-		{
-			return minorSeventh();
-		}
-		//if formula contains major seventh (no fifth necessary)
-		else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
-		{
-			return minorMajorSeventh();
-		}
-		//if formula contains major sixth (no fifth necessary)
-		else if (m_IntervalList.count(Interval::majorSixth()) > 0)
-		{
-			return minorSixth();
-		}
-		//if the formula contains perfect fifth
-		else //if (m_IntervalList.count(Interval::perfectFifth()) > 0)
-		{
-			//minor triad
-			return minor();
-		}
-	}
-	//if the formula contains perfect fourth (and no third or major second)
-	else if (m_IntervalList.count(Interval::perfectFourth()) > 0 && m_IntervalList.count(Interval::majorSecond()) == 0)
-	{
-		if (m_IntervalList.count(Interval::minorSeventh()) > 0)
-		{
-			return suspendedFourthSeventh();
-		}
-		else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
-		{
-			return suspendedFourth().addInterval(Interval::majorSeventh());
-		}
-		//if formula contains major sixth (no fifth necessary)
-		else if (m_IntervalList.count(Interval::majorSixth()) > 0)
-		{
-			return suspendedFourth().addInterval(Interval::majorSixth());
-		}
-		else
-		{
-			//suspended fourth triad
-			return suspendedFourth();
-		}
-	}
-	//if the formula contains major second (and no third or perfect fourth)
-	else if (m_IntervalList.count(Interval::majorSecond()) > 0 && m_IntervalList.count(Interval::perfectFourth()) == 0)
-	{
-		if (m_IntervalList.count(Interval::minorSeventh()) > 0)
-		{
-			return suspendedSecond().addInterval(Interval::minorSeventh());
-		}
-		else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
-		{
-			return suspendedSecond().addInterval(Interval::majorSeventh());
-		}
-		//if formula contains major sixth (no fifth necessary)
-		else if (m_IntervalList.count(Interval::majorSixth()) > 0)
-		{
-			return suspendedSecond().addInterval(Interval::majorSixth());
-		}
-		else
-		{
-			//suspended second triad
-			return suspendedSecond();
-		}
-	}
-	//if the formula only contains root and perfect fifth
-	else if (m_IntervalList.count(Interval::unison()) > 0 && m_IntervalList.count(Interval::perfectFifth()) > 0)
-	{
-		//power chord
-		return power();
-	}
 	else
-	{
-		//if nothing else matches
-		return rootOnly();
-	}
+    {
+        ChordType theTetradType;
+        //if the formula contains major third
+        if (m_IntervalList.count(Interval::majorThird()) > 0)
+        {
+            //if formula contains only augmented fifth
+            if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            {
+                if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+                {
+                    theTetradType = augmentedSeventh();
+                }
+                else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+                {
+                    theTetradType = augmentedMajorSeventh();
+                }
+                else
+                {
+                    //augmented triad
+                    theTetradType = augmented();
+                }
+            }
+            //if formula contains only diminished fifth
+            else if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            {
+                if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+                {
+                    theTetradType = majorFlatFifth().addInterval(Interval::minorSeventh());
+                }
+                else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+                {
+                    theTetradType = majorFlatFifth().addInterval(Interval::majorSeventh());
+                }
+                else
+                {
+                    //majorb5 triad
+                    theTetradType = majorFlatFifth();
+                }
+            }
+            //if formula contains minor seventh (no fifth necessary)
+            else if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+            {
+                theTetradType = dominantSeventh();
+            }
+            //if formula contains major seventh (no fifth necessary)
+            else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+            {
+                theTetradType = majorSeventh();
+            }
+            //if formula contains major sixth (no fifth necessary)
+            else if (m_IntervalList.count(Interval::majorSixth()) > 0)
+            {
+                theTetradType = majorSixth();
+            }
+            //if formula contains perfect fifth
+            else //if (m_IntervalList.count(Interval::perfectFifth()) > 0)
+            {
+                //major triad
+                theTetradType = major();
+            }
+        }
+        //if formula contains minor third
+        else if (m_IntervalList.count(Interval::minorThird()) > 0)
+        {
+            //if formula contains only diminished fifth
+            if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            {
+                if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+                {
+                    theTetradType = halfDiminished();
+                }
+                else if (m_IntervalList.count(Interval::diminishedSeventh()) > 0)
+                {
+                    theTetradType = diminishedSeventh();
+                }
+                else
+                {
+                    //diminished triad
+                    theTetradType = diminished();
+                }
+            }
+            //if formula contains only augmented fifth
+            else if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            {
+                if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+                {
+                    theTetradType = minorSharpFifth().addInterval(Interval::minorSeventh());
+                }
+                else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+                {
+                    theTetradType = minorSharpFifth().addInterval(Interval::majorSeventh());
+                }
+                else
+                {
+                    theTetradType = minorSharpFifth();
+                }
+            }
+            //if formula contains minor seventh (no fifth necessary)
+            else if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+            {
+                theTetradType = minorSeventh();
+            }
+            //if formula contains major seventh (no fifth necessary)
+            else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+            {
+                theTetradType = minorMajorSeventh();
+            }
+            //if formula contains major sixth (no fifth necessary)
+            else if (m_IntervalList.count(Interval::majorSixth()) > 0)
+            {
+                theTetradType = minorSixth();
+            }
+            //if the formula contains perfect fifth
+            else //if (m_IntervalList.count(Interval::perfectFifth()) > 0)
+            {
+                //minor triad
+                theTetradType = minor();
+            }
+        }
+        //if the formula contains perfect fourth (and no third or major second)
+        else if (m_IntervalList.count(Interval::perfectFourth()) > 0 && m_IntervalList.count(Interval::majorSecond()) == 0)
+        {
+            if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+            {
+                theTetradType = suspendedFourthSeventh();
+            }
+            else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+            {
+                theTetradType = suspendedFourth().addInterval(Interval::majorSeventh());
+            }
+            //if formula contains major sixth (no fifth necessary)
+            else if (m_IntervalList.count(Interval::majorSixth()) > 0)
+            {
+                theTetradType = suspendedFourth().addInterval(Interval::majorSixth());
+            }
+            else
+            {
+                //suspended fourth triad
+                theTetradType = suspendedFourth();
+            }
+        }
+        //if the formula contains major second (and no third or perfect fourth)
+        else if (m_IntervalList.count(Interval::majorSecond()) > 0 && m_IntervalList.count(Interval::perfectFourth()) == 0)
+        {
+            if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+            {
+                theTetradType = suspendedSecond().addInterval(Interval::minorSeventh());
+            }
+            else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+            {
+                theTetradType = suspendedSecond().addInterval(Interval::majorSeventh());
+            }
+            //if formula contains major sixth (no fifth necessary)
+            else if (m_IntervalList.count(Interval::majorSixth()) > 0)
+            {
+                theTetradType = suspendedSecond().addInterval(Interval::majorSixth());
+            }
+            else
+            {
+                //suspended second triad
+                theTetradType = suspendedSecond();
+            }
+        }
+        //if the formula only contains root and perfect fifth
+        else if (m_IntervalList.count(Interval::unison()) > 0 && m_IntervalList.count(Interval::perfectFifth()) > 0)
+        {
+            //power chord
+            theTetradType = power();
+        }
+        else
+        {
+            //if nothing else matches
+            theTetradType = rootOnly();
+        }
+        if (inWithBass)
+        {
+            theTetradType.m_Bass = this->m_Bass;
+        }
+        return theTetradType;
+    }
 }
 
 /*************/
@@ -589,14 +607,12 @@ void ChordType::subtract(const ChordType& inType)
 	}
 }
 
-void ChordType::subtract(const ChordType& inType, std::vector<Interval>& outRestIntervals, std::vector<Interval>& outMissingIntervals) const
+void ChordType::subtract(const ChordType& inType, std::set<Interval>& outRestIntervals, std::set<Interval>& outMissingIntervals) const
 {
-	outRestIntervals = vector<Interval>(cardinality());
-	vector<Interval>::iterator theNewEndIt = set_difference(m_IntervalList.begin(), m_IntervalList.end(), inType.m_IntervalList.begin(), inType.m_IntervalList.end(), outRestIntervals.begin());
-	outRestIntervals.erase(theNewEndIt, outRestIntervals.end());
-	outMissingIntervals = vector<Interval>(inType.cardinality());
-	theNewEndIt = set_difference(inType.m_IntervalList.begin(), inType.m_IntervalList.end(), m_IntervalList.begin(), m_IntervalList.end(), outMissingIntervals.begin());
-	outMissingIntervals.erase(theNewEndIt, outMissingIntervals.end());
+    outRestIntervals = set<Interval>();
+	set_difference(m_IntervalList.begin(), m_IntervalList.end(), inType.m_IntervalList.begin(), inType.m_IntervalList.end(), std::inserter(outRestIntervals, outRestIntervals.end()));
+    outMissingIntervals = set<Interval>();
+	set_difference(inType.m_IntervalList.begin(), inType.m_IntervalList.end(), m_IntervalList.begin(), m_IntervalList.end(), std::inserter(outMissingIntervals, outMissingIntervals.end()));
 }
 
 /**********************/

@@ -33,8 +33,8 @@ protected:
 
 	
 private:
-	const static std::string s_linePositionToString[];
-	const static std::map<std::string,ptrdiff_t> s_stringToLinePositionMap;
+	static const std::string s_linePositionToString[];
+	static const std::map<std::string,ptrdiff_t> s_stringToLinePositionMap;
 };
 
 #endif	// #ifndef ChromaSolfege_h

@@ -35,11 +35,6 @@ const Chord& Chord::undefined()
 	return undefined;
 }
 
-Chord::Chord(const Chord& inChord)
-: m_Root(inChord.m_Root), m_Type(inChord.m_Type)
-{
-}
-
 Chord::Chord()
 {
 
@@ -48,17 +43,6 @@ Chord::Chord()
 Chord::Chord(const Chroma& inRoot, const ChordType& inChordType)
 : m_Root(inRoot), m_Type(inChordType)
 {
-}
-
-Chord& Chord::operator=(const Chord& inChord)
-{
-	//check for self reference
-	if (this != &inChord)
-	{
-		m_Root = inChord.m_Root;
-		m_Type = inChord.m_Type;
-	}
-	return *this;
 }
 
 Chroma& Chord::root()
@@ -177,7 +161,7 @@ const std::set<Chroma> Chord::commonChromas(const Chord& inOtherChord) const
     set<Chroma> theChromaSet = chromas();
     set<Chroma> theOtherChromaSet = inOtherChord.chromas();
     set<Chroma> theCommonChromas;
-	set_intersection(theChromaSet.begin(), theChromaSet.end(), theOtherChromaSet.begin(), theOtherChromaSet.end(), std::inserter(theCommonChromas, theCommonChromas.begin()));
+	set_intersection(theChromaSet.begin(), theChromaSet.end(), theOtherChromaSet.begin(), theOtherChromaSet.end(), std::inserter(theCommonChromas, theCommonChromas.end()));
     return theCommonChromas;
 }
 

@@ -20,9 +20,9 @@ class Interval
 {
 public:
 
-	const static Interval& silence();
-	const static Interval& none();
-	const static Interval& undefined();
+	static const Interval& silence();
+	static const Interval& none();
+	static const Interval& undefined();
 	static Interval unison(); //1
 	static Interval minorSecond(); //b2
 	static Interval majorSecond(); //2
@@ -86,7 +86,7 @@ public:
 	const bool isTrueInterval() const;
     
 	const bool hasSpelling() const;
-//    Interval withoutSpelling() const;
+    Interval withoutSpelling() const;
     Interval& ignoreSpelling();
 
 protected:

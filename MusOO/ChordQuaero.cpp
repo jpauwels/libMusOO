@@ -16,8 +16,8 @@
 using std::map;
 using std::pair;
 using std::string;
-using std::vector;
 using std::min;
+using std::set;
 
 //----------------------------------------------------------------------------//
 // ChordQuaero                                                                //
@@ -151,8 +151,8 @@ ChordTypeQuaero::~ChordTypeQuaero()
 const std::string ChordTypeQuaero::str(const Chroma& inRootChroma /*= Chroma::undefined()*/) const
 {	
 	string theString = "";
-	vector<Interval> theRestIntervals;
-	vector<Interval> theMissingIntervals;
+	set<Interval> theRestIntervals;
+	set<Interval> theMissingIntervals;
 	if (*this == ChordType::none())
 	{
 		//initialised values are correct
@@ -160,8 +160,8 @@ const std::string ChordTypeQuaero::str(const Chroma& inRootChroma /*= Chroma::un
 	//if the formula contains major third
 	else if (m_IntervalList.count(Interval::majorThird()) > 0)
 	{
-		//if formula contains augmented fifth
-		if (m_IntervalList.count(Interval::augmentedFifth()) > 0)
+		//if formula contains only augmented fifth
+		if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
 		{
 			theString = "a";
 			subtract(ChordType::augmented(), theRestIntervals, theMissingIntervals);
@@ -211,8 +211,8 @@ const std::string ChordTypeQuaero::str(const Chroma& inRootChroma /*= Chroma::un
 	//if the formula contains minor third
 	else if (m_IntervalList.count(Interval::minorThird()) > 0)
 	{
-		//if formula contains diminished fifth
-		if (m_IntervalList.count(Interval::diminishedFifth()) > 0)
+		//if formula contains only diminished fifth
+		if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
 		{
 			//if formula contains minor seventh
 			if (m_IntervalList.count(Interval::minorSeventh()) > 0)
@@ -280,8 +280,8 @@ const std::string ChordTypeQuaero::str(const Chroma& inRootChroma /*= Chroma::un
 			subtract(ChordType::minor(), theRestIntervals, theMissingIntervals);
 		}
 	}
-	//if the formula contains perfect fourth
-	else if (m_IntervalList.count(Interval::perfectFourth()) > 0)
+	//if the formula contains perfect fourth (and no third or major second)
+	else if (m_IntervalList.count(Interval::perfectFourth()) > 0 && m_IntervalList.count(Interval::majorSecond()) == 0)
 	{
 		//if formula contains minor seventh
 		if (m_IntervalList.count(Interval::minorSeventh()) > 0)
@@ -302,8 +302,8 @@ const std::string ChordTypeQuaero::str(const Chroma& inRootChroma /*= Chroma::un
 		}
 
 	}
-	//if the formula contains major second
-	else if (m_IntervalList.count(Interval::majorSecond()) > 0)
+	//if the formula contains major second (and no third or perfect fourth)
+	else if (m_IntervalList.count(Interval::majorSecond()) > 0 && m_IntervalList.count(Interval::perfectFourth()) == 0)
 	{
 		//if formula contains minor seventh
 		if (m_IntervalList.count(Interval::minorSeventh()) > 0)
@@ -331,11 +331,11 @@ const std::string ChordTypeQuaero::str(const Chroma& inRootChroma /*= Chroma::un
 		subtract(ChordType::power(), theRestIntervals, theMissingIntervals);
 	}
 	
-	for (vector<Interval>::const_iterator theRestIt = theRestIntervals.begin(); theRestIt != theRestIntervals.end(); ++theRestIt)
+	for (set<Interval>::const_iterator theRestIt = theRestIntervals.begin(); theRestIt != theRestIntervals.end(); ++theRestIt)
 	{
 		theString += " + " + getConstrainedString(ChromaSolfege(inRootChroma, *theRestIt));
 	}
-	for (vector<Interval>::const_iterator theMissingIt = theMissingIntervals.begin(); theMissingIt != theMissingIntervals.end(); ++theMissingIt)
+	for (set<Interval>::const_iterator theMissingIt = theMissingIntervals.begin(); theMissingIt != theMissingIntervals.end(); ++theMissingIt)
 	{
 		theString += " - " + getConstrainedString(ChromaSolfege(inRootChroma, *theMissingIt));
 	}

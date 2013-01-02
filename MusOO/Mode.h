@@ -38,8 +38,7 @@ public:
     
 	/** Default constructor. */
 	Mode();
-	//default copy constructor
-	Mode(const Mode& inMode);
+	//Mode(const Mode& inMode) = default;
 	virtual ~Mode();
 
 	size_t diatonicCircleDistance(const Interval& inInterval1, const Interval& inInterval2) const;
