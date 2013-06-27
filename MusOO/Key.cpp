@@ -25,6 +25,18 @@ const Key& Key::silence()
 	return silence;
 }
 
+const Key& Key::none()
+{
+	static const Key none(Chroma::none(), Mode::none());
+	return none;
+}
+
+const Key& Key::undefined()
+{
+	static const Key undefined(Chroma::undefined(), Mode::none());
+	return undefined;
+}
+
 Key::Key()
 : m_Tonic(Chroma::undefined()), m_Mode(Mode::none())
 {
@@ -130,4 +142,14 @@ Key& Key::ignoreSpelling()
         m_Mode.ignoreSpelling();
     }
     return *this;
+}
+
+void Key::addChroma(const Chroma& inChroma)
+{
+	mode().addInterval(Interval(tonic(), inChroma));
+}
+
+void Key::deleteChroma(const Chroma& inChroma)
+{
+	mode().deleteInterval(Interval(tonic(), inChroma));
 }

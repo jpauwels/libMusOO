@@ -10,11 +10,13 @@
 // Includes
 #include "QMKeyFile.h"
 
-QMKeyFile::QMKeyFile()
+QMKeyFile::QMKeyFile(const bool inPitchSpelled)
+: KeyFile(inPitchSpelled)
 {
 }
 
-QMKeyFile::QMKeyFile(std::string inFileName)
+QMKeyFile::QMKeyFile(std::string inFileName, const bool inPitchSpelled)
+: KeyFile(inPitchSpelled)
 {
 	open(inFileName);
 }
@@ -34,6 +36,7 @@ void QMKeyFile::open(const std::string& inFileName)
 	{
 		m_TimedKeys[i] = theQMKeys[i]; 
 	}
+    KeyFile::open(inFileName);
 }
 
 void QMKeyFile::close()

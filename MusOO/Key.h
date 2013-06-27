@@ -22,6 +22,8 @@ class Key
 public:
 
 	static const Key& silence();
+    static const Key& none();
+    static const Key& undefined();
 
 	/** Default constructor. */
 	Key();
@@ -52,6 +54,9 @@ public:
     
     const bool hasSpelling() const;
     Key& ignoreSpelling();
+    
+    void addChroma(const Chroma& inChroma);
+	void deleteChroma(const Chroma& inChroma);
     
 protected:
 

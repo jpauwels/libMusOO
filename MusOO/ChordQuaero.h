@@ -16,6 +16,8 @@
 class ChordTypeQuaero : public ChordType
 {
 public:
+    
+    friend class ModeQuaero; // to access getConstrainedString() in ModeQuaero::str
 	
 	/** Default constructor. */
 	ChordTypeQuaero();
@@ -31,7 +33,7 @@ public:
 private:
 	
 	static const std::map<std::string,ChordType> s_TypeStringMap;
-	const std::string getConstrainedString(const ChromaSolfege& inChromaSolfege) const;
+	static const std::string getConstrainedString(const ChromaSolfege& inChromaSolfege);
 	
 };
 
@@ -39,6 +41,8 @@ private:
 class ChordQuaero : public Chord
 {
 public:
+    
+    friend class KeyQuaero; // to access trimRight() in KeyQuaero::KeyQuaero
 	
 	/** Default constructor. */
 	ChordQuaero();
@@ -55,7 +59,7 @@ protected:
 	
 	
 private:
-	const std::string trimRight(const std::string& inString);
+	static const std::string trimRight(const std::string& inString);
 	
 };
 

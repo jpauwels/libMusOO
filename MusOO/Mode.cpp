@@ -171,3 +171,21 @@ const size_t Mode::chromaticCOFDistance(Interval inRootInterval, const Mode& inM
 	}
 	return std::min(inRootInterval.circleStepsCCW(), inRootInterval.circleStepsCW());
 }
+
+Mode& Mode::addInterval(const Interval& inInterval)
+{
+    IntervalClassSet::addInterval(inInterval);
+    return *this;
+}
+
+Mode& Mode::deleteInterval(const Interval& inInterval)
+{
+    IntervalClassSet::deleteInterval(inInterval);
+	return *this;
+}
+
+Mode& Mode::replaceInterval(const Interval& inIntervalToReplace, const Interval& inReplacementInterval)
+{
+    IntervalClassSet::replaceInterval(inIntervalToReplace, inReplacementInterval);
+	return *this;
+}

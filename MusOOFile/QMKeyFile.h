@@ -21,8 +21,8 @@ public:
 	typedef TimedLabel<QMKey> TimedQMKey;
 	typedef std::vector<TimedQMKey> QMKeySequence;
 
-	QMKeyFile();
-	QMKeyFile(std::string inFileName);
+	QMKeyFile(const bool inPitchSpelled);
+	QMKeyFile(std::string inFileName, const bool inPitchSpelled);
 	/** Destructor. */
 	virtual ~QMKeyFile();
 

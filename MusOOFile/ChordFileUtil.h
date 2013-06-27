@@ -39,13 +39,13 @@ public:
 		{
 			return new SonicAnnotatorCSVChordFile<QMChord>(inFileName.string(), inPitchSpelled);
 		}
-		else if (inFileTypeSelect == "QuaeroLocal" || (inFileTypeSelect == "auto" && ends_with(inFileName.stem().string(), ".f") && inFileName.extension() == ".xml"))
+		else if (inFileTypeSelect == "QuaeroEval" || (inFileTypeSelect == "auto" && ends_with(inFileName.stem().string(), ".f") && inFileName.extension() == ".xml"))
 		{
 			return new ChordFileMuDesc<ChordinoChord>(inFileName.string(), inPitchSpelled);
 		}
-		else if (inFileTypeSelect == "MuDesc" || (inFileTypeSelect == "auto" && inFileName.extension() == ".xml"))
+		else if (inFileTypeSelect == "Quaero" || (inFileTypeSelect == "auto" && inFileName.extension() == ".xml"))
 		{
-			return new ChordFileMuDesc<ChordinoChord>(inFileName.string(), inPitchSpelled);
+			return new ChordFileMuDesc<ChordQuaero>(inFileName.string(), inPitchSpelled);
 		}
 		else if (inFileTypeSelect == "auto")
 		{

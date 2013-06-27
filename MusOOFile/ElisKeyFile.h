@@ -22,8 +22,8 @@ public:
 	typedef TimedLabel<ElisKey> TimedElisKey;
 	typedef std::vector<TimedElisKey> ElisKeySequence;
 
-	ElisKeyFile();
-	ElisKeyFile(std::string inFileName);
+	ElisKeyFile(const bool inPitchSpelled);
+	ElisKeyFile(std::string inFileName, const bool inPitchSpelled);
 	/** Destructor. */
 	virtual ~ElisKeyFile();
 

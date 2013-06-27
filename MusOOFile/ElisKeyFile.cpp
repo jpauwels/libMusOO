@@ -10,11 +10,13 @@
 // Includes
 #include "ElisKeyFile.h"
 
-ElisKeyFile::ElisKeyFile()
+ElisKeyFile::ElisKeyFile(const bool inPitchSpelled)
+: KeyFile(inPitchSpelled)
 {
 }
 
-ElisKeyFile::ElisKeyFile(std::string inFileName)
+ElisKeyFile::ElisKeyFile(std::string inFileName, const bool inPitchSpelled)
+: KeyFile(inPitchSpelled)
 {
 	open(inFileName);
 }
@@ -34,6 +36,7 @@ void ElisKeyFile::open(const std::string& inFileName)
 	{
 		m_TimedKeys[i] = theElisKeys[i]; 
 	}
+    KeyFile::open(inFileName);
 }
 
 void ElisKeyFile::close()

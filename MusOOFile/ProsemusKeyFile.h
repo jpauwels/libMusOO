@@ -17,8 +17,8 @@ class ProsemusKeyFile : public KeyFile
 {
 public:
 
-	ProsemusKeyFile();
-	ProsemusKeyFile(std::string inFileName);
+	ProsemusKeyFile(const bool inPitchSpelled);
+	ProsemusKeyFile(std::string inFileName, const bool inPitchSpelled);
 	/** Destructor. */
 	virtual ~ProsemusKeyFile();
 

@@ -15,7 +15,7 @@ class KeyFile
 {
 public:
 
-	KeyFile();
+	KeyFile(const bool inPitchSpelled);
 	/** Destructor. */
 	virtual ~KeyFile();
 
@@ -31,6 +31,7 @@ protected:
 
 	KeySequence m_TimedKeys;
 	bool m_FileHasChanged;
+    bool m_PitchSpelled;
 };
 
 #endif	// #ifndef KeyFile_h

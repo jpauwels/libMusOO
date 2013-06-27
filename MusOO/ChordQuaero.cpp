@@ -28,29 +28,37 @@ ChordQuaero::ChordQuaero()
 
 ChordQuaero::ChordQuaero(const std::string& inChordName)
 {
-	m_Root = Chroma(trimRight(inChordName.substr(0,2)));
-	size_t theTypeEndPosition = inChordName.substr(0,2).find_first_of(" ");
-	m_Type = ChordTypeQuaero(inChordName.substr(2,theTypeEndPosition));
-	size_t theSlashPosition = inChordName.find_first_of("/");
-	for (size_t theModBeginPosition = theTypeEndPosition+2; theModBeginPosition < min(theSlashPosition-1,inChordName.size()); theModBeginPosition+=6)
-	{
-		if (inChordName[theModBeginPosition+1] == '+')
-		{
-			addChroma(ChromaSolfege(trimRight(inChordName.substr(theModBeginPosition+3, 3))));
-		}
-		else if (inChordName[theModBeginPosition+1] == '-')
-		{
-			deleteChroma(ChromaSolfege(trimRight(inChordName.substr(theModBeginPosition+3, 3))));
-		}
-		else
-		{
-			throw std::invalid_argument("Malformed Quaero chord " + inChordName);
-		}
-	}
-	if (theSlashPosition != string::npos)
-	{
-		addBass(ChromaSolfege(trimRight(inChordName.substr(theSlashPosition+2))));
-	}
+    if (inChordName == "I ")
+    {
+        *this = Chord::undefined();
+        return;
+    }
+    else
+    {
+        m_Root = Chroma(trimRight(inChordName.substr(0,2)));
+        size_t theTypeEndPosition = inChordName.substr(2).find_first_of(" ");
+        m_Type = ChordTypeQuaero(inChordName.substr(2,theTypeEndPosition));
+        size_t theSlashPosition = inChordName.substr(2).find_first_of("/");
+        for (size_t theModBeginPosition = theTypeEndPosition; theModBeginPosition < min(theSlashPosition-1,inChordName.size()-2); theModBeginPosition+=6)
+        {
+            if (inChordName[theModBeginPosition+3] == '+')
+            {
+                addChroma(ChromaSolfege(trimRight(inChordName.substr(theModBeginPosition+5, 3))));
+            }
+            else if (inChordName[theModBeginPosition+3] == '-')
+            {
+                deleteChroma(ChromaSolfege(trimRight(inChordName.substr(theModBeginPosition+5, 3))));
+            }
+            else
+            {
+                throw std::invalid_argument("Malformed Quaero chord \"" + inChordName + "\"");
+            }
+        }
+        if (theSlashPosition != string::npos)
+        {
+            addBass(ChromaSolfege(trimRight(inChordName.substr(theSlashPosition+4))));
+        }
+    }
 }
 
 ChordQuaero::ChordQuaero(const Chord& inChord)
@@ -347,7 +355,7 @@ const std::string ChordTypeQuaero::str(const Chroma& inRootChroma /*= Chroma::un
 	return theString;
 }
 
-const std::string ChordTypeQuaero::getConstrainedString(const ChromaSolfege& inChromaSolfege) const
+const std::string ChordTypeQuaero::getConstrainedString(const ChromaSolfege& inChromaSolfege)
 {
 	string theConstrainedString = inChromaSolfege.str();
 	if (theConstrainedString.size() == 2)

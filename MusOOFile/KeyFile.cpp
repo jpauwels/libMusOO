@@ -10,13 +10,24 @@
 // Includes
 #include "KeyFile.h"
 
-KeyFile::KeyFile() 
-: m_FileHasChanged(false)
+KeyFile::KeyFile(const bool inPitchSpelled) 
+: m_FileHasChanged(false), m_PitchSpelled(inPitchSpelled)
 {
 }
 
 KeyFile::~KeyFile()
 {
+}
+
+void KeyFile::open(const std::string& inFileName)
+{
+    if (!m_PitchSpelled)
+    {
+        for (KeySequence::iterator it = m_TimedKeys.begin(); it != m_TimedKeys.end(); ++it)
+        {
+            it->label().ignoreSpelling();
+        }
+    }
 }
 
 const KeySequence& KeyFile::readAll()

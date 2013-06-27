@@ -22,7 +22,7 @@ public:
 	/** Default constructor. */
 	IntervalClassSet();
     //IntervalClassSet(IntervalClassSet inIntervalClassSet) = default
-	virtual ~IntervalClassSet();
+	virtual ~IntervalClassSet() = 0;
     
 	// operator= default implementation
 	virtual bool operator==(const IntervalClassSet& inIntervalClassSet) const;
@@ -38,7 +38,7 @@ public:
         @param		inIntervalClassSet		the set contained by this set
         @return		true if this set contains all interval classes of <inIntervalClassSet>
     */
-	const bool contains(const IntervalClassSet inIntervalClassSet) const;
+	const bool contains(const IntervalClassSet& inIntervalClassSet) const;
 	
 	const bool contains(const Interval& inInterval) const;
     

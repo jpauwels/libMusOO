@@ -13,11 +13,13 @@
 
 using std::string;
 
-ProsemusKeyFile::ProsemusKeyFile()
+ProsemusKeyFile::ProsemusKeyFile(const bool inPitchSpelled)
+: KeyFile(inPitchSpelled)
 {
 }
 
-ProsemusKeyFile::ProsemusKeyFile(std::string inFileName)
+ProsemusKeyFile::ProsemusKeyFile(std::string inFileName, const bool inPitchSpelled)
+: KeyFile(inPitchSpelled)
 {
 	open(inFileName);
 }
@@ -56,6 +58,7 @@ void ProsemusKeyFile::open(const std::string& inFileName)
 			throw std::runtime_error("Unknown Prosemus key " + theLine);
 		}
 	}
+    KeyFile::open(inFileName);
 }
 
 void ProsemusKeyFile::close()

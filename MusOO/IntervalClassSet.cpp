@@ -112,7 +112,7 @@ const bool IntervalClassSet::hasSpelling() const
     //all_of(m_IntervalList(), m_IntervalList(), hasSpelling())
 }
 
-const bool IntervalClassSet::contains(const IntervalClassSet inIntervalClassSet) const
+const bool IntervalClassSet::contains(const IntervalClassSet& inIntervalClassSet) const
 {
 	return includes(m_IntervalList.begin(), m_IntervalList.end(), inIntervalClassSet.m_IntervalList.begin(), inIntervalClassSet.m_IntervalList.end());
 }

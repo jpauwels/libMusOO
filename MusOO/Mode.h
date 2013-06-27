@@ -49,6 +49,10 @@ public:
 	RelativeChord diatonicTriad(size_t inDegree) const;
 
 	const size_t chromaticCOFDistance(Interval inRootInterval, const Mode& inMode) const;
+    
+    Mode& addInterval(const Interval& inInterval);
+	Mode& deleteInterval(const Interval& inInterval);
+	Mode& replaceInterval(const Interval& inIntervalToReplace, const Interval& inReplacementInterval);
 
 protected:
     
