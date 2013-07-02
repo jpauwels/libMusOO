@@ -72,7 +72,6 @@ void KeyFileMuDesc<T>::close()
 {
 	if (m_FileHasChanged)
 	{
-		KeyFile::close();
 		//TODO: implement writing TimedMDKeySequence to MusicDescription XML file
 		XMLDocument theXMLFile;
 		theXMLFile.NewDeclaration("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
