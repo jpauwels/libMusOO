@@ -1,5 +1,5 @@
-#ifndef QMKeyFile_h
-#define QMKeyFile_h
+#ifndef KeyFileQM_h
+#define KeyFileQM_h
 
 //============================================================================
 /**
@@ -11,28 +11,28 @@
 //============================================================================
 #include <string>
 #include "KeyFile.h"
-#include "QMKey.h"
+#include "KeyQM.h"
 #include "LabFile.h"
 
-class QMKeyFile : public KeyFile
+class KeyFileQM : public KeyFile
 {
 public:
 
-	typedef TimedLabel<QMKey> TimedQMKey;
-	typedef std::vector<TimedQMKey> QMKeySequence;
+	typedef TimedLabel<KeyQM> TimedKeyQM;
+	typedef std::vector<TimedKeyQM> KeyQMSequence;
 
-	QMKeyFile(const bool inPitchSpelled);
-	QMKeyFile(std::string inFileName, const bool inPitchSpelled);
+	KeyFileQM(const bool inPitchSpelled);
+	KeyFileQM(std::string inFileName, const bool inPitchSpelled);
 	/** Destructor. */
-	virtual ~QMKeyFile();
+	virtual ~KeyFileQM();
 
 	virtual void open(const std::string& inFileName);
 	virtual void close();
 
 private:
 	
-//	QMKeySequence m_TimedKeys;
-	LabFile<QMKey> m_File;
+//	KeyQMSequence m_TimedKeys;
+	LabFile<KeyQM> m_File;
 };
 
-#endif	// #ifndef QMKeyFile_h
+#endif	// #ifndef KeyFileQM_h

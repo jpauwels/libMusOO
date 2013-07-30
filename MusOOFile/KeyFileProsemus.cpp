@@ -1,6 +1,6 @@
 //============================================================================
 /**
-	Implementation file for ProsemusKeyFile.h
+	Implementation file for KeyFileProsemus.h
 
 	@author		Johan Pauwels
 	@date		20110111
@@ -9,27 +9,27 @@
 
 // Includes
 #include <stdexcept>
-#include "ProsemusKeyFile.h"
+#include "KeyFileProsemus.h"
 
 using std::string;
 
-ProsemusKeyFile::ProsemusKeyFile(const bool inPitchSpelled)
+KeyFileProsemus::KeyFileProsemus(const bool inPitchSpelled)
 : KeyFile(inPitchSpelled)
 {
 }
 
-ProsemusKeyFile::ProsemusKeyFile(std::string inFileName, const bool inPitchSpelled)
+KeyFileProsemus::KeyFileProsemus(std::string inFileName, const bool inPitchSpelled)
 : KeyFile(inPitchSpelled)
 {
 	open(inFileName);
 }
 
-ProsemusKeyFile::~ProsemusKeyFile()
+KeyFileProsemus::~KeyFileProsemus()
 {
 	close();
 }
 
-void ProsemusKeyFile::open(const std::string& inFileName)
+void KeyFileProsemus::open(const std::string& inFileName)
 {
 	if (m_File.is_open())
 	{
@@ -61,7 +61,7 @@ void ProsemusKeyFile::open(const std::string& inFileName)
     KeyFile::open(inFileName);
 }
 
-void ProsemusKeyFile::close()
+void KeyFileProsemus::close()
 {
 	if (m_File.is_open())
 	{

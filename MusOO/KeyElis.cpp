@@ -1,6 +1,6 @@
 //============================================================================
 /**
-	Implementation file for ElisKey.h
+	Implementation file for KeyElis.h
 	
 	@author		Johan Pauwels
 	@date		20100330
@@ -15,42 +15,42 @@
 	using std::stringbuf;
 #include <stdexcept>
 	using std::invalid_argument;
-#include "ElisKey.h"
+#include "KeyElis.h"
 
-ElisKey::ElisKey()
+KeyElis::KeyElis()
 {
 }
 
-ElisKey::ElisKey(const std::string& inKeyString)
+KeyElis::KeyElis(const std::string& inKeyString)
 {
 	istringstream theStringStream(inKeyString);
 	string theString;
 	theStringStream >> theString;
 	m_Tonic = Chroma(theString);
 	theStringStream >> theString;
-	m_Mode = ElisMode(theString);
+	m_Mode = ModeElis(theString);
 }
 
-ElisKey::ElisKey(const Key& inKey)
+KeyElis::KeyElis(const Key& inKey)
 {
 	m_Tonic = inKey.tonic();
 	m_Mode = inKey.mode();
 }
 
-ElisKey::~ElisKey()
+KeyElis::~KeyElis()
 {
 }
 
-const std::string ElisKey::str() const
+const std::string KeyElis::str() const
 {
-	return m_Tonic.str() + "\t" + ElisMode(m_Mode).str();
+	return m_Tonic.str() + "\t" + ModeElis(m_Mode).str();
 }
 
-ElisMode::ElisMode() 
+ModeElis::ModeElis() 
 {
 }
 
-ElisMode::ElisMode(const std::string& inString)
+ModeElis::ModeElis(const std::string& inString)
 {
 	if (!inString.compare("major"))
 	{
@@ -78,12 +78,12 @@ ElisMode::ElisMode(const std::string& inString)
 	}
 }
 
-ElisMode::ElisMode(const Mode& inMode)
+ModeElis::ModeElis(const Mode& inMode)
 : Mode(inMode)
 {
 }
 
-const std::string ElisMode::str() const
+const std::string ModeElis::str() const
 {
 	if (*this == major())
 	{
@@ -115,13 +115,13 @@ const std::string ElisMode::str() const
 	}
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const ElisKey& inKey)
+std::ostream& operator<<(std::ostream& inOutputStream, const KeyElis& inKey)
 {
 	inOutputStream << inKey.str();
 	return inOutputStream;
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const ElisMode& inMode)
+std::ostream& operator<<(std::ostream& inOutputStream, const ModeElis& inMode)
 {
 	inOutputStream << inMode.str();
 	return inOutputStream;

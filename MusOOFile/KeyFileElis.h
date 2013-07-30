@@ -1,5 +1,5 @@
-#ifndef ElisKeyFile_h
-#define ElisKeyFile_h
+#ifndef KeyFileElis_h
+#define KeyFileElis_h
 
 //============================================================================
 /**
@@ -12,27 +12,27 @@
 //============================================================================
 #include <string>
 #include "KeyFile.h"
-#include "ElisKey.h"
+#include "KeyElis.h"
 #include "LabFile.h"
 
-class ElisKeyFile : public KeyFile
+class KeyFileElis : public KeyFile
 {
 public:
 
-	typedef TimedLabel<ElisKey> TimedElisKey;
-	typedef std::vector<TimedElisKey> ElisKeySequence;
+	typedef TimedLabel<KeyElis> TimedKeyElis;
+	typedef std::vector<TimedKeyElis> KeyElisSequence;
 
-	ElisKeyFile(const bool inPitchSpelled);
-	ElisKeyFile(std::string inFileName, const bool inPitchSpelled);
+	KeyFileElis(const bool inPitchSpelled);
+	KeyFileElis(std::string inFileName, const bool inPitchSpelled);
 	/** Destructor. */
-	virtual ~ElisKeyFile();
+	virtual ~KeyFileElis();
 
 	virtual void open(const std::string& inFileName);
 	virtual void close();
 
 private:
 
-	LabFile<ElisKey> m_File;
+	LabFile<KeyElis> m_File;
 
 };
-#endif	// #ifndef ElisKeyFile_h
+#endif	// #ifndef KeyFileElis_h

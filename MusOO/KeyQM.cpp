@@ -1,6 +1,6 @@
 //============================================================================
 /**
-	Implementation file for QMKey.h
+	Implementation file for KeyQM.h
 	
 	@author		Johan Pauwels
 	@date		20100330
@@ -15,13 +15,13 @@
     using std::ostringstream;
 #include <stdexcept>
 	using std::invalid_argument;
-#include "QMKey.h"
+#include "KeyQM.h"
 
-QMKey::QMKey()
+KeyQM::KeyQM()
 {
 }
 
-QMKey::QMKey(const std::string& inKeyString)
+KeyQM::KeyQM(const std::string& inKeyString)
 {
 	if (!inKeyString.compare(0,1,"S") || !inKeyString.compare("N"))
 	{
@@ -52,23 +52,23 @@ QMKey::QMKey(const std::string& inKeyString)
 			}
 			else
 			{
-				m_Mode = QMMode(theString.substr(theColon+1));
+				m_Mode = ModeQM(theString.substr(theColon+1));
 			}
 		}
 	}
 }
 
-QMKey::QMKey(const Key& inKey)
-: Key(inKey.tonic(), QMMode(inKey.mode()))
+KeyQM::KeyQM(const Key& inKey)
+: Key(inKey.tonic(), ModeQM(inKey.mode()))
 {
 }
 
-QMKey::~QMKey()
+KeyQM::~KeyQM()
 {
 	// Nothing to do...
 }
 
-const std::string QMKey::str() const
+const std::string KeyQM::str() const
 {
 	string theKeyString;
 	if (*this == Key::silence())
@@ -80,22 +80,22 @@ const std::string QMKey::str() const
 		theKeyString = "Key " + m_Tonic.str();
 		if (m_Mode != Mode::major())
 		{
-			theKeyString += ":" + QMMode(m_Mode).str();
+			theKeyString += ":" + ModeQM(m_Mode).str();
 		}
 	}
 	return theKeyString;
 }
 
-QMMode::QMMode()
+ModeQM::ModeQM()
 {
 }
 
-QMMode::QMMode(const Mode& inMode)
+ModeQM::ModeQM(const Mode& inMode)
 : Mode(inMode)
 {
 }
 
-QMMode::QMMode(const std::string& inString)
+ModeQM::ModeQM(const std::string& inString)
 {
 	if (!inString.compare("") || !inString.compare("major"))
 	{
@@ -127,7 +127,7 @@ QMMode::QMMode(const std::string& inString)
 	}
 }
 
-const std::string QMMode::str() const
+const std::string ModeQM::str() const
 {
 	if (*this == major())
 	{
@@ -171,13 +171,13 @@ const std::string QMMode::str() const
 	}
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const QMKey& inKey)
+std::ostream& operator<<(std::ostream& inOutputStream, const KeyQM& inKey)
 {
 	inOutputStream << inKey.str();
 	return inOutputStream;
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const QMMode& inMode)
+std::ostream& operator<<(std::ostream& inOutputStream, const ModeQM& inMode)
 {
 	inOutputStream << inMode.str();
 	return inOutputStream;

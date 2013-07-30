@@ -12,18 +12,18 @@
 #include <string>
 #include "Chord.h"
 
-class ProsemusChordType : public ChordType
+class ChordTypeProsemus : public ChordType
 {
 public:
 
 	/** Default constructor. */
-	ProsemusChordType();
-	ProsemusChordType(std::string inName);
+	ChordTypeProsemus();
+	ChordTypeProsemus(std::string inName);
 	/** Copy constructor */
-	ProsemusChordType(const ChordType& inChordType);
+	ChordTypeProsemus(const ChordType& inChordType);
 
 	/** Destructor. */
-	virtual ~ProsemusChordType();
+	virtual ~ChordTypeProsemus();
 
 	const std::string str() const;
 

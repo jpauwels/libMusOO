@@ -1,5 +1,5 @@
-#ifndef QMKey_h
-#define QMKey_h
+#ifndef KeyQM_h
+#define KeyQM_h
 
 //============================================================================
 /**
@@ -13,29 +13,29 @@
 #include <string>
 #include "Key.h"
 
-class QMMode : public Mode
+class ModeQM : public Mode
 {
 public:
-	QMMode();
-	QMMode(const Mode& inMode);
-	QMMode(const std::string& inString);
+	ModeQM();
+	ModeQM(const Mode& inMode);
+	ModeQM(const std::string& inString);
 
 	const std::string str() const;
 
 };
 
-class QMKey : public Key
+class KeyQM : public Key
 {
 public:
 
 	/** Default constructor. */
-	QMKey();
-	QMKey(const std::string& inKeyString);
+	KeyQM();
+	KeyQM(const std::string& inKeyString);
 	// copy constructor
-	QMKey(const Key& inKey);
+	KeyQM(const Key& inKey);
 
 	/** Destructor. */
-	virtual ~QMKey();
+	virtual ~KeyQM();
 
 	const std::string str() const;
 
@@ -47,7 +47,7 @@ private:
 
 };
 
-std::ostream& operator<<(std::ostream& inOutputStream, const QMMode& inMode);
-std::ostream& operator<<(std::ostream& inOutputStream, const QMKey& inKey);
+std::ostream& operator<<(std::ostream& inOutputStream, const ModeQM& inMode);
+std::ostream& operator<<(std::ostream& inOutputStream, const KeyQM& inKey);
 
-#endif	// #ifndef QMKey_h
+#endif	// #ifndef KeyQM_h

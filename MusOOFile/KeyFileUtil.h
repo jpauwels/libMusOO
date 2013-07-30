@@ -11,9 +11,9 @@
 //============================================================================
 #include <stdexcept>
 #include <boost/filesystem.hpp>
-#include "ElisKeyFile.h"
-#include "QMKeyFile.h"
-#include "ProsemusKeyFile.h"
+#include "KeyFileElis.h"
+#include "KeyFileQM.h"
+#include "KeyFileProsemus.h"
 #include "KeyFileMuDesc.h"
 #include "KeyQuaero.h"
 
@@ -32,20 +32,20 @@ public:
 //				(inFileName.stem().string().size() >=  10 &&
 //				!inFileName.stem().string().compare(inFileName.stem().string().size()-10,10,"-globalkey")))
 //			{
-//				return new ElisKeyFile(inFileName.string());
+//				return new KeyFileElis(inFileName.string());
 //			}
 //			else
 			{
-				return new QMKeyFile(inFileName.string(), inPitchSpelled);
+				return new KeyFileQM(inFileName.string(), inPitchSpelled);
 			}
 		}
 		else if (inFileName.extension() == ".txt")
 		{
-			return new ElisKeyFile(inFileName.string(), inPitchSpelled);
+			return new KeyFileElis(inFileName.string(), inPitchSpelled);
 		}
 		else if (inFileName.extension() == ".key")
 		{
-			return new ProsemusKeyFile(inFileName.string(), inPitchSpelled);
+			return new KeyFileProsemus(inFileName.string(), inPitchSpelled);
 		}
 		else if (inFileName.extension() == ".xml")
 		{

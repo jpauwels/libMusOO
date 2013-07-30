@@ -1,5 +1,5 @@
-#ifndef ProsemusKeyFile_h
-#define ProsemusKeyFile_h
+#ifndef KeyFileProsemus_h
+#define KeyFileProsemus_h
 
 //============================================================================
 /**
@@ -13,14 +13,14 @@
 #include <fstream>
 #include "KeyFile.h"
 
-class ProsemusKeyFile : public KeyFile
+class KeyFileProsemus : public KeyFile
 {
 public:
 
-	ProsemusKeyFile(const bool inPitchSpelled);
-	ProsemusKeyFile(std::string inFileName, const bool inPitchSpelled);
+	KeyFileProsemus(const bool inPitchSpelled);
+	KeyFileProsemus(std::string inFileName, const bool inPitchSpelled);
 	/** Destructor. */
-	virtual ~ProsemusKeyFile();
+	virtual ~KeyFileProsemus();
 
 	virtual void open(const std::string& inFileName);
 	virtual void close();
@@ -34,4 +34,4 @@ private:
 	std::string m_FileName;
 };
 
-#endif	// #ifndef ProsemusKeyFile_h
+#endif	// #ifndef KeyFileProsemus_h

@@ -10,7 +10,7 @@
 // Includes
 #include <map>
 #include <stdexcept>
-#include "ProsemusChord.h"
+#include "ChordProsemus.h"
 
 using std::map;
 using std::pair;
@@ -31,7 +31,7 @@ ProsemusChord::ProsemusChord(const std::string& inChordString)
 	}
 	else
 	{
-		m_Type = ProsemusChordType(inChordString.substr(theRootIndex));
+		m_Type = ChordTypeProsemus(inChordString.substr(theRootIndex));
 	}
 }
 
@@ -46,12 +46,12 @@ ProsemusChord::~ProsemusChord()
 
 const std::string ProsemusChord::str() const
 {
-	return m_Root.str() + ProsemusChordType(m_Type).str();
+	return m_Root.str() + ChordTypeProsemus(m_Type).str();
 }
 
 
 //----------------------------------------------------------------------------
-// ProsemusChordType
+// ChordTypeProsemus
 //----------------------------------------------------------------------------
 static const pair<string,ChordType> typeStringMap[] =
 {
@@ -95,13 +95,13 @@ static const pair<string,ChordType> typeStringMap[] =
 	pair<string,ChordType>("7alt",ChordType::rootOnly()),
 	pair<string,ChordType>("13alt",ChordType::rootOnly())
 };
-const map<string,ChordType> ProsemusChordType::s_TypeStringMap(typeStringMap, typeStringMap+31);
+const map<string,ChordType> ChordTypeProsemus::s_TypeStringMap(typeStringMap, typeStringMap+31);
 
-ProsemusChordType::ProsemusChordType()
+ChordTypeProsemus::ChordTypeProsemus()
 {
 }
 
-ProsemusChordType::ProsemusChordType(std::string inName)
+ChordTypeProsemus::ChordTypeProsemus(std::string inName)
 {
 	const map<string,ChordType>::const_iterator theMapPos = s_TypeStringMap.find(inName);
 	if (theMapPos != s_TypeStringMap.end())
@@ -114,16 +114,16 @@ ProsemusChordType::ProsemusChordType(std::string inName)
 	}
 }
 
-ProsemusChordType::ProsemusChordType(const ChordType& inChordType)
+ChordTypeProsemus::ChordTypeProsemus(const ChordType& inChordType)
 : ChordType(inChordType)
 {
 }
 
-ProsemusChordType::~ProsemusChordType()
+ChordTypeProsemus::~ChordTypeProsemus()
 {
 }
 
-const std::string ProsemusChordType::str() const
+const std::string ChordTypeProsemus::str() const
 {
 	for (map<string,ChordType>::const_iterator theCurType = s_TypeStringMap.begin();
 		theCurType != s_TypeStringMap.end(); theCurType++)

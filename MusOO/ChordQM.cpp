@@ -1,6 +1,6 @@
 //============================================================================
 /**
-Implementation file for QMChord.h
+Implementation file for ChordQM.h
 
 @author		Johan Pauwels
 @date		20090119
@@ -11,7 +11,7 @@ Implementation file for QMChord.h
 #include <stdexcept>
 #include <algorithm>
 #include <sstream>
-#include "QMChord.h"
+#include "ChordQM.h"
 
 using std::string;
 using std::vector;
@@ -25,13 +25,13 @@ using std::set;
 
 
 //----------------------------------------------------------------------------//
-// QMChord                                                                    //
+// ChordQM                                                                    //
 //----------------------------------------------------------------------------//
-QMChord::QMChord()
+ChordQM::ChordQM()
 {
 }
 
-QMChord::QMChord(const std::string& inChordString)
+ChordQM::ChordQM(const std::string& inChordString)
 {
 	if (!inChordString.compare(0,1,"S"))
 	{
@@ -53,7 +53,7 @@ QMChord::QMChord(const std::string& inChordString)
 		if (theColon != string::npos)
 		{
 			//explicit type, optional slash
-			m_Type = QMChordType(inChordString.substr(theColon+1));
+			m_Type = ChordTypeQM(inChordString.substr(theColon+1));
 		}
 		else
 		{
@@ -65,28 +65,28 @@ QMChord::QMChord(const std::string& inChordString)
 			else
 			{
 				//no explicit type, with slash
-				m_Type = QMChordType("maj"+inChordString.substr(theSlash));
+				m_Type = ChordTypeQM("maj"+inChordString.substr(theSlash));
 			}
 		}
 	}
 }
 
-QMChord::QMChord(const Chord& inChord)
+ChordQM::ChordQM(const Chord& inChord)
 : Chord(inChord)
 {
 }
 
-QMChord::~QMChord()
+ChordQM::~ChordQM()
 {
 	// Nothing to do...
 }
 
-const std::string QMChord::str() const
+const std::string ChordQM::str() const
 {
 	string theChordString = m_Root.str();
 	if (isTrueChord())
 	{
-		theChordString += ":" + QMChordType(m_Type).str();
+		theChordString += ":" + ChordTypeQM(m_Type).str();
 	}
 	return theChordString;
 }
@@ -126,7 +126,7 @@ ChordinoChord::ChordinoChord(std::string inChordString)
 		if (theTypeStart != string::npos && theSlash == string::npos)
 		{
 			//explicit type, optional slash
-			m_Type = QMChordType(inChordString.substr(theTypeStart));
+			m_Type = ChordTypeQM(inChordString.substr(theTypeStart));
 		}
 		else
 		{
@@ -138,7 +138,7 @@ ChordinoChord::ChordinoChord(std::string inChordString)
 			else
 			{
 				//no explicit type, with slash
-				m_Type = QMChordType("maj"+inChordString.substr(theSlash));
+				m_Type = ChordTypeQM("maj"+inChordString.substr(theSlash));
 			}
 		}
 	}
@@ -158,13 +158,13 @@ const std::string ChordinoChord::str() const
 	string theChordString = m_Root.str();
 	if (*this != Chord::silence() && *this != Chord::none() && m_Type != ChordType::major())
 	{
-		theChordString += QMChordType(m_Type).str();
+		theChordString += ChordTypeQM(m_Type).str();
 	}
 	return theChordString;
 }
 
 //----------------------------------------------------------------------------//
-// QMChordType                                                                //
+// ChordTypeQM                                                                //
 //----------------------------------------------------------------------------//
 static const pair<string,ChordType> typeStringMap[] = {
 	pair<string,ChordType>("",ChordType::none()),
@@ -202,9 +202,9 @@ static const pair<string,ChordType> typeStringMap[] = {
     pair<string,ChordType>("maj13",ChordType::majorThirteenth()),
     pair<string,ChordType>("13",ChordType::dominantEleventh()),
     pair<string,ChordType>("min13",ChordType::minorEleventh())};
-const map<string,ChordType> QMChordType::s_TypeStringMap(typeStringMap, typeStringMap+28);
+const map<string,ChordType> ChordTypeQM::s_TypeStringMap(typeStringMap, typeStringMap+28);
 
-QMChordType::QMChordType(std::string inName)
+ChordTypeQM::ChordTypeQM(std::string inName)
 {
 	//find borders of base type
 	size_t theBaseNameEnd = inName.find_first_of("(/");
@@ -244,21 +244,21 @@ QMChordType::QMChordType(std::string inName)
 	}
 }
 
-QMChordType::QMChordType()
+ChordTypeQM::ChordTypeQM()
 {
 }
 
-QMChordType::QMChordType(const ChordType& inChordType)
+ChordTypeQM::ChordTypeQM(const ChordType& inChordType)
 : ChordType(inChordType)
 {
 }
 
-QMChordType::~QMChordType()
+ChordTypeQM::~ChordTypeQM()
 {
 	// Nothing to do...
 }
 
-void QMChordType::parseFormulaModifier(std::string inFormulaModifier)
+void ChordTypeQM::parseFormulaModifier(std::string inFormulaModifier)
 {
 	if (!inFormulaModifier.substr(0,1).compare("*"))
 	{
@@ -270,27 +270,27 @@ void QMChordType::parseFormulaModifier(std::string inFormulaModifier)
 	}
 }
 
-void QMChordType::addNote(const std::string& inDegree)
+void ChordTypeQM::addNote(const std::string& inDegree)
 {
 	addInterval(Interval(inDegree));
 }
 
-void QMChordType::addBassNote(const std::string& inDegree)
+void ChordTypeQM::addBassNote(const std::string& inDegree)
 {
 	addBass(Interval(inDegree));
 }
 
-void QMChordType::replaceNote(const std::string& inToBeReplaced, const std::string& inReplacement)
+void ChordTypeQM::replaceNote(const std::string& inToBeReplaced, const std::string& inReplacement)
 {
 	replaceInterval(Interval(inToBeReplaced), Interval(inReplacement));
 }
 
-void QMChordType::deleteNote(const std::string& inDegree)
+void ChordTypeQM::deleteNote(const std::string& inDegree)
 {
 	deleteInterval(Interval(inDegree));
 }
 
-const std::string QMChordType::str() const
+const std::string ChordTypeQM::str() const
 {
  	string theString;
     set<Interval> theRestIntervals;
@@ -461,29 +461,29 @@ const std::string QMChordType::str() const
 	return theString;
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const QMChord& inChord)
+std::ostream& operator<<(std::ostream& inOutputStream, const ChordQM& inChord)
 {
 	inOutputStream << inChord.str();
 	return inOutputStream;
 }
 
-std::istream& operator>>(std::istream& inInputStream, QMChord& inChord)
+std::istream& operator>>(std::istream& inInputStream, ChordQM& inChord)
 {
 	string theChordString;
 	inInputStream >> theChordString;
-	inChord = QMChord(theChordString);
+	inChord = ChordQM(theChordString);
 	return inInputStream;
 }
 
-std::istream& operator>>(std::istream& inInputStream, QMChordType& outChordType)
+std::istream& operator>>(std::istream& inInputStream, ChordTypeQM& outChordType)
 {
 	std::string theString;
 	inInputStream >> theString;
-	outChordType = QMChordType(theString);
+	outChordType = ChordTypeQM(theString);
 	return inInputStream;
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const QMChordType& inChordType)
+std::ostream& operator<<(std::ostream& inOutputStream, const ChordTypeQM& inChordType)
 {
 	inOutputStream << inChordType.str();
 	return inOutputStream;

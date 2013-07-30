@@ -1,6 +1,6 @@
 //============================================================================
 /**
-	Implementation file for SonicAnnotatorCSVChordFile.h
+	Implementation file for ChordFileSonicAnnotatorCSV.h
 	
 	@author		Johan Pauwels
 	@date		20110608
@@ -8,37 +8,37 @@
 //============================================================================
 
 // Guard against multiple template implementation inclusions
-#ifndef SonicAnnotatorCSVChordFile_cpp
-#define SonicAnnotatorCSVChordFile_cpp
+#ifndef ChordFileSonicAnnotatorCSV_cpp
+#define ChordFileSonicAnnotatorCSV_cpp
 
 // Includes
 #include <sstream>
-#include "SonicAnnotatorCSVChordFile.h"
+#include "ChordFileSonicAnnotatorCSV.h"
 
 using std::string;
 using std::istringstream;
 
 template <typename T>
-SonicAnnotatorCSVChordFile<T>::SonicAnnotatorCSVChordFile(const bool inPitchSpelled)
+ChordFileSonicAnnotatorCSV<T>::ChordFileSonicAnnotatorCSV(const bool inPitchSpelled)
 : ChordFile(inPitchSpelled)
 {
 }
 
 template <typename T>
-SonicAnnotatorCSVChordFile<T>::SonicAnnotatorCSVChordFile(std::string inFileName, const bool inPitchSpelled)
+ChordFileSonicAnnotatorCSV<T>::ChordFileSonicAnnotatorCSV(std::string inFileName, const bool inPitchSpelled)
 : ChordFile(inPitchSpelled)
 {
 	open(inFileName);
 }
 
 template <typename T>
-SonicAnnotatorCSVChordFile<T>::~SonicAnnotatorCSVChordFile()
+ChordFileSonicAnnotatorCSV<T>::~ChordFileSonicAnnotatorCSV()
 {
 	close();
 }
 
 template <typename T>
-void SonicAnnotatorCSVChordFile<T>::open(const std::string& inFileName)
+void ChordFileSonicAnnotatorCSV<T>::open(const std::string& inFileName)
 {
 	if (m_File.is_open())
 	{
@@ -73,7 +73,7 @@ void SonicAnnotatorCSVChordFile<T>::open(const std::string& inFileName)
 }
 
 template <typename T>
-void SonicAnnotatorCSVChordFile<T>::close()
+void ChordFileSonicAnnotatorCSV<T>::close()
 {
 	if (m_FileHasChanged)
 	{
@@ -83,4 +83,4 @@ void SonicAnnotatorCSVChordFile<T>::close()
 	}
 }
 
-#endif  // #ifndef SonicAnnotatorCSVChordFile_cpp
+#endif  // #ifndef ChordFileSonicAnnotatorCSV_cpp

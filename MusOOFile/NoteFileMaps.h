@@ -1,5 +1,5 @@
-#ifndef MapsNoteFile_h
-#define MapsNoteFile_h
+#ifndef NoteFileMaps_h
+#define NoteFileMaps_h
 
 //============================================================================
 /**
@@ -12,19 +12,19 @@
 #include <string>
 #include <vector>
 #include "NoteFile.h"
-#include "MidiNote.h"
+#include "NoteMidi.h"
 #include "LabFile.h"
 
-class MapsNoteFile : public NoteFile
+class NoteFileMaps : public NoteFile
 {
 public:
 
 	/** Default constructor. */
-	MapsNoteFile();
-	MapsNoteFile(std::string inFileName);
+	NoteFileMaps();
+	NoteFileMaps(std::string inFileName);
 
 	/** Destructor. */
-	virtual ~MapsNoteFile();
+	virtual ~NoteFileMaps();
 
 	virtual void open(const std::string& inFileName);
 	virtual void close();
@@ -34,13 +34,13 @@ protected:
 
 private:
 
-	typedef TimedLabel<MidiNote> TimedMidiNote;
-	typedef std::vector<TimedMidiNote> MidiNoteSequence;
+	typedef TimedLabel<NoteMidi> TimedNoteMidi;
+	typedef std::vector<TimedNoteMidi> NoteMidiSequence;
 
-	LabFile<MidiNote> m_LabFile;
+	LabFile<NoteMidi> m_LabFile;
 	static const std::string s_HeaderInit[];
 
 
 };
 
-#endif	// #ifndef MapsNoteFile_h
+#endif	// #ifndef NoteFileMaps_h

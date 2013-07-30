@@ -1,5 +1,5 @@
-#ifndef QMChordFile_h
-#define QMChordFile_h
+#ifndef ChordFileQM_h
+#define ChordFileQM_h
 
 //============================================================================
 /**
@@ -12,28 +12,28 @@
 //============================================================================
 #include <string>
 #include "ChordFile.h"
-#include "QMChord.h"
+#include "ChordQM.h"
 #include "LabFile.h"
 
 
-class QMChordFile : public ChordFile
+class ChordFileQM : public ChordFile
 {
 public:
 
-	QMChordFile(const bool inPitchSpelled);
-	QMChordFile(std::string inFileName, const bool inPitchSpelled);
+	ChordFileQM(const bool inPitchSpelled);
+	ChordFileQM(std::string inFileName, const bool inPitchSpelled);
 	/** Destructor. */
-	virtual ~QMChordFile();
+	virtual ~ChordFileQM();
 
 	virtual void open(const std::string& inFileName);
 	virtual void close();
 
 private:
 
-	typedef TimedLabel<QMChord> TimedQMChord;
-	typedef std::vector<TimedQMChord> TimedQMChordSequence;
+	typedef TimedLabel<ChordQM> TimedChordQM;
+	typedef std::vector<TimedChordQM> TimedChordQMSequence;
 
-	LabFile<QMChord> m_File;
+	LabFile<ChordQM> m_File;
 };
 
-#endif	// #ifndef QMChordFile_h
+#endif	// #ifndef ChordFileQM_h

@@ -1,6 +1,6 @@
 //============================================================================
 /**
-	Implementation file for ProsemusChordFile.h
+	Implementation file for ChordFileProsemus.h
 	
 	@author		Johan Pauwels
 	@date		20101222
@@ -10,29 +10,29 @@
 // Includes
 #include <sstream>
 #include <stdexcept>
-#include "ProsemusChordFile.h"
+#include "ChordFileProsemus.h"
 
 using std::string;
 using std::istringstream;
 
-ProsemusChordFile::ProsemusChordFile(const bool inPitchSpelled)
+ChordFileProsemus::ChordFileProsemus(const bool inPitchSpelled)
 : ChordFile(inPitchSpelled)
 {
 	
 }
 
-ProsemusChordFile::ProsemusChordFile(std::string inFilePath, const bool inPitchSpelled)
+ChordFileProsemus::ChordFileProsemus(std::string inFilePath, const bool inPitchSpelled)
 : ChordFile(inPitchSpelled)
 {
 	open(inFilePath);
 }
 
-ProsemusChordFile::~ProsemusChordFile()
+ChordFileProsemus::~ChordFileProsemus()
 {
 	close();
 }
 
-void ProsemusChordFile::open(const std::string& inFilePath)
+void ChordFileProsemus::open(const std::string& inFilePath)
 {
 	if (m_File.is_open())
 	{
@@ -61,7 +61,7 @@ void ProsemusChordFile::open(const std::string& inFilePath)
     ChordFile::open(inFilePath);
 }
 
-void ProsemusChordFile::close()
+void ChordFileProsemus::close()
 {
 	if (m_File.is_open())
 	{

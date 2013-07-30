@@ -1,5 +1,5 @@
-#ifndef SonicAnnotatorCSVChordFile_h
-#define SonicAnnotatorCSVChordFile_h
+#ifndef ChordFileSonicAnnotatorCSV_h
+#define ChordFileSonicAnnotatorCSV_h
 
 //============================================================================
 /**
@@ -15,14 +15,14 @@
 #include "ChordFile.h"
 
 template <typename ChordLabel>
-class SonicAnnotatorCSVChordFile : public ChordFile
+class ChordFileSonicAnnotatorCSV : public ChordFile
 {
 public:
 
-	SonicAnnotatorCSVChordFile(const bool inPitchSpelled);
-	SonicAnnotatorCSVChordFile(std::string inFileName, const bool inPitchSpelled);
+	ChordFileSonicAnnotatorCSV(const bool inPitchSpelled);
+	ChordFileSonicAnnotatorCSV(std::string inFileName, const bool inPitchSpelled);
 	/** Destructor. */
-	virtual ~SonicAnnotatorCSVChordFile();
+	virtual ~ChordFileSonicAnnotatorCSV();
 
 	virtual void open(const std::string& inFileName);
 	virtual void close();
@@ -37,6 +37,6 @@ private:
 };
 
 // Include template implementation
-#include "SonicAnnotatorCSVChordFile.cpp"
+#include "ChordFileSonicAnnotatorCSV.cpp"
 
-#endif	// #ifndef SonicAnnotatorCSVChordFile_h
+#endif	// #ifndef ChordFileSonicAnnotatorCSV_h

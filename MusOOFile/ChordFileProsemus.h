@@ -1,5 +1,5 @@
-#ifndef ProsemusChordFile_h
-#define ProsemusChordFile_h
+#ifndef ChordFileProsemus_h
+#define ChordFileProsemus_h
 
 //============================================================================
 /**
@@ -12,19 +12,19 @@
 #include <fstream>
 #include <string>
 #include "ChordFile.h"
-#include "ProsemusChord.h"
+#include "ChordProsemus.h"
 #include "TimedLabel.h"
 
-class ProsemusChordFile : public ChordFile
+class ChordFileProsemus : public ChordFile
 {
 public:
 
 	/** Default constructor. */
-	ProsemusChordFile(const bool inPitchSpelled);
-	ProsemusChordFile(std::string inFilePath, const bool inPitchSpelled);
+	ChordFileProsemus(const bool inPitchSpelled);
+	ChordFileProsemus(std::string inFilePath, const bool inPitchSpelled);
 
 	/** Destructor. */
-	virtual ~ProsemusChordFile();
+	virtual ~ChordFileProsemus();
 
 	virtual void open(const std::string& inFilePath);
 	virtual void close();
@@ -40,4 +40,4 @@ private:
 
 };
 
-#endif	// #ifndef ProsemusChordFile_h
+#endif	// #ifndef ChordFileProsemus_h

@@ -13,9 +13,9 @@
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <string>
-#include "QMChordFile.h"
-#include "ProsemusChordFile.h"
-#include "SonicAnnotatorCSVChordFile.h"
+#include "ChordFileQM.h"
+#include "ChordFileProsemus.h"
+#include "ChordFileSonicAnnotatorCSV.h"
 #include "ChordFileMuDesc.h"
 #include "ChordQuaero.h"
 
@@ -29,15 +29,15 @@ public:
 	{
 		if (inFileTypeSelect == "QMUL" || (inFileTypeSelect == "auto" && (inFileName.extension() == ".lab" || inFileName.extension() == ".txt")))
 		{
-			return new QMChordFile(inFileName.string(), inPitchSpelled);
+			return new ChordFileQM(inFileName.string(), inPitchSpelled);
 		}
 		else if (inFileTypeSelect == "Prosemus" || (inFileTypeSelect == "auto" && inFileName.extension() == ".chords"))
 		{
-			return new ProsemusChordFile(inFileName.string(), inPitchSpelled);
+			return new ChordFileProsemus(inFileName.string(), inPitchSpelled);
 		}
 		else if (inFileTypeSelect == "SonicAnnotator" || (inFileTypeSelect == "auto" && inFileName.extension() == ".csv"))
 		{
-			return new SonicAnnotatorCSVChordFile<QMChord>(inFileName.string(), inPitchSpelled);
+			return new ChordFileSonicAnnotatorCSV<ChordQM>(inFileName.string(), inPitchSpelled);
 		}
 		else if (inFileTypeSelect == "QuaeroEval" || (inFileTypeSelect == "auto" && ends_with(inFileName.stem().string(), ".f") && inFileName.extension() == ".xml"))
 		{

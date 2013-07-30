@@ -11,7 +11,7 @@
 #include <sstream>
 #include <stdexcept>
 #include "RelativeChord.h"
-#include "QMChord.h"
+#include "ChordQM.h"
 
 using std::string;
 using std::ostringstream;
@@ -113,7 +113,7 @@ const std::string RelativeChord::asDegree(const Mode& inMode) const
 	}
 	else
 	{
-		return m_RootInterval.asDegree(inMode) + ":" + QMChordType(m_Type).str();
+		return m_RootInterval.asDegree(inMode) + ":" + ChordTypeQM(m_Type).str();
 	}
 }
 
@@ -132,7 +132,7 @@ const std::string RelativeChord::asDegree(const Mode& inMode) const
 		return "S";
 	}
 	ostringstream theStringStream;
-	theStringStream << m_RootInterval.str() << ":" << QMChordType(m_Type).str();
+	theStringStream << m_RootInterval.str() << ":" << ChordTypeQM(m_Type).str();
 	return theStringStream.str();
 }*/
 
@@ -189,12 +189,12 @@ QMRelativeChord::QMRelativeChord(const std::string& inString, const Mode inMode)
 		size_t theColon = inString.find(":");
 		size_t theSlash = inString.find("/");
 		string theRootDegree = inString.substr(0,std::min(theColon, theSlash));
-		QMChordType theType;
+		ChordTypeQM theType;
 
 		if (theColon != string::npos)
 		{
 			//explicit type, optional slash
-			theType = QMChordType(inString.substr(theColon+1));
+			theType = ChordTypeQM(inString.substr(theColon+1));
 		}
 		else
 		{
@@ -206,7 +206,7 @@ QMRelativeChord::QMRelativeChord(const std::string& inString, const Mode inMode)
 			else
 			{
 				//no explicit type, with slash
-				theType = QMChordType("maj"+inString.substr(theSlash));
+				theType = ChordTypeQM("maj"+inString.substr(theSlash));
 			}
 		}
 		*this = RelativeChord(theRootDegree, theType, inMode);

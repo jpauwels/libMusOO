@@ -1,5 +1,5 @@
-#ifndef QMChord_h
-#define QMChord_h
+#ifndef ChordQM_h
+#define ChordQM_h
 
 //============================================================================
 	/**
@@ -13,18 +13,18 @@
 #include <map>
 #include "Chord.h"
 
-class QMChordType : public ChordType
+class ChordTypeQM : public ChordType
 {
 public:
 
 	/** Default constructor. */
-	QMChordType();
-	QMChordType(std::string inName);
+	ChordTypeQM();
+	ChordTypeQM(std::string inName);
 	/** Copy constructor */
-	QMChordType(const ChordType& inChordType);
+	ChordTypeQM(const ChordType& inChordType);
 
 	/** Destructor. */
-	virtual ~QMChordType();
+	virtual ~ChordTypeQM();
 
 	const std::string str() const;
 
@@ -42,18 +42,18 @@ private:
 	static const std::map<std::string,ChordType> s_TypeStringMap;
 };
 
-class QMChord : public Chord
+class ChordQM : public Chord
 {
 public:
 
 	/** Default constructor. */
-	QMChord();
-	QMChord(const std::string& inChordString);
+	ChordQM();
+	ChordQM(const std::string& inChordString);
 	// copy constructor
-	QMChord(const Chord& inChord);
+	ChordQM(const Chord& inChord);
 
 	/** Destructor. */
-	virtual ~QMChord();
+	virtual ~ChordQM();
 
 	const std::string str() const;
 
@@ -88,11 +88,11 @@ private:
 
 };
 
-std::ostream& operator<<(std::ostream& inOutputStream, const QMChord& inChord);
-std::istream& operator>>(std::istream& inInputStream, QMChord& inChord);
-std::ostream& operator<<(std::ostream& inOutputStream, const QMChordType& inChordType);
-std::istream& operator>>(std::istream& inInputStream, QMChordType& inChordType);
+std::ostream& operator<<(std::ostream& inOutputStream, const ChordQM& inChord);
+std::istream& operator>>(std::istream& inInputStream, ChordQM& inChord);
+std::ostream& operator<<(std::ostream& inOutputStream, const ChordTypeQM& inChordType);
+std::istream& operator>>(std::istream& inInputStream, ChordTypeQM& inChordType);
 std::ostream& operator<<(std::ostream& inOutputStream, const ChordinoChord& inChord);
 std::istream& operator>>(std::istream& inInputStream, ChordinoChord& inChord);
 
-#endif	// #ifndef QMChord_h
+#endif	// #ifndef ChordQM_h
