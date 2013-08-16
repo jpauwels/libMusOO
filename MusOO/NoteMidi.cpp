@@ -9,12 +9,13 @@
 
 // Includes
 #include <sstream>
-#include "NoteMidi.h"
-#include "Interval.h"
+#include "MusOO/NoteMidi.h"
+#include "MusOO/Interval.h"
 
 using std::istringstream;
 using std::ostringstream;
 using std::string;
+using namespace MusOO;
 
 NoteMidi::NoteMidi()
 {
@@ -67,13 +68,13 @@ const std::string NoteMidi::str() const
 	return theNoteNumberStream.str();
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const NoteMidi& inNote)
+std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const NoteMidi& inNote)
 {
 	inOutputStream << inNote.str();
 	return inOutputStream;
 }
 
-std::istream& operator>>(std::istream& inInputStream, NoteMidi& inNote)
+std::istream& MusOO::operator>>(std::istream& inInputStream, NoteMidi& inNote)
 {
 	string theNoteString;
 	inInputStream >> theNoteString;

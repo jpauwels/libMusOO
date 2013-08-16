@@ -10,9 +10,11 @@
  */
 //============================================================================
 #include <string>
-#include "Chord.h"
-#include "ChromaSolfege.h"
+#include "MusOO/Chord.h"
+#include "MusOO/ChromaSolfege.h"
 
+namespace MusOO
+{
 class ChordTypeQuaero : public ChordType
 {
 public:
@@ -67,5 +69,5 @@ std::ostream& operator<<(std::ostream& inOutputStream, const ChordQuaero& inChor
 std::istream& operator>>(std::istream& inInputStream, ChordQuaero& inChord);
 std::ostream& operator<<(std::ostream& inOutputStream, const ChordTypeQuaero& inChordType);
 std::istream& operator>>(std::istream& inInputStream, ChordTypeQuaero& inChordType);
-
+}
 #endif	// #ifndef ChordQuaero_h

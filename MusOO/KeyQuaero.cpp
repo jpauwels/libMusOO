@@ -8,19 +8,19 @@
 //============================================================================
 
 // Includes
-#include <string>
-using std::string;
 #include <sstream>
-using std::istringstream;
-using std::ostringstream;
 #include <stdexcept>
-using std::invalid_argument;
-#include "KeyQuaero.h"
-#include "ChromaSolfege.h"
-#include "ChordQuaero.h"
+#include "MusOO/KeyQuaero.h"
+#include "MusOO/ChromaSolfege.h"
+#include "MusOO/ChordQuaero.h"
 
 using std::pair;
 using std::map;
+using std::istringstream;
+using std::ostringstream;
+using std::invalid_argument;
+using std::string;
+using namespace MusOO;
 
 //----------------------------------------------------------------------------
 // KeyQuaero
@@ -181,13 +181,13 @@ const std::string ModeQuaero::str(const Chroma& inTonicChroma /*= Chroma::undefi
 	}
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const KeyQuaero& inKey)
+std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const KeyQuaero& inKey)
 {
 	inOutputStream << inKey.str();
 	return inOutputStream;
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const ModeQuaero& inMode)
+std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ModeQuaero& inMode)
 {
 	inOutputStream << inMode.str();
 	return inOutputStream;

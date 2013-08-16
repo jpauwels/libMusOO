@@ -8,14 +8,15 @@
 //============================================================================
 
 // Includes
-#include <string>
-	using std::string;
 #include <sstream>
-	using std::istringstream;
-    using std::ostringstream;
 #include <stdexcept>
-	using std::invalid_argument;
-#include "KeyQM.h"
+#include "MusOO/KeyQM.h"
+
+using std::string;
+using std::istringstream;
+using std::ostringstream;
+using std::invalid_argument;
+using namespace MusOO;
 
 KeyQM::KeyQM()
 {
@@ -171,13 +172,13 @@ const std::string ModeQM::str() const
 	}
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const KeyQM& inKey)
+std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const KeyQM& inKey)
 {
 	inOutputStream << inKey.str();
 	return inOutputStream;
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const ModeQM& inMode)
+std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ModeQM& inMode)
 {
 	inOutputStream << inMode.str();
 	return inOutputStream;

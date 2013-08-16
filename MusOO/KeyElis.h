@@ -9,9 +9,10 @@
 	@date		20100330
 */
 //============================================================================
-#include <string>
-#include "Key.h"
+#include "MusOO/Key.h"
 
+namespace MusOO
+{
 class ModeElis : public Mode
 {
 public:
@@ -48,5 +49,5 @@ private:
 
 std::ostream& operator<<(std::ostream& inOutputStream, const ModeElis& inMode);
 std::ostream& operator<<(std::ostream& inOutputStream, const KeyElis& inKey);
-
+}
 #endif	// #ifndef KeyElis_h

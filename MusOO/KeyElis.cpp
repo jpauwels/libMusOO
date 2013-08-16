@@ -8,14 +8,15 @@
 //============================================================================
 
 // Includes
-#include <string>
-	using std::string;
 #include <sstream>
-	using std::istringstream;
-	using std::stringbuf;
 #include <stdexcept>
-	using std::invalid_argument;
-#include "KeyElis.h"
+#include "MusOO/KeyElis.h"
+
+using std::istringstream;
+using std::stringbuf;
+using std::string;
+using std::invalid_argument;
+using namespace MusOO;
 
 KeyElis::KeyElis()
 {
@@ -115,13 +116,13 @@ const std::string ModeElis::str() const
 	}
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const KeyElis& inKey)
+std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const KeyElis& inKey)
 {
 	inOutputStream << inKey.str();
 	return inOutputStream;
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const ModeElis& inMode)
+std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ModeElis& inMode)
 {
 	inOutputStream << inMode.str();
 	return inOutputStream;

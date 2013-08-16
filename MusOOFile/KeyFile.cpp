@@ -8,7 +8,9 @@
 //============================================================================
 
 // Includes
-#include "KeyFile.h"
+#include "MusOOFile/KeyFile.h"
+
+using namespace MusOO;
 
 KeyFile::KeyFile(const bool inPitchSpelled) 
 : m_FileHasChanged(false), m_PitchSpelled(inPitchSpelled)
@@ -23,19 +25,19 @@ void KeyFile::open(const std::string& inFileName)
 {
     if (!m_PitchSpelled)
     {
-        for (KeySequence::iterator it = m_TimedKeys.begin(); it != m_TimedKeys.end(); ++it)
+        for (TimedKeySequence::iterator it = m_TimedKeys.begin(); it != m_TimedKeys.end(); ++it)
         {
             it->label().ignoreSpelling();
         }
     }
 }
 
-const KeySequence& KeyFile::readAll()
+const TimedKeySequence& KeyFile::readAll()
 {
 	return m_TimedKeys;
 }
 
-const KeySequence KeyFile::readRange(double inStartTime, double inEndTime)
+const TimedKeySequence KeyFile::readRange(double inStartTime, double inEndTime)
 {
 	//range check
 	if (!m_TimedKeys.empty() && inStartTime < m_TimedKeys.front().onset())
@@ -47,13 +49,13 @@ const KeySequence KeyFile::readRange(double inStartTime, double inEndTime)
 		inEndTime = m_TimedKeys.back().offset();
 	}
 	//find first label in range
-	KeySequence::const_iterator it = m_TimedKeys.begin();
+	TimedKeySequence::const_iterator it = m_TimedKeys.begin();
 	while (it != m_TimedKeys.end() && it->offset() <= inStartTime)
 	{
 		++it;
 	}
 	//add range
-	KeySequence theKeysRange;
+	TimedKeySequence theKeysRange;
 	while (it != m_TimedKeys.end() && it->onset() < inEndTime)
 	{
 		theKeysRange.push_back(*it);
@@ -68,7 +70,7 @@ const KeySequence KeyFile::readRange(double inStartTime, double inEndTime)
 	return theKeysRange;
 }
 
-void KeyFile::writeAll(KeySequence& inTimedKeys)
+void KeyFile::writeAll(TimedKeySequence& inTimedKeys)
 {
 	m_TimedKeys = inTimedKeys;
 	m_FileHasChanged = true;

@@ -9,9 +9,10 @@
 
 // Includes
 #include <stdexcept>
-#include "KeyFileProsemus.h"
+#include "MusOOFile/KeyFileProsemus.h"
 
 using std::string;
+using namespace MusOO;
 
 KeyFileProsemus::KeyFileProsemus(const bool inPitchSpelled)
 : KeyFile(inPitchSpelled)
@@ -45,12 +46,12 @@ void KeyFileProsemus::open(const std::string& inFileName)
 		getline(m_File, theLine);
 		if (!theLine.compare("C"))
 		{
-			this->m_TimedKeys = KeySequence(1, TimedKey(0., std::numeric_limits<double>::max(),
+			this->m_TimedKeys = TimedKeySequence(1, TimedKey(0., std::numeric_limits<double>::max(),
 				Key(Chroma::C(), Mode::major())));
 		}
 		else if (!theLine.compare("Am"))
 		{
-			this->m_TimedKeys = KeySequence(1, TimedKey(0., std::numeric_limits<double>::max(),
+			this->m_TimedKeys = TimedKeySequence(1, TimedKey(0., std::numeric_limits<double>::max(),
 				Key(Chroma::A(), Mode::minorHarmonic())));
 		}
 		else
@@ -75,12 +76,12 @@ void KeyFileProsemus::close()
 		{
 			throw std::runtime_error("Could not open file " + m_FileName + " for writing");
 		}
-		if (this->m_TimedKeys == KeySequence(1, TimedKey(0., std::numeric_limits<double>::max(),
+		if (this->m_TimedKeys == TimedKeySequence(1, TimedKey(0., std::numeric_limits<double>::max(),
 			Key(Chroma::C(), Mode::major()))))
 		{
 			m_File << "C";
 		}
-		else if (this->m_TimedKeys == KeySequence(1, TimedKey(0., std::numeric_limits<double>::max(),
+		else if (this->m_TimedKeys == TimedKeySequence(1, TimedKey(0., std::numeric_limits<double>::max(),
 			Key(Chroma::A(), Mode::minorHarmonic()))))
 		{
 			m_File << "Am";

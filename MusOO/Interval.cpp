@@ -13,9 +13,9 @@
 #include <sstream>
 #include <limits>
 #include <algorithm>
-#include "Interval.h"
-#include "Chroma.h"
-#include "Mode.h"
+#include "MusOO/Interval.h"
+#include "MusOO/Chroma.h"
+#include "MusOO/Mode.h"
 
 using std::map;
 using std::pair;
@@ -23,6 +23,7 @@ using std::string;
 using std::invalid_argument;
 using std::istringstream;
 using std::ostringstream;
+using namespace MusOO;
 
 static const pair<size_t,ptrdiff_t> majorDegreeToCircleSteps[] = {pair<size_t,ptrdiff_t>(1,0),
 pair<size_t,ptrdiff_t>(2,2), pair<size_t,ptrdiff_t>(3,4), pair<size_t,ptrdiff_t>(4,-1),

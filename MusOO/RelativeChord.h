@@ -9,9 +9,11 @@
 	@date		20101222
 */
 //============================================================================
-#include "Chord.h"
-#include "Key.h"
+#include "MusOO/Chord.h"
+#include "MusOO/Key.h"
 
+namespace MusOO
+{
 class RelativeChord
 {
 public:
@@ -64,5 +66,5 @@ public:
 	//assignment operator
 // 		QMRelativeChord& operator=(const RelativeChord& inRelativeChord);
 };
-
+}
 #endif	// #ifndef RelativeChord_h

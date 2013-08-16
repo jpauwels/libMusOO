@@ -9,10 +9,10 @@
 	@date		20100401
 */
 //============================================================================
-#include <set>
-#include <string>
-#include "IntervalClassSet.h"
+#include "MusOO/IntervalClassSet.h"
 
+namespace MusOO
+{
 class RelativeChord;
 class Interval;
 
@@ -64,5 +64,5 @@ private:
 	// only used for construction of static modes
 	Mode(const Interval* inIntervalList, const int inNumOfIntervals);
 };
-
+}
 #endif	// #ifndef Mode_h

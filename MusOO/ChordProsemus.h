@@ -10,8 +10,10 @@
 */
 //============================================================================
 #include <string>
-#include "Chord.h"
+#include "MusOO/Chord.h"
 
+namespace MusOO
+{
 class ChordTypeProsemus : public ChordType
 {
 public:
@@ -56,5 +58,5 @@ private:
 
 
 };
-
+}
 #endif	// #ifndef ProsemusChord_h

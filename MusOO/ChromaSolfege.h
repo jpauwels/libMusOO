@@ -11,8 +11,10 @@
 //============================================================================
 #include <string>
 #include <map>
-#include "Chroma.h"
+#include "MusOO/Chroma.h"
 
+namespace MusOO
+{
 class ChromaSolfege : public Chroma
 {
 public:
@@ -36,5 +38,5 @@ private:
 	static const std::string s_linePositionToString[];
 	static const std::map<std::string,ptrdiff_t> s_stringToLinePositionMap;
 };
-
+}
 #endif	// #ifndef ChromaSolfege_h

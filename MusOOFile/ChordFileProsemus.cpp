@@ -10,10 +10,11 @@
 // Includes
 #include <sstream>
 #include <stdexcept>
-#include "ChordFileProsemus.h"
+#include "MusOOFile/ChordFileProsemus.h"
 
 using std::string;
 using std::istringstream;
+using namespace MusOO;
 
 ChordFileProsemus::ChordFileProsemus(const bool inPitchSpelled)
 : ChordFile(inPitchSpelled)

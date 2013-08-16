@@ -15,6 +15,8 @@
 #include <vector>
 #include <ostream>
 
+namespace MusOO
+{
 class Interval;
 
 class Chroma
@@ -89,5 +91,5 @@ private:
 };
 
 std::ostream& operator<<(std::ostream& inOutputStream, const Chroma& inChroma);
-
+}
 #endif	// #ifndef Chroma_h

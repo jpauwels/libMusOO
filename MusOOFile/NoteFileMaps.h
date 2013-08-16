@@ -11,10 +11,12 @@
 //============================================================================
 #include <string>
 #include <vector>
-#include "NoteFile.h"
-#include "NoteMidi.h"
-#include "LabFile.h"
+#include "MusOOFile/NoteFile.h"
+#include "MusOOFile/LabFile.h"
+#include "MusOO/NoteMidi.h"
 
+namespace MusOO
+{
 class NoteFileMaps : public NoteFile
 {
 public:
@@ -42,5 +44,5 @@ private:
 
 
 };
-
+}
 #endif	// #ifndef NoteFileMaps_h

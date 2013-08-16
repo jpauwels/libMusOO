@@ -8,7 +8,9 @@
 //============================================================================
 
 // Includes
-#include "KeyFileElis.h"
+#include "MusOOFile/KeyFileElis.h"
+
+using namespace MusOO;
 
 KeyFileElis::KeyFileElis(const bool inPitchSpelled)
 : KeyFile(inPitchSpelled)

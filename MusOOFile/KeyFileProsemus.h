@@ -11,8 +11,10 @@
 //============================================================================
 #include <string>
 #include <fstream>
-#include "KeyFile.h"
+#include "MusOOFile/KeyFile.h"
 
+namespace MusOO
+{
 class KeyFileProsemus : public KeyFile
 {
 public:
@@ -33,5 +35,5 @@ private:
 	std::fstream m_File;
 	std::string m_FileName;
 };
-
+}
 #endif	// #ifndef KeyFileProsemus_h

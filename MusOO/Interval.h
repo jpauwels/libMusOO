@@ -13,6 +13,8 @@
 #include <map>
 #include <vector>
 
+namespace MusOO
+{
 class Chroma;
 class Mode;
 
@@ -104,5 +106,5 @@ private:
 	static const std::vector<std::string> s_MinorDegrees;
 
 };
-
+}
 #endif	// #ifndef Interval_h

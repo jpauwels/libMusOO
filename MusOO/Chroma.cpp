@@ -20,8 +20,9 @@
 #include <ostream>
 #include <vector>
 	using std::vector;
-#include "Chroma.h"
-#include "Interval.h"
+#include "MusOO/Chroma.h"
+#include "MusOO/Interval.h"
+using namespace MusOO;
 
 const Chroma& Chroma::silence()
 {
@@ -343,7 +344,7 @@ const bool Chroma::isTrueChroma() const
 	return *this != silence() && *this != none() && *this != undefined();
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const Chroma& inChroma)
+std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const Chroma& inChroma)
 {
 	inOutputStream << inChroma.str();
 	return inOutputStream;

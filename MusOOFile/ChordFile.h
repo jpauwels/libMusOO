@@ -10,8 +10,10 @@
 	@date		20090119
 */
 //============================================================================
-#include "TimedChord.h"
+#include "MusOO/TimedChord.h"
 
+namespace MusOO
+{
 class ChordFile
 {
 public:
@@ -34,5 +36,5 @@ protected:
 	TimedChordSequence m_TimedChords;
     bool m_PitchSpelled;
 };
-
+}
 #endif	// #ifndef ChordFile_h

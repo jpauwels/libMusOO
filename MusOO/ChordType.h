@@ -11,8 +11,10 @@
 //============================================================================
 #include <string>
 #include <set>
-#include "IntervalClassSet.h"
+#include "MusOO/IntervalClassSet.h"
 
+namespace MusOO
+{
 class ChordType: public IntervalClassSet
 {
 public:
@@ -106,5 +108,5 @@ private:
 	// only used for construction of static modes
 	ChordType(const Interval* inIntervalList, const int inNumOfIntervals, const Interval& inBass = Interval::undefined());
 };
-
+}
 #endif	// #ifndef ChordType_h

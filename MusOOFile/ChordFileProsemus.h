@@ -11,10 +11,12 @@
 //============================================================================
 #include <fstream>
 #include <string>
-#include "ChordFile.h"
-#include "ChordProsemus.h"
-#include "TimedLabel.h"
+#include "MusOOFile/ChordFile.h"
+#include "MusOO/TimedLabel.h"
+#include "MusOO/ChordProsemus.h"
 
+namespace MusOO
+{
 class ChordFileProsemus : public ChordFile
 {
 public:
@@ -39,5 +41,5 @@ private:
 	std::string m_FilePath;
 
 };
-
+}
 #endif	// #ifndef ChordFileProsemus_h

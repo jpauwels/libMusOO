@@ -11,13 +11,14 @@
 #include <string>
 #include <vector>
 #include <set>
-#include "Key.h"
-#include "Chord.h"
-#include "RelativeChord.h"
+#include "MusOO/Key.h"
+#include "MusOO/Chord.h"
+#include "MusOO/RelativeChord.h"
 
 using std::string;
 using std::vector;
 using std::set;
+using namespace MusOO;
 
 const Key& Key::silence()
 {

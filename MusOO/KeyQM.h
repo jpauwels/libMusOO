@@ -10,9 +10,10 @@
 	@date		20100330
 */
 //============================================================================
-#include <string>
-#include "Key.h"
+#include "MusOO/Key.h"
 
+namespace MusOO
+{
 class ModeQM : public Mode
 {
 public:
@@ -49,5 +50,5 @@ private:
 
 std::ostream& operator<<(std::ostream& inOutputStream, const ModeQM& inMode);
 std::ostream& operator<<(std::ostream& inOutputStream, const KeyQM& inKey);
-
+}
 #endif	// #ifndef KeyQM_h

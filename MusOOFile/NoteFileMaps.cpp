@@ -9,10 +9,11 @@
 
 // Includes
 #include <vector>
-#include "NoteFileMaps.h"
+#include "MusOOFile/NoteFileMaps.h"
 
 using std::vector;
 using std::string;
+using namespace MusOO;
 
 const std::string NoteFileMaps::s_HeaderInit[] = {string("OnsetTime"), string("OffsetTime"), string("MidiPitch")};
 

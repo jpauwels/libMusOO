@@ -11,11 +11,13 @@
 */
 //============================================================================
 #include <string>
-#include "ChordFile.h"
-#include "ChordQM.h"
-#include "LabFile.h"
+#include "MusOOFile/ChordFile.h"
+#include "MusOO/ChordQM.h"
+#include "MusOOFile/LabFile.h"
 
 
+namespace MusOO
+{
 class ChordFileQM : public ChordFile
 {
 public:
@@ -35,5 +37,5 @@ private:
 
 	LabFile<ChordQM> m_File;
 };
-
+}
 #endif	// #ifndef ChordFileQM_h

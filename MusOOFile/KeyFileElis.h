@@ -11,10 +11,12 @@
 */
 //============================================================================
 #include <string>
-#include "KeyFile.h"
-#include "KeyElis.h"
-#include "LabFile.h"
+#include "MusOOFile/KeyFile.h"
+#include "MusOOFile/LabFile.h"
+#include "MusOO/KeyElis.h"
 
+namespace MusOO
+{
 class KeyFileElis : public KeyFile
 {
 public:
@@ -35,4 +37,5 @@ private:
 	LabFile<KeyElis> m_File;
 
 };
+}
 #endif	// #ifndef KeyFileElis_h

@@ -11,17 +11,15 @@
 //============================================================================
 #include <stdexcept>
 #include <boost/filesystem.hpp>
-#include "KeyFileElis.h"
-#include "KeyFileQM.h"
-#include "KeyFileProsemus.h"
-#include "KeyFileMuDesc.h"
-#include "KeyQuaero.h"
+#include "MusOOFile/KeyFileElis.h"
+#include "MusOOFile/KeyFileQM.h"
+#include "MusOOFile/KeyFileProsemus.h"
+#include "MusOOFile/KeyFileMuDesc.h"
+#include "MusOO/KeyQuaero.h"
 
-class KeyFileUtil
+namespace MusOO { namespace KeyFileUtil
 {
-public:
-
-	static KeyFile* newKeyFileFromExtension(boost::filesystem::path inFileName, const bool inPitchSpelled)
+	KeyFile* const newKeyFileFromExtension(const boost::filesystem::path& inFileName, const bool inPitchSpelled)
 	{
 		if (inFileName.extension() == ".lab")
 		{
@@ -57,12 +55,19 @@ public:
 		}
 	}
 
-protected:
+    const TimedKeySequence readKeySequenceFromFile(const boost::filesystem::path& inFilePath, const bool inPitchSpelled)
+    {
+        KeyFile* const theKeyFile = KeyFileUtil::newKeyFileFromExtension(inFilePath, inPitchSpelled);
+        if (theKeyFile->isEmpty())
+        {
+            delete theKeyFile;
+            throw std::runtime_error("The file " + inFilePath.string() + " does not contain any keys");
+        }
+        const TimedKeySequence retKeySequence = theKeyFile->readAll();
+        delete theKeyFile;
+        return retKeySequence;
+    }
 
-
-private:
-
-
-};
+} }
 
 #endif	// #ifndef KeyFileUtil_h

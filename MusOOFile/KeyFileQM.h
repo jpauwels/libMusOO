@@ -10,10 +10,12 @@
 */
 //============================================================================
 #include <string>
-#include "KeyFile.h"
-#include "KeyQM.h"
-#include "LabFile.h"
+#include "MusOOFile/KeyFile.h"
+#include "MusOO/KeyQM.h"
+#include "MusOOFile/LabFile.h"
 
+namespace MusOO
+{
 class KeyFileQM : public KeyFile
 {
 public:
@@ -34,5 +36,5 @@ private:
 //	KeyQMSequence m_TimedKeys;
 	LabFile<KeyQM> m_File;
 };
-
+}
 #endif	// #ifndef KeyFileQM_h

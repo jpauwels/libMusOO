@@ -10,11 +10,12 @@
 // Includes
 #include <sstream>
 #include <stdexcept>
-#include "RelativeChord.h"
-#include "ChordQM.h"
+#include "MusOO/RelativeChord.h"
+#include "MusOO/ChordQM.h"
 
 using std::string;
 using std::ostringstream;
+using namespace MusOO;
 
 const RelativeChord& RelativeChord::silence()
 {

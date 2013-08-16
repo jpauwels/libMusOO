@@ -12,21 +12,18 @@
 #include <stdexcept>
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string/predicate.hpp>
-#include <string>
-#include "ChordFileQM.h"
-#include "ChordFileProsemus.h"
-#include "ChordFileSonicAnnotatorCSV.h"
-#include "ChordFileMuDesc.h"
-#include "ChordQuaero.h"
+#include "MusOOFile/ChordFileQM.h"
+#include "MusOOFile/ChordFileProsemus.h"
+#include "MusOOFile/ChordFileSonicAnnotatorCSV.h"
+#include "MusOOFile/ChordFileMuDesc.h"
+#include "MusOO/ChordQuaero.h"
 
-using boost::algorithm::ends_with;
 
-class ChordFileUtil
+namespace MusOO { namespace ChordFileUtil
 {
-public:
-
-	static ChordFile* newChordFileFromExtension(boost::filesystem::path inFileName, const bool inPitchSpelled, std::string inFileTypeSelect = "auto")
+	ChordFile* const newChordFileFromExtension(const boost::filesystem::path& inFileName, const bool inPitchSpelled, const std::string& inFileTypeSelect = "auto")
 	{
+        using boost::algorithm::ends_with;
 		if (inFileTypeSelect == "QMUL" || (inFileTypeSelect == "auto" && (inFileName.extension() == ".lab" || inFileName.extension() == ".txt")))
 		{
 			return new ChordFileQM(inFileName.string(), inPitchSpelled);
@@ -56,13 +53,18 @@ public:
 			throw std::invalid_argument("Unknown type selector " + inFileTypeSelect);
 		}
 	}
-
-protected:
-
-
-private:
-
-
-};
+    
+    const TimedChordSequence readChordSequenceFromFile(const boost::filesystem::path& inFilePath, const bool inPitchSpelled, const std::string& inFileTypeSelect = "auto")
+    {
+        ChordFile* const theChordFile = newChordFileFromExtension(inFilePath, inPitchSpelled, inFileTypeSelect);
+        if (theChordFile->isEmpty())
+        {
+            throw std::runtime_error("The file " + inFilePath.string() + " does not contain any chords");
+        }
+        const TimedChordSequence retChords = theChordFile->readAll();
+        delete theChordFile;
+        return retChords;
+    }
+} }
 
 #endif	// #ifndef ChordFileUtil_h

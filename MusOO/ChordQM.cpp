@@ -11,7 +11,7 @@ Implementation file for ChordQM.h
 #include <stdexcept>
 #include <algorithm>
 #include <sstream>
-#include "ChordQM.h"
+#include "MusOO/ChordQM.h"
 
 using std::string;
 using std::vector;
@@ -22,7 +22,7 @@ using std::istringstream;
 using std::ostringstream;
 using std::min;
 using std::set;
-
+using namespace MusOO;
 
 //----------------------------------------------------------------------------//
 // ChordQM                                                                    //
@@ -461,13 +461,16 @@ const std::string ChordTypeQM::str() const
 	return theString;
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const ChordQM& inChord)
+//----------------------------------------------------------------------------//
+// Non-member stream operators                                                //
+//----------------------------------------------------------------------------//
+std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ChordQM& inChord)
 {
 	inOutputStream << inChord.str();
 	return inOutputStream;
 }
 
-std::istream& operator>>(std::istream& inInputStream, ChordQM& inChord)
+std::istream& MusOO::operator>>(std::istream& inInputStream, ChordQM& inChord)
 {
 	string theChordString;
 	inInputStream >> theChordString;
@@ -475,7 +478,7 @@ std::istream& operator>>(std::istream& inInputStream, ChordQM& inChord)
 	return inInputStream;
 }
 
-std::istream& operator>>(std::istream& inInputStream, ChordTypeQM& outChordType)
+std::istream& MusOO::operator>>(std::istream& inInputStream, ChordTypeQM& outChordType)
 {
 	std::string theString;
 	inInputStream >> theString;
@@ -483,19 +486,19 @@ std::istream& operator>>(std::istream& inInputStream, ChordTypeQM& outChordType)
 	return inInputStream;
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const ChordTypeQM& inChordType)
+std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ChordTypeQM& inChordType)
 {
 	inOutputStream << inChordType.str();
 	return inOutputStream;
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const ChordinoChord& inChord)
+std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ChordinoChord& inChord)
 {
 	inOutputStream << inChord.str();
 	return inOutputStream;
 }
 
-std::istream& operator>>(std::istream& inInputStream, ChordinoChord& inChord)
+std::istream& MusOO::operator>>(std::istream& inInputStream, ChordinoChord& inChord)
 {
 	string theChordString;
 	inInputStream >> theChordString;

@@ -8,7 +8,9 @@
 //============================================================================
 
 // Includes
-#include "KeyFileQM.h"
+#include "MusOOFile/KeyFileQM.h"
+
+using namespace MusOO;
 
 KeyFileQM::KeyFileQM(const bool inPitchSpelled)
 : KeyFile(inPitchSpelled)

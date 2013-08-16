@@ -8,7 +8,9 @@
 //============================================================================
 
 // Includes
-#include "ChordFile.h"
+#include "MusOOFile/ChordFile.h"
+
+using namespace MusOO;
 
 ChordFile::ChordFile(const bool inPitchSpelled) 
 : m_FileHasChanged(false), m_PitchSpelled(inPitchSpelled)

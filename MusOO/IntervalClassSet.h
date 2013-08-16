@@ -11,9 +11,10 @@
 //============================================================================
 #include <set>
 #include <string>
-#include "Interval.h"
+#include "MusOO/Interval.h"
 
-
+namespace MusOO
+{
 class IntervalClassSet
 {
 public:
@@ -70,5 +71,5 @@ protected:
 private:
     
 };
-
+}
 #endif	// #ifndef IntervalClassSet_h

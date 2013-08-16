@@ -13,10 +13,11 @@
 #include <sstream>
 	using std::ostringstream;
 #include <stdexcept>
-#include "ChordType.h"
+#include "MusOO/ChordType.h"
 
 using std::set;
 using std::invalid_argument;
+using namespace MusOO;
 
 /****************************/
 /* Static factory functions */

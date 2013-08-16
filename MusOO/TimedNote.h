@@ -13,7 +13,9 @@
 #include "TimedLabel.h"
 #include "Note.h"
 
+namespace MusOO
+{
 typedef TimedLabel<Note> TimedNote;
 typedef std::vector<TimedLabel<Note> > NoteSequence;
-
+}
 #endif	// #ifndef TimedNote_h

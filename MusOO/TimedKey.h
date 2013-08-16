@@ -10,10 +10,12 @@
 */
 //============================================================================
 #include <vector>
-#include "TimedLabel.h"
-#include "Key.h"
+#include "MusOO/TimedLabel.h"
+#include "MusOO/Key.h"
 
+namespace MusOO
+{
 typedef TimedLabel<Key> TimedKey;
-typedef std::vector<TimedKey> KeySequence;
-
+typedef std::vector<TimedKey> TimedKeySequence;
+}
 #endif	// #ifndef TimedKey_h

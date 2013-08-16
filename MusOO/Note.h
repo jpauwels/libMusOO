@@ -9,9 +9,10 @@
 	@date		20090120
 */
 //============================================================================
-#include <string>
-#include "Chroma.h"
+#include "MusOO/Chroma.h"
 
+namespace MusOO
+{
 class Note
 {
 public:
@@ -53,5 +54,5 @@ private:
 	Note(Chroma inChroma, ptrdiff_t inOctave);
 	
 };
-
+}
 #endif	// #ifndef Note_h

@@ -10,11 +10,12 @@
 // Includes
 #include <map>
 #include <stdexcept>
-#include "ChordProsemus.h"
+#include "MusOO/ChordProsemus.h"
 
 using std::map;
 using std::pair;
 using std::string;
+using namespace MusOO;
 
 ProsemusChord::ProsemusChord()
 {

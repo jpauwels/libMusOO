@@ -10,10 +10,12 @@
 */
 //============================================================================
 #include <vector>
-#include "TimedLabel.h"
-#include "Chord.h"
+#include "MusOO/TimedLabel.h"
+#include "MusOO/Chord.h"
 
+namespace MusOO
+{
 typedef TimedLabel<Chord> TimedChord;
 typedef std::vector<TimedLabel<Chord> > TimedChordSequence;
-
+}
 #endif	// #ifndef TimedChord_h

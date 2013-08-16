@@ -10,8 +10,10 @@
 	@date		20101203
 */
 //============================================================================
-#include "TimedNote.h"
+#include "MusOO/TimedNote.h"
 
+namespace MusOO
+{
 class NoteFile
 {
 public:
@@ -34,5 +36,5 @@ protected:
 
 
 };
-
+}
 #endif	// #ifndef NoteFile_h

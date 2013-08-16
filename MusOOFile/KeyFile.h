@@ -9,8 +9,10 @@
 	@date		20100322
 */
 //============================================================================
-#include "TimedKey.h"
+#include "MusOO/TimedKey.h"
 
+namespace MusOO
+{
 class KeyFile
 {
 public:
@@ -19,9 +21,9 @@ public:
 	/** Destructor. */
 	virtual ~KeyFile();
 
-	const KeySequence& readAll();
-	const KeySequence readRange(double inStartTime, double inEndTime);
-	void writeAll(KeySequence& inTimedKeys);
+	const TimedKeySequence& readAll();
+	const TimedKeySequence readRange(double inStartTime, double inEndTime);
+	void writeAll(TimedKeySequence& inTimedKeys);
 	bool isEmpty() const;
 
 	virtual void open(const std::string& inFileName) = 0;
@@ -29,9 +31,9 @@ public:
 
 protected:
 
-	KeySequence m_TimedKeys;
+	TimedKeySequence m_TimedKeys;
 	bool m_FileHasChanged;
     bool m_PitchSpelled;
 };
-
+}
 #endif	// #ifndef KeyFile_h

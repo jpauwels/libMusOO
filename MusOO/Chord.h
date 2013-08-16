@@ -10,9 +10,11 @@
 */
 //============================================================================
 #include <string>
-#include "Chroma.h"
-#include "ChordType.h"
+#include "MusOO/Chroma.h"
+#include "MusOO/ChordType.h"
 
+namespace MusOO
+{
 class Key;
 
 class Chord
@@ -69,9 +71,8 @@ protected:
 	ChordType m_Type;
 
 private:
-
-
 };
+}
 
 
 #endif	// #ifndef Chord_h

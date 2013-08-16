@@ -8,14 +8,14 @@
 //============================================================================
 
 // Includes
-#include <string>
-	using std::string;
 #include <sstream>
-	using std::ostringstream;
-#include "Mode.h"
-#include "RelativeChord.h"
+#include "MusOO/Mode.h"
+#include "MusOO/RelativeChord.h"
 
 using std::set;
+using std::string;
+using std::ostringstream;
+using namespace MusOO;
 
 Mode Mode::none()
 {

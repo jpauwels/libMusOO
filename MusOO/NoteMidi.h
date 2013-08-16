@@ -9,8 +9,10 @@
 	@date		20101206
 */
 //============================================================================
-#include "Note.h"
+#include "MusOO/Note.h"
 
+namespace MusOO
+{
 class NoteMidi : public Note
 {
 public:
@@ -41,5 +43,5 @@ private:
 
 std::ostream& operator<<(std::ostream& inOutputStream, const NoteMidi& inNote);
 std::istream& operator>>(std::istream& inInputStream, NoteMidi& inNote);
-
+}
 #endif	// #ifndef NoteMidi_h

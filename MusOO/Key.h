@@ -11,9 +11,11 @@
 */
 //============================================================================
 #include <string>
-#include "Chroma.h"
-#include "Mode.h"
+#include "MusOO/Chroma.h"
+#include "MusOO/Mode.h"
 
+namespace MusOO
+{
 class RelativeChord;
 class Chord;
 
@@ -67,5 +69,5 @@ private:
 
 
 };
-
+}
 #endif	// #ifndef Key_h

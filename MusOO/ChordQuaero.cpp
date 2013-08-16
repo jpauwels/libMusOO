@@ -10,14 +10,15 @@
 // Includes
 #include <map>
 #include <stdexcept>
-#include "ChordQuaero.h"
-#include "ChromaSolfege.h"
+#include "MusOO/ChordQuaero.h"
+#include "MusOO/ChromaSolfege.h"
 
 using std::map;
 using std::pair;
 using std::string;
 using std::min;
 using std::set;
+using namespace MusOO;
 
 //----------------------------------------------------------------------------//
 // ChordQuaero                                                                //
@@ -81,13 +82,13 @@ const std::string ChordQuaero::trimRight(const std::string& inString)
     return inString.substr(0, theEndIdx+1);
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const ChordQuaero& inChord)
+std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ChordQuaero& inChord)
 {
 	inOutputStream << inChord.str();
 	return inOutputStream;
 }
 
-std::istream& operator>>(std::istream& inInputStream, ChordQuaero& inChord)
+std::istream& MusOO::operator>>(std::istream& inInputStream, ChordQuaero& inChord)
 {
 	string theChordString;
 	inInputStream >> theChordString;
@@ -369,7 +370,7 @@ const std::string ChordTypeQuaero::getConstrainedString(const ChromaSolfege& inC
 	return theConstrainedString;
 }
 
-std::istream& operator>>(std::istream& inInputStream, ChordTypeQuaero& outChordType)
+std::istream& MusOO::operator>>(std::istream& inInputStream, ChordTypeQuaero& outChordType)
 {
 	std::string theString;
 	inInputStream >> theString;
@@ -377,7 +378,7 @@ std::istream& operator>>(std::istream& inInputStream, ChordTypeQuaero& outChordT
 	return inInputStream;
 }
 
-std::ostream& operator<<(std::ostream& inOutputStream, const ChordTypeQuaero& inChordType)
+std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ChordTypeQuaero& inChordType)
 {
 	inOutputStream << inChordType.str();
 	return inOutputStream;

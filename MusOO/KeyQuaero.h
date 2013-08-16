@@ -9,9 +9,10 @@
  @date		20130417
  */
 //============================================================================
-#include <string>
-#include "Key.h"
+#include "MusOO/Key.h"
 
+namespace MusOO
+{
 class ModeQuaero : public Mode
 {
 public:
@@ -50,5 +51,5 @@ private:
 
 std::ostream& operator<<(std::ostream& inOutputStream, const ModeQuaero& inMode);
 std::ostream& operator<<(std::ostream& inOutputStream, const KeyQuaero& inKey);
-
+}
 #endif	// #ifndef KeyQuaero_h

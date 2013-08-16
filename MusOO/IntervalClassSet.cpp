@@ -11,12 +11,13 @@
 #include <sstream>
 #include <stdexcept>
 #include <algorithm>
-#include "IntervalClassSet.h"
+#include "MusOO/IntervalClassSet.h"
 
 using std::ostringstream;
 using std::set;
 using std::invalid_argument;
 using std::includes;
+using namespace MusOO;
 
 /*******************************/
 /* Constructors and destructor */

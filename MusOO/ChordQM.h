@@ -11,8 +11,10 @@
 //============================================================================
 #include <string>
 #include <map>
-#include "Chord.h"
+#include "MusOO/Chord.h"
 
+namespace MusOO
+{
 class ChordTypeQM : public ChordType
 {
 public:
@@ -94,5 +96,5 @@ std::ostream& operator<<(std::ostream& inOutputStream, const ChordTypeQM& inChor
 std::istream& operator>>(std::istream& inInputStream, ChordTypeQM& inChordType);
 std::ostream& operator<<(std::ostream& inOutputStream, const ChordinoChord& inChord);
 std::istream& operator>>(std::istream& inInputStream, ChordinoChord& inChord);
-
+}
 #endif	// #ifndef ChordQM_h

@@ -12,12 +12,14 @@
 #include <sstream>
 #include <algorithm>
 #include <set>
-#include "Chord.h"
-#include "Key.h"
+#include "MusOO/Chord.h"
+#include "MusOO/Key.h"
 
 using std::vector;
 using std::set;
 using std::ostringstream;
+
+using namespace MusOO;
 
 const Chord& Chord::none()
 {

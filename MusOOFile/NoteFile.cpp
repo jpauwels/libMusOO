@@ -8,7 +8,9 @@
 //============================================================================
 
 // Includes
-#include "NoteFile.h"
+#include "MusOOFile/NoteFile.h"
+
+using namespace MusOO;
 
 NoteFile::NoteFile()
 {

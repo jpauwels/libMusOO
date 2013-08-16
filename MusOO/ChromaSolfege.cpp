@@ -1,11 +1,12 @@
 
 #include <stdexcept>
 #include <cmath>
-#include "ChromaSolfege.h"
+#include "MusOO/ChromaSolfege.h"
 
 using std::map;
 using std::string;
 using std::pair;
+using namespace MusOO;
 
 const string ChromaSolfege::s_linePositionToString[] = {"fa", "do", "sol", "re", "la", "mi", "si"};
 
