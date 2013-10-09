@@ -109,24 +109,27 @@ void MusOO::LabFile<Label>::open(const std::string& inFileName)
 		}
 		while (getline(m_LabFile, theLine))
 		{
-			std::istringstream theStringStream(theLine);
-			TimedLabel<Label> theCurLabel;
-			theStringStream >> theCurLabel.onset();
-			theStringStream >> theCurLabel.offset();
-			//get remaining content of stringstream
-			theStringStream.clear(); //clear error flags for files without onset/offset
-			std::string theLabelString;
-			theStringStream >> theLabelString;
-			std::string theExtraString;
-			getline(theStringStream,theExtraString);
-			theLabelString += theExtraString;
-			// handle windows files under unix
-			if (theLabelString[theLabelString.size()-1] == '\r')
-			{
-				theLabelString.erase(theLabelString.size()-1);
-			}
-			theCurLabel.label() = Label(theLabelString);
-			m_TimedLabels.push_back(theCurLabel);
+            if (!theLine.empty())
+            {
+                std::istringstream theStringStream(theLine);
+                TimedLabel<Label> theCurLabel;
+                theStringStream >> theCurLabel.onset();
+                theStringStream >> theCurLabel.offset();
+                //get remaining content of stringstream
+                theStringStream.clear(); //clear error flags for files without onset/offset
+                std::string theLabelString;
+                theStringStream >> theLabelString;
+                std::string theExtraString;
+                getline(theStringStream,theExtraString);
+                theLabelString += theExtraString;
+                // handle windows files under unix
+                if (theLabelString[theLabelString.size()-1] == '\r')
+                {
+                    theLabelString.erase(theLabelString.size()-1);
+                }
+                theCurLabel.label() = Label(theLabelString);
+                m_TimedLabels.push_back(theCurLabel);
+            }
 		}
 	}
 }
@@ -180,7 +183,7 @@ void MusOO::LabFile<Label>::close()
 		for (size_t i = 0; i < m_TimedLabels.size(); ++i)
 		{
 			m_LabFile << m_TimedLabels[i].onset() << "\t" << m_TimedLabels[i].offset() << "\t"
-            << m_TimedLabels[i].label().str() << "\n";
+            << m_TimedLabels[i].label() << "\n";
 		}
 		m_LabFile.flush();
 		m_LabFile.close();
