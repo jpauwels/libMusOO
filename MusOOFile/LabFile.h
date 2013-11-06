@@ -26,9 +26,9 @@ class LabFile
 public:
 
 	/** Default constructor. */
-	LabFile(const std::vector<std::string>& inHeader = std::vector<std::string>());
+	LabFile(const bool inMergeLabels = false, const std::vector<std::string>& inHeader = std::vector<std::string>());
 
-	LabFile(const std::string& inFileName, 
+	LabFile(const std::string& inFileName, const bool inMergeLabels = false,
 		const std::vector<std::string>& inHeader = std::vector<std::string>());
 
 	void open(const std::string& inFileName);
@@ -49,6 +49,7 @@ protected:
 	typename std::vector<TimedLabel<Label> >::iterator m_Iterator;
 	bool m_FileHasChanged;
 	std::vector<std::string> m_Header;
+    bool m_MergeLabels;
 
 private:
 	void close();
@@ -57,8 +58,10 @@ private:
 }
 
 template <typename Label>
-MusOO::LabFile<Label>::LabFile(const std::vector<std::string>& inHeader /*= std::vector<std::string>()*/)
-: m_FileHasChanged(false), m_Header(inHeader)
+MusOO::LabFile<Label>::LabFile(const bool inMergeLabels /*= false*/, const std::vector<std::string>& inHeader /*= std::vector<std::string>()*/)
+: m_FileHasChanged(false)
+, m_Header(inHeader)
+, m_MergeLabels(inMergeLabels)
 {
 	if (!m_Header.empty() && m_Header.size() != 3)
 	{
@@ -67,10 +70,16 @@ MusOO::LabFile<Label>::LabFile(const std::vector<std::string>& inHeader /*= std:
 }
 
 template <typename Label>
-MusOO::LabFile<Label>::LabFile(const std::string& inFileName,
+MusOO::LabFile<Label>::LabFile(const std::string& inFileName, const bool inMergeLabels /*= false*/,
                                const std::vector<std::string>& inHeader /*= std::vector<std::string>()*/)
-: m_Header(inHeader)
+: m_FileHasChanged(false)
+, m_Header(inHeader)
+, m_MergeLabels(inMergeLabels)
 {
+    if (!m_Header.empty() && m_Header.size() != 3)
+	{
+		throw std::length_error("The header has an invalid number of elements.");
+	}
 	open(inFileName);
 }
 
@@ -128,7 +137,14 @@ void MusOO::LabFile<Label>::open(const std::string& inFileName)
                     theLabelString.erase(theLabelString.size()-1);
                 }
                 theCurLabel.label() = Label(theLabelString);
-                m_TimedLabels.push_back(theCurLabel);
+                if (m_MergeLabels && !m_TimedLabels.empty() && Label(theLabelString) == m_TimedLabels.back().label())
+                {
+                    m_TimedLabels.back().offset() = theCurLabel.offset();
+                }
+                else
+                {
+                    m_TimedLabels.push_back(theCurLabel);
+                }
             }
 		}
 	}
