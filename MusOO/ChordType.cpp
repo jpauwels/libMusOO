@@ -396,7 +396,8 @@ const ChordType ChordType::triad(bool inWithBass) const
             //if nothing else matches
             theTriadType = rootOnly();
         }
-        if (inWithBass)
+        // if bass has to be kept and if the original bass is part of the mapped type
+        if (inWithBass && theTriadType.m_IntervalList.count(this->m_Bass) > 0)
         {
             theTriadType.m_Bass = this->m_Bass;
         }
@@ -585,7 +586,8 @@ const ChordType ChordType::tetrad(bool inWithBass) const
             //if nothing else matches
             theTetradType = rootOnly();
         }
-        if (inWithBass)
+        // if bass has to be kept and if the original bass is part of the mapped type
+        if (inWithBass && theTetradType.m_IntervalList.count(this->m_Bass) > 0)
         {
             theTetradType.m_Bass = this->m_Bass;
         }

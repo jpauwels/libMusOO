@@ -43,6 +43,11 @@ ChordQM::ChordQM(const std::string& inChordString)
 		// No-chord
 		*this = Chord::none();
 	}
+	else if (inChordString == "X" || inChordString == "U")
+	{
+		// Undefined
+		*this = Chord::undefined();
+	}
 	else
 	{
 		//find colon which separates root and type
