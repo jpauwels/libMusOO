@@ -18,12 +18,12 @@ using namespace MusOO;
 const std::string NoteFileMaps::s_HeaderInit[] = {string("OnsetTime"), string("OffsetTime"), string("MidiPitch")};
 
 NoteFileMaps::NoteFileMaps()
-: m_LabFile(vector<string>(s_HeaderInit, s_HeaderInit+3))
+: m_LabFile(false, vector<string>(s_HeaderInit, s_HeaderInit+3))
 {
 }
 
 NoteFileMaps::NoteFileMaps(std::string inFileName)
-: m_LabFile(vector<string>(s_HeaderInit, s_HeaderInit+3))
+: m_LabFile(false, vector<string>(s_HeaderInit, s_HeaderInit+3))
 {
 	open(inFileName);
 }
