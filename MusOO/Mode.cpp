@@ -8,6 +8,7 @@
 //============================================================================
 
 // Includes
+#include <cstdlib>
 #include <sstream>
 #include "MusOO/Mode.h"
 #include "MusOO/RelativeChord.h"
@@ -142,7 +143,7 @@ size_t Mode::diatonicCircleDistance(const Interval& inInterval1, const Interval&
 	}
 	ptrdiff_t theDiatonicPosition1 = diatonicPosition(inInterval1.diatonicNumber());
 	ptrdiff_t theDiatonicPosition2 = diatonicPosition(inInterval2.diatonicNumber());
-	return std::min(abs(theDiatonicPosition1-theDiatonicPosition2), 7 - abs(theDiatonicPosition1-theDiatonicPosition2));
+	return std::min(std::abs(theDiatonicPosition1-theDiatonicPosition2), 7 - std::abs(theDiatonicPosition1-theDiatonicPosition2));
 }
 
 ptrdiff_t Mode::diatonicPosition(const ptrdiff_t inDiatonicNumber) const

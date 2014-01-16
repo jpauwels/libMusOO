@@ -13,6 +13,7 @@
 #include <sstream>
 	using std::ostringstream;
 #include <stdexcept>
+#include <algorithm>
 #include "MusOO/ChordType.h"
 
 using std::set;
@@ -613,9 +614,9 @@ void ChordType::subtract(const ChordType& inType)
 void ChordType::subtract(const ChordType& inType, std::set<Interval>& outRestIntervals, std::set<Interval>& outMissingIntervals) const
 {
     outRestIntervals = set<Interval>();
-	set_difference(m_IntervalList.begin(), m_IntervalList.end(), inType.m_IntervalList.begin(), inType.m_IntervalList.end(), std::inserter(outRestIntervals, outRestIntervals.end()));
+    std::set_difference(m_IntervalList.begin(), m_IntervalList.end(), inType.m_IntervalList.begin(), inType.m_IntervalList.end(), std::inserter(outRestIntervals, outRestIntervals.end()));
     outMissingIntervals = set<Interval>();
-	set_difference(inType.m_IntervalList.begin(), inType.m_IntervalList.end(), m_IntervalList.begin(), m_IntervalList.end(), std::inserter(outMissingIntervals, outMissingIntervals.end()));
+    std::set_difference(inType.m_IntervalList.begin(), inType.m_IntervalList.end(), m_IntervalList.begin(), m_IntervalList.end(), std::inserter(outMissingIntervals, outMissingIntervals.end()));
 }
 
 /**********************/
@@ -669,7 +670,7 @@ const ChordType ChordType::withoutBass() const
 
 const bool ChordType::hasSpelling() const
 {
-    return IntervalClassSet::hasSpelling() and m_Bass.hasSpelling();
+    return IntervalClassSet::hasSpelling() && m_Bass.hasSpelling();
 }
 
 ChordType& ChordType::ignoreSpelling()
