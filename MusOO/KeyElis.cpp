@@ -44,7 +44,12 @@ KeyElis::~KeyElis()
 
 const std::string KeyElis::str() const
 {
-	return m_Tonic.str() + "\t" + ModeElis(m_Mode).str();
+    string theKeyString = m_Tonic.str();
+	if (isTrueKey())
+	{
+		theKeyString += "\t" + ModeElis(m_Mode).str();
+	}
+	return theKeyString;
 }
 
 ModeElis::ModeElis() 

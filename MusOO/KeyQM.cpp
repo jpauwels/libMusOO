@@ -22,7 +22,7 @@ KeyQM::KeyQM()
 {
 }
 
-KeyQM::KeyQM(const std::string& inKeyString)
+KeyQM::KeyQM(std::string inKeyString)
 {
 	if (!inKeyString.compare(0,1,"S") || !inKeyString.compare("N"))
 	{
@@ -31,29 +31,28 @@ KeyQM::KeyQM(const std::string& inKeyString)
 	}
 	else
 	{
-		istringstream theStringStream(inKeyString);
-		string theString;
-		theStringStream >> theString;
-		if (!theString.compare("Key"))
+		if (!inKeyString.compare(0, 3, "Key"))
 		{
-			theStringStream >> theString;
+            istringstream theStringStream(inKeyString);
+            theStringStream >> inKeyString;
+			inKeyString = theStringStream.str();
 		}
-		if (!theString.compare("N"))
+		if (!inKeyString.compare("N"))
 		{
 			*this = Key::silence();
 		}
 		else
 		{
 			//find colon which separates tonic and mode
-			size_t theColon = theString.find(":");
-			m_Tonic = Chroma(theString.substr(0,theColon));
+			size_t theColon = inKeyString.find(":");
+			m_Tonic = Chroma(inKeyString.substr(0,theColon));
 			if (theColon == string::npos)
 			{
 				m_Mode = Mode::major();
 			}
 			else
 			{
-				m_Mode = ModeQM(theString.substr(theColon+1));
+				m_Mode = ModeQM(inKeyString.substr(theColon+1));
 			}
 		}
 	}

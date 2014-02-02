@@ -31,7 +31,7 @@ public:
 
 	/** Default constructor. */
 	KeyQM();
-	KeyQM(const std::string& inKeyString);
+	KeyQM(std::string inKeyString);
 	// copy constructor
 	KeyQM(const Key& inKey);
 

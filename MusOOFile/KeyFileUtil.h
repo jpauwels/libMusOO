@@ -19,45 +19,37 @@
 
 namespace MusOO { namespace KeyFileUtil
 {
-	KeyFile* const newKeyFileFromExtension(const boost::filesystem::path& inFileName, const bool inPitchSpelled)
+	KeyFile* const newKeyFileFromExtension(const boost::filesystem::path& inFileName, const bool inPitchSpelled, const std::string& inFileFormat = "auto")
 	{
-		if (inFileName.extension() == ".lab")
+		if (inFileFormat == "QMUL" || (inFileFormat == "auto" && inFileName.extension() == ".lab"))
 		{
-//			if ((inFileName.stem().string().size() >= 5 &&
-//				!inFileName.stem().string().compare(inFileName.stem().string().size()-5,5,"-keys")) ||
-//				(inFileName.stem().string().size() >=  8 &&
-//				!inFileName.stem().string().compare(inFileName.stem().string().size()-8,8,"-globkey")) ||
-//				(inFileName.stem().string().size() >=  10 &&
-//				!inFileName.stem().string().compare(inFileName.stem().string().size()-10,10,"-globalkey")))
-//			{
-//				return new KeyFileElis(inFileName.string());
-//			}
-//			else
-			{
-				return new KeyFileQM(inFileName.string(), inPitchSpelled);
-			}
+			return new KeyFileQM(inFileName.string(), inPitchSpelled);
 		}
-		else if (inFileName.extension() == ".txt")
+		else if (inFileFormat == "Elis" || (inFileFormat == "auto" && inFileName.extension() == ".txt"))
 		{
 			return new KeyFileElis(inFileName.string(), inPitchSpelled);
 		}
-		else if (inFileName.extension() == ".key")
+		else if (inFileFormat == "Prosemus" || (inFileFormat == "auto" && inFileName.extension() == ".key"))
 		{
 			return new KeyFileProsemus(inFileName.string(), inPitchSpelled);
 		}
-		else if (inFileName.extension() == ".xml")
+		else if (inFileFormat == "Quaero" || (inFileFormat == "auto" && inFileName.extension() == ".xml"))
 		{
 			return new KeyFileMuDesc<KeyQuaero>(inFileName.string(), inPitchSpelled);
 		}
+		else if (inFileFormat == "auto")
+		{
+			throw std::invalid_argument("Cannot automatically derive file format from extension " + inFileName.extension().string());
+		}
 		else
 		{
-			throw std::invalid_argument("Unknown extension " + inFileName.extension().string());
+			throw std::invalid_argument("Unknown file format selector " + inFileFormat);
 		}
 	}
 
-    const TimedKeySequence readKeySequenceFromFile(const boost::filesystem::path& inFilePath, const bool inPitchSpelled)
+    const TimedKeySequence readKeySequenceFromFile(const boost::filesystem::path& inFilePath, const bool inPitchSpelled, const std::string& inFileFormat = "auto")
     {
-        KeyFile* const theKeyFile = KeyFileUtil::newKeyFileFromExtension(inFilePath, inPitchSpelled);
+        KeyFile* const theKeyFile = KeyFileUtil::newKeyFileFromExtension(inFilePath, inPitchSpelled, inFileFormat);
         if (theKeyFile->isEmpty())
         {
             delete theKeyFile;
