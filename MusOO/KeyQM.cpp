@@ -33,9 +33,11 @@ KeyQM::KeyQM(std::string inKeyString)
 	{
 		if (!inKeyString.compare(0, 3, "Key"))
 		{
-            istringstream theStringStream(inKeyString);
+            istringstream theStringStream(inKeyString.substr(3));
             theStringStream >> inKeyString;
-			inKeyString = theStringStream.str();
+			string theExtraString;
+            std::getline(theStringStream, theExtraString);
+            inKeyString += theExtraString;
 		}
 		if (!inKeyString.compare("N"))
 		{

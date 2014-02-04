@@ -46,11 +46,11 @@ namespace MusOO { namespace ChordFileUtil
 		}
 		else if (inFileFormat == "auto")
 		{
-			throw std::invalid_argument("Cannot automatically derive file format from extension " + inFileName.extension().string());
+			throw std::invalid_argument("Cannot automatically derive chord file format from extension of file " + inFileName.string());
 		}
 		else
 		{
-			throw std::invalid_argument("Unknown file format selector " + inFileFormat);
+			throw std::invalid_argument("Unknown file format selector " + inFileFormat + " for chord file " + inFileName.string());
 		}
 	}
     
