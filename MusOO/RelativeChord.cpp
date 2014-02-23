@@ -168,11 +168,11 @@ RelativeChord& RelativeChord::ignoreSpelling()
 }
 
 
-QMRelativeChord::QMRelativeChord()
+RelativeChordQM::RelativeChordQM()
 {
 }
 
-QMRelativeChord::QMRelativeChord(const std::string& inString, const Mode inMode)
+RelativeChordQM::RelativeChordQM(const std::string& inString, const Mode inMode)
 {
 	if (!inString.compare(0,1,"S"))
 	{
@@ -214,7 +214,7 @@ QMRelativeChord::QMRelativeChord(const std::string& inString, const Mode inMode)
 	}
 }
 
-QMRelativeChord::QMRelativeChord(const RelativeChord& inRelativeChord)
+RelativeChordQM::RelativeChordQM(const RelativeChord& inRelativeChord)
 	: RelativeChord(inRelativeChord)
 {
 }

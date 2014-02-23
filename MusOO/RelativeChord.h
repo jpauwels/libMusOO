@@ -56,15 +56,15 @@ private:
 
 };
 
-class QMRelativeChord : public RelativeChord
+class RelativeChordQM : public RelativeChord
 {
 public:
-	QMRelativeChord();
-	QMRelativeChord(const std::string& inString, const Mode inMode);
-	QMRelativeChord(const RelativeChord& inRelativeChord);
+	RelativeChordQM();
+	RelativeChordQM(const std::string& inString, const Mode inMode);
+	RelativeChordQM(const RelativeChord& inRelativeChord);
 
 	//assignment operator
-// 		QMRelativeChord& operator=(const RelativeChord& inRelativeChord);
+// 		RelativeChordQM& operator=(const RelativeChord& inRelativeChord);
 };
 }
 #endif	// #ifndef RelativeChord_h
