@@ -9,6 +9,7 @@
 
 // Includes
 #include <cstdlib>
+#include <cmath>
 #include <stdexcept>
 #include <sstream>
 #include <limits>
@@ -364,24 +365,37 @@ const ptrdiff_t Interval::circleStepsCCW() const
 
 const std::string Interval::majorDegree() const
 {
-	//limit the number of circle steps to the right range by adding modifiers
-	string theDegree = "";
-	ptrdiff_t theCircleSteps(m_LinePosition);
-	while (theCircleSteps < s_CircleStepsToMajorDegree.begin()->first)
-	{
-		theDegree.append("b");
-		theCircleSteps += 7;
-	}
-	while (s_CircleStepsToMajorDegree.lower_bound(theCircleSteps) == s_CircleStepsToMajorDegree.end())
-	{
-		theDegree.append("#");
-		theCircleSteps -= 7;
-	}
-	//convert the range-limited circle steps to the degree
-	ostringstream theStream;
-	theStream << s_CircleStepsToMajorDegree.find(theCircleSteps)->second;
-	theDegree.append(theStream.str());
-	return theDegree;
+    if (*this == Interval::silence())
+    {
+        return "S";
+    }
+    else if (*this == Interval::none())
+    {
+        return "N";
+    }
+    else if (*this == Interval::undefined())
+    {
+        return "X";
+    }
+    else
+    {
+        //limit the number of circle steps to the right range by adding modifiers
+        ptrdiff_t theNumOfModifiers = std::floor((m_LinePosition + 1) / 7.);
+        string theDegree = "";
+        if (theNumOfModifiers > 0)
+        {
+            theDegree = string(theNumOfModifiers, '#');
+        }
+        else if (theNumOfModifiers < 0)
+        {
+            theDegree = string(-theNumOfModifiers, 'b');
+        }
+        //convert the range-limited circle steps to the degree
+        ostringstream theStream;
+        theStream << s_CircleStepsToMajorDegree.find(m_LinePosition-7*theNumOfModifiers)->second;
+        theDegree.append(theStream.str());
+        return theDegree;
+    }
 }
 
 const bool Interval::isTrueInterval() const

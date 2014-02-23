@@ -21,6 +21,7 @@ public:
 
 	/* Predefined chord types */
 	static ChordType none();
+	static ChordType undefined();
 	//root only
 	static ChordType rootOnly();
 	//triads

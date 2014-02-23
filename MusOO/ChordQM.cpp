@@ -43,7 +43,7 @@ ChordQM::ChordQM(const std::string& inChordString)
 		// No-chord
 		*this = Chord::none();
 	}
-	else if (inChordString == "X" || inChordString == "U")
+	else if (inChordString == "X")
 	{
 		// Undefined
 		*this = Chord::undefined();
@@ -89,7 +89,7 @@ ChordQM::~ChordQM()
 const std::string ChordQM::str() const
 {
 	string theChordString = m_Root.str();
-	if (isTrueChord())
+	if (m_Type != ChordType::none())
 	{
 		theChordString += ":" + ChordTypeQM(m_Type).str();
 	}
@@ -161,7 +161,7 @@ ChordinoChord::~ChordinoChord()
 const std::string ChordinoChord::str() const
 {
 	string theChordString = m_Root.str();
-	if (*this != Chord::silence() && *this != Chord::none() && m_Type != ChordType::major())
+	if (m_Type != ChordType::none() && m_Type != ChordType::major())
 	{
 		theChordString += ChordTypeQM(m_Type).str();
 	}

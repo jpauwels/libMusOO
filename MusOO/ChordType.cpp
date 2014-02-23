@@ -28,6 +28,12 @@ ChordType ChordType::none()
 	static ChordType none;
 	return none;
 }
+ChordType ChordType::undefined()
+{
+	const Interval undefinedList[] = {Interval::undefined()};
+	static ChordType undefined(undefinedList, 1);
+	return undefined;
+}
 ChordType ChordType::rootOnly()
 {
 	const Interval rootOnlyList[] = {Interval::unison()};

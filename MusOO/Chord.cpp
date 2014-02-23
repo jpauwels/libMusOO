@@ -67,26 +67,8 @@ const ChordType& Chord::type() const
 	return m_Type;
 }
 
-//const std::string Chord::str() const
-//{
-//	if (*this == Chord::silence())
-//	{
-//		return "S";
-//	}
-//	else if (*this == Chord::noChord())
-//	{
-//		return "N";
-//	}
-//	else if (*this == Chord::unknown())
-//	{
-//		return "X";
-//	}
-//	return m_Root.str() + " " + m_Type.str();
-//}
-
 Chord::~Chord()
 {
-
 }
 
 bool Chord::operator==(const Chord& inChord) const
@@ -101,7 +83,7 @@ bool Chord::operator!=(const Chord& inChord) const
 
 const bool Chord::isTrueChord() const
 {
-	return m_Type != ChordType::none();
+	return m_Type != ChordType::none() && m_Type != ChordType::undefined();
 }
 
 const bool Chord::isDiatonic(const Key& inKey) const
