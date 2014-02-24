@@ -43,11 +43,11 @@ public:
 	const Chroma& root() const;
 	ChordType& type();
 	const ChordType& type() const;
-//	virtual const std::string str() const;
 
 	const std::set<Chroma> chromas() const;
     const std::set<Chroma> commonChromas(const Chord& inOtherChord) const;
     const Chroma bass(bool inDefaultToRoot) const;
+	const size_t cardinality() const;
 
 	const bool isTrueChord() const;
 

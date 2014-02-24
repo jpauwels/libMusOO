@@ -72,23 +72,6 @@ const Mode& Key::mode() const
 	return m_Mode;
 }
 
-//const std::string Key::str() const
-//{
-//	if (m_Tonic == Chroma::silence())
-//	{
-//		return "Silence";
-//	}
-//	else if (m_Tonic == Chroma::noChroma())
-//	{
-//		return "NoKey";
-//	}
-//	else if (m_Tonic == Chroma::undefined())
-//	{
-//		return "Undefined";
-//	}
-//	return m_Tonic.str() + " " + m_Mode.str();
-//}
-
 bool Key::operator==(const Key& inKey) const
 {
 	return m_Mode == inKey.m_Mode && m_Tonic == inKey.m_Tonic;
@@ -107,6 +90,11 @@ const std::set<Chroma> Key::chromas() const
 		theChromaSet.insert(Chroma(m_Tonic, *it));
 	}
 	return theChromaSet;
+}
+
+const size_t Key::cardinality() const
+{
+    return m_Mode.cardinality();
 }
 
 const size_t Key::chromaticCOFDistance(const Key& inKey) const

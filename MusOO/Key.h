@@ -38,12 +38,12 @@ public:
 	const Chroma& tonic() const;
 	Mode& mode();
 	const Mode& mode() const;
-//	virtual const std::string str() const;
 	
 	/** Destructor. */
 	virtual ~Key();
 
 	const std::set<Chroma> chromas() const;
+	const size_t cardinality() const;
 
 	const size_t chromaticCOFDistance(const Key& inKey) const;
 	

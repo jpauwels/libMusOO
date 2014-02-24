@@ -159,6 +159,11 @@ const Chroma Chord::bass(bool inDefaultToRoot) const
     return theBassChroma;
 }
 
+const size_t Chord::cardinality() const
+{
+    return m_Type.cardinality();
+}
+
 const bool Chord::hasSpelling() const
 {
     return m_Root.hasSpelling() && m_Type.hasSpelling();
