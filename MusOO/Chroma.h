@@ -48,7 +48,7 @@ public:
 	static Chroma Es();
 	static Chroma Bs();
 
-	static const std::vector<Chroma>& circleOfFifths(const Chroma& inStartChroma = Chroma::A());
+	static const std::vector<Chroma>& circleOfFifths(const Chroma& inStartChroma = Chroma::A(), const bool inHasSpelling = false);
 
 	/** Default constructor. */
 	Chroma();
@@ -60,6 +60,7 @@ public:
 	virtual ~Chroma();
 
 	const bool hasSpelling() const;
+    Chroma withoutSpelling() const;
     Chroma& ignoreSpelling();
 
 	const bool isTrueChroma() const;

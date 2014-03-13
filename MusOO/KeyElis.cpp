@@ -58,23 +58,23 @@ ModeElis::ModeElis()
 
 ModeElis::ModeElis(const std::string& inString)
 {
-	if (!inString.compare("major"))
+	if (inString == "major")
 	{
 		*this = major();
 	}
-	else if (!inString.compare("minor"))
+	else if (inString == "minor" || inString == "minor composed")
 	{
-		*this = minorHarmonic();
+		*this = minorComposed();
 	}
-	else if (!inString.compare("minor natural"))
+	else if (inString == "minor natural")
 	{
 		*this = minorNatural();
 	}
-	else if (!inString.compare("minor harmonic"))
+	else if (inString == "minor harmonic")
 	{
 		*this = minorHarmonic();
 	}
-	else if (!inString.compare("minor melodic"))
+	else if (inString == "minor melodic")
 	{
 		*this = minorMelodic();
 	}
@@ -95,23 +95,31 @@ const std::string ModeElis::str() const
 	{
 		return "major";
 	}
-	else if (*this == minorMelodic() || *this == minorHarmonic())
+	else if (*this == minorHarmonic())
+	{
+		return "minor harmonic";
+	}
+	else if (*this == minorMelodic())
+	{
+		return "minor melodic";
+	}
+	else if (*this == minorComposed())
 	{
 		return "minor";
 	}
-	if (*this == dorian())
+	else if (*this == dorian())
 	{
 		return "dorian";
 	}
-	if (*this == mixolydian())
+	else if (*this == mixolydian())
 	{
 		return "mixolydian";
 	}
-	if (*this == aeolian())
+	else if (*this == aeolian())
 	{
 		return "aeolian";
 	}
-	if (*this == modal())
+	else if (*this == modal())
 	{
 		return "modal";
 	}

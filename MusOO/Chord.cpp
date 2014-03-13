@@ -92,17 +92,21 @@ const bool Chord::isDiatonic(const Key& inKey) const
 	{
 		return false;
 	}
+    if (inKey.mode() == Mode::minorComposed())
+    {
+        return isDiatonic(Key(inKey.tonic(), Mode::minorNatural())) || isDiatonic(Key(inKey.tonic(), Mode::minorHarmonic())) || isDiatonic(Key(inKey.tonic(), Mode::minorMelodic()));
+    }
 	set<Chroma> theChordChromas = chromas();
     set<Chroma> theKeyChromas = inKey.chromas();
-	for (set<Chroma>::const_iterator it = theChordChromas.begin(); it != theChordChromas.end(); ++it)
-	{
-		// return false as soon as one chroma is not part of key
-		if (find(theKeyChromas.begin(), theKeyChromas.end(), *it) == theKeyChromas.end())
-		{
-			return false;
-		}
-	}
-	return true;
+    vector<Chroma> theNonDiatonicChromas(cardinality());
+    if (std::set_difference(theChordChromas.begin(), theChordChromas.end(), theKeyChromas.begin(), theKeyChromas.end(), theNonDiatonicChromas.begin()) - theNonDiatonicChromas.begin() == 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 void Chord::addChroma(const Chroma& inChroma)

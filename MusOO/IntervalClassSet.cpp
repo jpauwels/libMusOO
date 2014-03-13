@@ -130,12 +130,9 @@ IntervalClassSet& IntervalClassSet::ignoreSpelling()
 {
     if (hasSpelling())
     {
-        set<Interval> theNewIntervalList;
-        for (set<Interval>::const_iterator it = m_IntervalList.begin(); it != m_IntervalList.end(); ++it)
-        {
-            theNewIntervalList.insert(it->withoutSpelling());
-        }
-        m_IntervalList = theNewIntervalList;
+        set<Interval> theIntervalSet;
+        std::transform(m_IntervalList.begin(), m_IntervalList.end(), std::inserter(theIntervalSet, theIntervalSet.begin()), std::mem_fun_ref(&Interval::withoutSpelling));
+        m_IntervalList = theIntervalSet;
     }
 	return *this;
 }

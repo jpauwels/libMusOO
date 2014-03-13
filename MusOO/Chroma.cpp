@@ -26,7 +26,7 @@ using namespace MusOO;
 
 const Chroma& Chroma::silence()
 {
-	static const Chroma silence(numeric_limits<int>::max()-2, true);
+	static const Chroma silence(numeric_limits<int>::max(), true);
 	return silence;
 }
 const Chroma& Chroma::none()
@@ -36,7 +36,7 @@ const Chroma& Chroma::none()
 }
 const Chroma& Chroma::undefined()
 {
-	static const Chroma undefined(numeric_limits<int>::max(), true);
+	static const Chroma undefined(numeric_limits<int>::max()-2, true);
 	return undefined;
 }
 Chroma Chroma::Fb()
@@ -144,12 +144,12 @@ Chroma Chroma::Bs()
 	static const Chroma Bs(14, true);
 	return Bs;
 }
-const std::vector<Chroma>& Chroma::circleOfFifths(const Chroma& inStartChroma /* = Chroma::A*/)
+const std::vector<Chroma>& Chroma::circleOfFifths(const Chroma& inStartChroma /* = Chroma::A*/, const bool inHasSpelling /*= false*/)
 {
 	static vector<Chroma> theCircleOfFifths(12);
 	for(int i = 0; i < 12; ++i)
 	{
-		theCircleOfFifths[i] = Chroma((inStartChroma.m_LinePosition+i)%12, false);
+		theCircleOfFifths[i] = Chroma((inStartChroma.m_LinePosition+i)%12, inHasSpelling);
 	}
 	return theCircleOfFifths;
 }
@@ -266,12 +266,10 @@ const bool Chroma::hasSpelling() const
 	return m_HasSpelling;
 }
 
-//Chroma Chroma::ignoreSpelling() const
-//{
-//	Chroma theNewChroma(*this);
-//	theNewChroma.m_HasSpelling = false;
-//	return theNewChroma;
-//}
+Chroma Chroma::withoutSpelling() const
+{
+	return Chroma(*this).ignoreSpelling();
+}
 
 Chroma& Chroma::ignoreSpelling()
 {
@@ -290,13 +288,13 @@ const bool Chroma::operator==(const Chroma& inChroma) const
 	}
 	else
 	{
-        return ((m_LinePosition % 12) + 12) % 12 != ((inChroma.m_LinePosition % 12) + 12) % 12;
+        return ((m_LinePosition % 12) + 12) % 12 == ((inChroma.m_LinePosition % 12) + 12) % 12;
 	}
 }
 
 const bool Chroma::operator!=(const Chroma& inChroma) const
 {
-	return inChroma.m_LinePosition != m_LinePosition;
+	return !(*this == inChroma);
 }
 
 Chroma& Chroma::operator+=(const Interval& inInterval)
@@ -341,7 +339,7 @@ bool Chroma::operator<(const Chroma& inChroma) const
 
 const bool Chroma::isTrueChroma() const
 {
-	return *this != silence() && *this != none() && *this != undefined();
+	return m_LinePosition < numeric_limits<int>::max()-2;
 }
 
 std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const Chroma& inChroma)

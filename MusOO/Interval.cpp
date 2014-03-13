@@ -39,7 +39,7 @@ const map<ptrdiff_t,size_t> Interval::s_CircleStepsToMajorDegree(circleStepsToMa
 
 const Interval& Interval::silence()
 {
-	static const Interval silence(std::numeric_limits<int>::max()-2, true, 0);
+	static const Interval silence(std::numeric_limits<int>::max(), true, 0);
 	return silence;
 }
 const Interval& Interval::none()
@@ -49,7 +49,7 @@ const Interval& Interval::none()
 }
 const Interval& Interval::undefined()
 {
-	static const Interval undefined(std::numeric_limits<int>::max(), true, 0);
+	static const Interval undefined(std::numeric_limits<int>::max()-2, true, 0);
 	return undefined;
 }
 Interval Interval::unison()
@@ -326,12 +326,7 @@ const bool Interval::hasSpelling() const
 
 Interval Interval::withoutSpelling() const
 {
-    Interval theNewInterval(*this);
-    if (isTrueInterval())
-    {
-        theNewInterval.m_HasSpelling = false;
-    }
-	return theNewInterval;
+    return Interval(*this).ignoreSpelling();
 }
 
 Interval& Interval::ignoreSpelling()
@@ -400,8 +395,7 @@ const std::string Interval::majorDegree() const
 
 const bool Interval::isTrueInterval() const
 {
-	return m_LinePosition != silence().m_LinePosition && m_LinePosition != none().m_LinePosition && 
-		m_LinePosition != undefined().m_LinePosition;
+	return m_LinePosition < std::numeric_limits<int>::max()-2;
 }
 
 const ptrdiff_t Interval::diatonicNumber() const

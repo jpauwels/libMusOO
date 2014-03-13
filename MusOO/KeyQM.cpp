@@ -99,27 +99,39 @@ ModeQM::ModeQM(const Mode& inMode)
 
 ModeQM::ModeQM(const std::string& inString)
 {
-	if (!inString.compare("") || !inString.compare("major"))
+	if (inString == "" || inString == "major")
 	{
 		*this = major();
 	}
-	else if (!inString.compare("minor") || !inString.compare("minor-harmonic"))
+	else if (inString == "minor-natural")
+	{
+		*this = minorNatural();
+	}
+	else if (inString == "minor-harmonic")
 	{
 		*this = minorHarmonic();
 	}
-	else if (!inString.compare("dorian"))
+	else if (inString == "minor-melodic")
+	{
+		*this = minorMelodic();
+	}
+	else if (inString == "minor" || inString == "minor-composed")
+	{
+		*this = minorComposed();
+	}
+	else if (inString == "dorian")
 	{
 		*this = dorian();
 	}
-	else if (!inString.compare("mixolydian"))
+	else if (inString == "mixolydian")
 	{
 		*this = mixolydian();
 	}
-	else if (!inString.compare("aeolian"))
+	else if (inString == "aeolian")
 	{
 		*this = aeolian();
 	}
-	else if (!inString.compare("modal"))
+	else if (inString == "modal")
 	{
 		*this = modal();
 	}
@@ -135,23 +147,31 @@ const std::string ModeQM::str() const
 	{
 		return "major";
 	}
-	else if (*this == minorMelodic() || *this == minorHarmonic())
+	else if (*this == minorHarmonic())
 	{
-		return "minor";
+		return "minor-harmonic";
 	}
-	if (*this == dorian())
+	else if (*this == minorMelodic())
+	{
+		return "minor-melodic";
+	}
+	else if (*this == minorComposed())
+	{
+		return "minor-composed";
+	}
+	else if (*this == dorian())
 	{
 		return "dorian";
 	}
-	if (*this == mixolydian())
+	else if (*this == mixolydian())
 	{
 		return "mixolydian";
 	}
-	if (*this == aeolian())
+	else if (*this == aeolian())
 	{
 		return "aeolian";
 	}
-	if (*this == modal())
+	else if (*this == modal())
 	{
 		return "modal";
 	}
