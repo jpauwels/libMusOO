@@ -9,6 +9,7 @@
 	@date		20100916
 */
 //============================================================================
+#include <cstddef>
 #include <string>
 #include <map>
 #include <vector>

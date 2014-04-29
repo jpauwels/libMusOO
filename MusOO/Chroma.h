@@ -9,6 +9,7 @@
 	@date		20100322
 */
 //============================================================================
+#include <cstddef>
 #include <string>
 #include <map>
 #include <limits>
