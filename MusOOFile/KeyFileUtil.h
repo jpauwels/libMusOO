@@ -11,6 +11,7 @@
 //============================================================================
 #include <stdexcept>
 #include <boost/filesystem.hpp>
+#include <boost/algorithm/string/predicate.hpp>
 #include "MusOOFile/KeyFileElis.h"
 #include "MusOOFile/KeyFileQM.h"
 #include "MusOOFile/KeyFileProsemus.h"
@@ -21,13 +22,14 @@ namespace MusOO { namespace KeyFileUtil
 {
 	KeyFile* const newKeyFileFromExtension(const boost::filesystem::path& inFileName, const bool inPitchSpelled, const std::string& inFileFormat = "auto")
 	{
-		if (inFileFormat == "QMUL" || (inFileFormat == "auto" && inFileName.extension() == ".lab"))
-		{
-			return new KeyFileQM(inFileName.string(), inPitchSpelled);
-		}
-		else if (inFileFormat == "Elis" || (inFileFormat == "auto" && inFileName.extension() == ".txt"))
+        using boost::algorithm::ends_with;
+		if (inFileFormat == "Elis" || (inFileFormat == "auto" && (inFileName.extension() == ".txt" || (ends_with(inFileName.stem().string(), "-keys") && inFileName.extension() == ".lab"))))
 		{
 			return new KeyFileElis(inFileName.string(), inPitchSpelled);
+		}
+		else if (inFileFormat == "QMUL" || (inFileFormat == "auto" && inFileName.extension() == ".lab"))
+		{
+			return new KeyFileQM(inFileName.string(), inPitchSpelled);
 		}
 		else if (inFileFormat == "Prosemus" || (inFileFormat == "auto" && inFileName.extension() == ".key"))
 		{
