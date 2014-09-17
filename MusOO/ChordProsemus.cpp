@@ -1,6 +1,6 @@
 //============================================================================
 /**
-	Implementation file for ProsemusChord.h
+	Implementation file for ChordProsemus.h
 
 	@author		Johan Pauwels
 	@date		20101220
@@ -17,11 +17,11 @@ using std::pair;
 using std::string;
 using namespace MusOO;
 
-ProsemusChord::ProsemusChord()
+ChordProsemus::ChordProsemus()
 {
 }
 
-ProsemusChord::ProsemusChord(const std::string& inChordString)
+ChordProsemus::ChordProsemus(const std::string& inChordString)
 {
 	//find root
 	size_t theRootIndex = inChordString.find_first_not_of("ABCDEFG#b");
@@ -36,16 +36,16 @@ ProsemusChord::ProsemusChord(const std::string& inChordString)
 	}
 }
 
-ProsemusChord::ProsemusChord(const Chord& inChord)
+ChordProsemus::ChordProsemus(const Chord& inChord)
 : Chord(inChord)
 {
 }
 
-ProsemusChord::~ProsemusChord()
+ChordProsemus::~ChordProsemus()
 {
 }
 
-const std::string ProsemusChord::str() const
+const std::string ChordProsemus::str() const
 {
 	return m_Root.str() + ChordTypeProsemus(m_Type).str();
 }
@@ -62,41 +62,44 @@ static const pair<string,ChordType> typeStringMap[] =
 	pair<string,ChordType>("dim",ChordType::diminished()),
 	pair<string,ChordType>("aug",ChordType::augmented()),
 	pair<string,ChordType>("sus",ChordType::suspendedFourth()),
+	pair<string,ChordType>("4",ChordType::suspendedFourth()),
 	pair<string,ChordType>("(b5)",ChordType::majorFlatFifth()),
 	pair<string,ChordType>("m(+5)",ChordType::minorSharpFifth()),
-	//chord names with extension
+	pair<string,ChordType>("m#5",ChordType::minorSharpFifth()),
+	//tetrads
 	pair<string,ChordType>("maj7",ChordType::majorSeventh()),
 	pair<string,ChordType>("m7",ChordType::minorSeventh()),
 	pair<string,ChordType>("7",ChordType::dominantSeventh()),
 	pair<string,ChordType>("m7b5",ChordType::halfDiminished()),
-	pair<string,ChordType>("4",ChordType::suspendedFourth()),
 	pair<string,ChordType>("7+",ChordType::augmentedSeventh()),
+	pair<string,ChordType>("m6",ChordType::minorSixth()),
+    //pentads
 	pair<string,ChordType>("7#9",ChordType::dominantSeventh().addInterval(Interval::augmentedNinth())),
 	pair<string,ChordType>("7#11",ChordType::dominantSeventh().addInterval(Interval::augmentedEleventh())),
 	pair<string,ChordType>("7b5#9",ChordType::majorFlatFifth().
-		addInterval(Interval::minorSeventh()).addInterval(Interval::augmentedNinth())),
+        addInterval(Interval::minorSeventh()).addInterval(Interval::augmentedNinth())),
+	pair<string,ChordType>("7susb9",ChordType::suspendedFourth().
+                           addInterval(Interval::minorSeventh()).addInterval(Interval::minorNinth())),
+	pair<string,ChordType>("maj7#5",ChordType::majorSeventh().
+                           replaceInterval(Interval::perfectFifth(),Interval::augmentedFifth())),
+    //hexads
 	pair<string,ChordType>("7b9#11",ChordType::dominantSeventh().
 		addInterval(Interval::minorNinth()).addInterval(Interval::augmentedEleventh())),
 	pair<string,ChordType>("11",ChordType::dominantEleventh()),
-	pair<string,ChordType>("7susb9",ChordType::suspendedFourth().
-		addInterval(Interval::minorSeventh()).addInterval(Interval::minorNinth())),
-	pair<string,ChordType>("maj7#5",ChordType::majorSeventh().
-		replaceInterval(Interval::perfectFifth(),Interval::augmentedFifth())),
 	pair<string,ChordType>("9#11",ChordType::dominantNinth().addInterval(Interval::augmentedEleventh())),
 	pair<string,ChordType>("maj9#11",ChordType::majorNinth().addInterval(Interval::augmentedEleventh())),
-	pair<string,ChordType>("11",ChordType::dominantEleventh()),
+    //heptads
 	pair<string,ChordType>("13#11",ChordType::dominantThirteenth().
 		replaceInterval(Interval::perfectEleventh(),Interval::augmentedEleventh())),
 	pair<string,ChordType>("13sus",ChordType::dominantThirteenth().
 		replaceInterval(Interval::majorThird(),Interval::perfectFourth())),
-	pair<string,ChordType>("m#5",ChordType::minorSharpFifth()),
-	pair<string,ChordType>("m6",ChordType::minorSixth()),
 	pair<string,ChordType>("maj13",ChordType::majorThirteenth()),
+    //not clear
 	pair<string,ChordType>("whole",ChordType::rootOnly()),
 	pair<string,ChordType>("7alt",ChordType::rootOnly()),
 	pair<string,ChordType>("13alt",ChordType::rootOnly())
 };
-const map<string,ChordType> ChordTypeProsemus::s_TypeStringMap(typeStringMap, typeStringMap+31);
+const map<string,ChordType> ChordTypeProsemus::s_TypeStringMap(typeStringMap, typeStringMap+30);
 
 ChordTypeProsemus::ChordTypeProsemus()
 {
@@ -134,5 +137,5 @@ const std::string ChordTypeProsemus::str() const
 			return theCurType->first;
 		}
 	}
-	throw std::logic_error("Invalid Prosemus chord");
+	throw std::logic_error("Invalid Prosemus chord type");
 }

@@ -1,5 +1,5 @@
-#ifndef ProsemusChord_h
-#define ProsemusChord_h
+#ifndef ChordProsemus_h
+#define ChordProsemus_h
 
 //============================================================================
 /**
@@ -36,18 +36,18 @@ private:
 };
 
 
-class ProsemusChord : public Chord
+class ChordProsemus : public Chord
 {
 public:
 
 	/** Default constructor. */
-	ProsemusChord();
-	ProsemusChord(const std::string& inChordString);
+	ChordProsemus();
+	ChordProsemus(const std::string& inChordString);
 	// copy constructor
-	ProsemusChord(const Chord& inChord);
+	ChordProsemus(const Chord& inChord);
 
 	/** Destructor. */
-	virtual ~ProsemusChord();
+	virtual ~ChordProsemus();
 
 	const std::string str() const;
 
@@ -59,4 +59,4 @@ private:
 
 };
 }
-#endif	// #ifndef ProsemusChord_h
+#endif	// #ifndef ChordProsemus_h

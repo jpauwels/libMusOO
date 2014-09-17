@@ -55,7 +55,7 @@ void ChordFileProsemus::open(const std::string& inFilePath)
 			TimedChord theCurrentChord;
 			theCurrentChord.onset() = theChordCounter;
 			theCurrentChord.offset() = ++theChordCounter;
-			theCurrentChord.label() = ProsemusChord(theChordString);
+			theCurrentChord.label() = ChordProsemus(theChordString);
 			this->m_TimedChords.push_back(theCurrentChord);
 		}
 	}
@@ -78,7 +78,7 @@ void ChordFileProsemus::close()
 		}
 		for (size_t i = 0; i < this->m_TimedChords.size(); ++i)
 		{
-			m_File << ProsemusChord(this->m_TimedChords[i].label()).str() << " ";
+			m_File << ChordProsemus(this->m_TimedChords[i].label()).str() << " ";
 		}
 		m_File.flush();
 		m_File.close();

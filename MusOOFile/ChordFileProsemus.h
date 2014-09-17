@@ -36,7 +36,7 @@ protected:
 
 private:
 
-	typedef TimedLabel<ProsemusChord> TimedProsemusChord;
+	typedef TimedLabel<ChordProsemus> TimedProsemusChord;
 	std::fstream m_File;
 	std::string m_FilePath;
 
