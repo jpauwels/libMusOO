@@ -44,6 +44,11 @@ void KeyFileProsemus::open(const std::string& inFileName)
 	{
 		string theLine;
 		getline(m_File, theLine);
+        // handle windows files under unix
+        if (theLine[theLine.size()-1] == '\r')
+        {
+            theLine.erase(theLine.size()-1);
+        }
 		if (!theLine.compare("C"))
 		{
 			this->m_TimedKeys = TimedKeySequence(1, TimedKey(0., std::numeric_limits<double>::max(),
@@ -52,7 +57,7 @@ void KeyFileProsemus::open(const std::string& inFileName)
 		else if (!theLine.compare("Am"))
 		{
 			this->m_TimedKeys = TimedKeySequence(1, TimedKey(0., std::numeric_limits<double>::max(),
-				Key(Chroma::A(), Mode::minorHarmonic())));
+				Key(Chroma::A(), Mode::minorComposed())));
 		}
 		else
 		{
