@@ -92,7 +92,7 @@ const bool Chord::isDiatonic(const Key& inKey) const
 	{
 		return false;
 	}
-    if (inKey.mode() == Mode::minorComposed())
+    if (inKey.mode() == Mode::minorGeneral())
     {
         return isDiatonic(Key(inKey.tonic(), Mode::minorNatural())) || isDiatonic(Key(inKey.tonic(), Mode::minorHarmonic())) || isDiatonic(Key(inKey.tonic(), Mode::minorMelodic()));
     }

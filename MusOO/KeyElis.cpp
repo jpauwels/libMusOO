@@ -62,9 +62,9 @@ ModeElis::ModeElis(const std::string& inString)
 	{
 		*this = major();
 	}
-	else if (inString == "minor" || inString == "minor composed")
+	else if (inString == "minor" || inString == "minor general")
 	{
-		*this = minorComposed();
+		*this = minorGeneral();
 	}
 	else if (inString == "minor natural")
 	{
@@ -103,7 +103,7 @@ const std::string ModeElis::str() const
 	{
 		return "minor melodic";
 	}
-	else if (*this == minorComposed())
+	else if (*this == minorGeneral())
 	{
 		return "minor";
 	}

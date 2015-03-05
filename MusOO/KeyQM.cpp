@@ -115,9 +115,9 @@ ModeQM::ModeQM(const std::string& inString)
 	{
 		*this = minorMelodic();
 	}
-	else if (inString == "minor" || inString == "minor-composed")
+	else if (inString == "minor" || inString == "minor-general")
 	{
-		*this = minorComposed();
+		*this = minorGeneral();
 	}
 	else if (inString == "dorian")
 	{
@@ -155,9 +155,9 @@ const std::string ModeQM::str() const
 	{
 		return "minor-melodic";
 	}
-	else if (*this == minorComposed())
+	else if (*this == minorGeneral())
 	{
-		return "minor-composed";
+		return "minor-general";
 	}
 	else if (*this == dorian())
 	{

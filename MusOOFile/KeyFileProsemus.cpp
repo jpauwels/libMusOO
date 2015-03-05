@@ -57,7 +57,7 @@ void KeyFileProsemus::open(const std::string& inFileName)
 		else if (!theLine.compare("Am"))
 		{
 			this->m_TimedKeys = TimedKeySequence(1, TimedKey(0., std::numeric_limits<double>::max(),
-				Key(Chroma::A(), Mode::minorComposed())));
+				Key(Chroma::A(), Mode::minorGeneral())));
 		}
 		else
 		{

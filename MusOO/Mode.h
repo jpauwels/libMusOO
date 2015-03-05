@@ -27,7 +27,7 @@ public:
 	static Mode minorNatural();
 	static Mode minorHarmonic();
 	static Mode minorMelodic();
-	static Mode minorComposed();
+	static Mode minorGeneral();
 	static Mode dorian();
 	static Mode phrygian();
 	static Mode lydian();

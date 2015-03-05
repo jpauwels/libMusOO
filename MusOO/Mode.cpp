@@ -56,13 +56,13 @@ Mode Mode::minorMelodic()
 	return minorMelodic;
 }
 
-Mode Mode::minorComposed()
+Mode Mode::minorGeneral()
 {
-	const Interval minorComposedList[] = {Interval::unison(), Interval::majorSecond(), Interval::minorThird(), 
+	const Interval minorGeneralList[] = {Interval::unison(), Interval::majorSecond(), Interval::minorThird(),
 		Interval::perfectFourth(), Interval::perfectFifth(), Interval::minorSixth(), Interval::majorSixth(), 
 		Interval::minorSeventh(), Interval::majorSeventh()};
-	static const Mode minorComposed(minorComposedList,9);
-	return minorComposed;
+	static const Mode minorGeneral(minorGeneralList,9);
+	return minorGeneral;
 }
 
 Mode Mode::dorian()
