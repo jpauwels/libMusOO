@@ -219,7 +219,7 @@ ChordTypeQM::ChordTypeQM(std::string inName)
 	if (theMapPos != s_TypeStringMap.end()) {
 		*this = theMapPos->second;
 	} else {
-		throw invalid_argument("Unknown QM chord type " + inName.substr(0,theBaseNameEnd));
+		throw invalid_argument("Unknown QM chord type '" + inName.substr(0,theBaseNameEnd) + "'");
 	}
 	//check for formula modifiers
 	size_t theOpenBracket = inName.find("(");
@@ -229,7 +229,7 @@ ChordTypeQM::ChordTypeQM(std::string inName)
 		size_t theCloseBracket = inName.find(")");
 		if (theCloseBracket == string::npos)
 		{
-			throw invalid_argument("No closing bracket present in " + inName);
+			throw invalid_argument("No closing bracket present in '" + inName + "'");
 		}
 		string theFormulaModifiers = inName.substr(theOpenBracket+1,theCloseBracket-theOpenBracket-1);
 		size_t theComma = theFormulaModifiers.find(",");

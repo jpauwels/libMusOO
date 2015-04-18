@@ -131,7 +131,7 @@ void MusOO::LabFile<Label>::open(const std::string& inFileName)
 			if (m_Header[0].compare(theOnsetCol) != 0 || m_Header[1].compare(theOffsetCol) != 0 ||
 				m_Header[2].compare(theLabelCol) != 0)
 			{
-				throw std::invalid_argument("The file " + inFileName + " has a malformed header.");
+				throw std::invalid_argument("The file '" + inFileName + "' has a malformed header.");
 			}
 		}
 		while (getline(theFileContent, theLine))
@@ -202,7 +202,7 @@ void MusOO::LabFile<Label>::close()
 		m_LabFile.open(m_LabFileName.c_str(), std::fstream::out);
 		if (!m_LabFile.is_open())
 		{
-			throw std::runtime_error("Could not open file " + m_LabFileName + " for writing");
+			throw std::runtime_error("Could not open file '" + m_LabFileName + "' for writing");
 		}
 		if (!m_Header.empty())
 		{

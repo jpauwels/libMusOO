@@ -46,11 +46,11 @@ namespace MusOO { namespace ChordFileUtil
 		}
 		else if (inFileFormat == "auto")
 		{
-			throw std::invalid_argument("Cannot automatically derive chord file format from extension of file " + inFileName.string());
+			throw std::invalid_argument("Cannot automatically derive chord file format from extension of file '" + inFileName.string() + "'");
 		}
 		else
 		{
-			throw std::invalid_argument("Unknown file format selector " + inFileFormat + " for chord file " + inFileName.string());
+			throw std::invalid_argument("Unknown file format selector '" + inFileFormat + "' for chord file '" + inFileName.string() + "'");
 		}
 	}
     
@@ -59,7 +59,7 @@ namespace MusOO { namespace ChordFileUtil
         ChordFile* const theChordFile = newChordFileFromExtension(inFilePath, inPitchSpelled, inFileFormat);
         if (theChordFile->isEmpty())
         {
-            throw std::runtime_error("The file " + inFilePath.string() + " does not contain any chords");
+            throw std::runtime_error("The file '" + inFilePath.string() + "' does not contain any chords");
         }
         const TimedChordSequence retChords = theChordFile->readAll();
         delete theChordFile;

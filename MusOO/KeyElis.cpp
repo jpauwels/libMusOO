@@ -80,7 +80,7 @@ ModeElis::ModeElis(const std::string& inString)
 	}
 	else
 	{
-		throw invalid_argument("Unknown Elis mode name " + inString);
+		throw invalid_argument("Unknown Elis mode name '" + inString + "'");
 	}
 }
 

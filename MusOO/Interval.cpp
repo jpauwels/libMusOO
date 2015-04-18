@@ -215,7 +215,7 @@ Interval::Interval(const std::string& inMajorDegree, const bool inUp /*= true*/)
 	//check for not allowed characters
 	if (inMajorDegree.find_first_not_of("#b1234567890") != string::npos)
 	{
-		throw invalid_argument("Major degree " + inMajorDegree + " contains unknown characters");
+		throw invalid_argument("Major degree '" + inMajorDegree + "' contains unknown characters");
 	}
 	m_HasSpelling = true;
 	//split into modifiers and base degree

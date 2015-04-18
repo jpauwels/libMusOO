@@ -41,11 +41,11 @@ namespace MusOO { namespace KeyFileUtil
 		}
 		else if (inFileFormat == "auto")
 		{
-			throw std::invalid_argument("Cannot automatically derive key file format from extension of file " + inFileName.string());
+			throw std::invalid_argument("Cannot automatically derive key file format from extension of file '" + inFileName.string() + "'");
 		}
 		else
 		{
-			throw std::invalid_argument("Unknown file format selector " + inFileFormat + " for key file " + inFileName.string());
+			throw std::invalid_argument("Unknown file format selector '" + inFileFormat + "' for key file '" + inFileName.string() + "'");
 		}
 	}
 
@@ -55,7 +55,7 @@ namespace MusOO { namespace KeyFileUtil
         if (theKeyFile->isEmpty())
         {
             delete theKeyFile;
-            throw std::runtime_error("The file " + inFilePath.string() + " does not contain any keys");
+            throw std::runtime_error("The file '" + inFilePath.string() + "' does not contain any keys");
         }
         const TimedKeySequence retKeySequence = theKeyFile->readAll();
         delete theKeyFile;

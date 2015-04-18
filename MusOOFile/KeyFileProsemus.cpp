@@ -56,7 +56,7 @@ void KeyFileProsemus::open(const std::string& inFileName)
 		}
 		else
 		{
-			throw std::runtime_error("Unknown Prosemus key " + theLine);
+			throw std::runtime_error("Unknown Prosemus key '" + theKey + "'");
 		}
 	}
     KeyFile::open(inFileName);
@@ -74,7 +74,7 @@ void KeyFileProsemus::close()
 		m_File.open(m_FileName.c_str(), std::fstream::out);
 		if (!m_File.is_open())
 		{
-			throw std::runtime_error("Could not open file " + m_FileName + " for writing");
+			throw std::runtime_error("Could not open file '" + m_FileName + "' for writing");
 		}
 		if (this->m_TimedKeys == TimedKeySequence(1, TimedKey(0., std::numeric_limits<double>::max(),
 			Key(Chroma::C(), Mode::major()))))

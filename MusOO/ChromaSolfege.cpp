@@ -39,7 +39,7 @@ ChromaSolfege::ChromaSolfege(const std::string& inName)
 	}
 	else
 	{
-		throw std::invalid_argument("Unknown solfege chroma " + inName);
+		throw std::invalid_argument("Unknown solfege chroma '" + inName + "'");
 	}
 	if (theModPosition != string::npos)
 	{

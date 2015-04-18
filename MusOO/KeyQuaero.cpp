@@ -56,7 +56,7 @@ KeyQuaero::KeyQuaero(const std::string& inKeyString)
             }
             else
             {
-                throw std::invalid_argument("Malformed Quaero key \"" + inKeyString + "\"");
+                throw std::invalid_argument("Malformed Quaero key '" + inKeyString + "'");
             }
         }
     }
@@ -124,7 +124,7 @@ ModeQuaero::ModeQuaero(const std::string& inString)
 	}
 	else
 	{
-		throw std::invalid_argument("Unknown Quaero mode " + inString);
+		throw std::invalid_argument("Unknown Quaero mode '" + inString + "'");
 	}
 }
 

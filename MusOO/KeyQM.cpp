@@ -137,7 +137,7 @@ ModeQM::ModeQM(const std::string& inString)
 	}
 	else
 	{
-		throw invalid_argument("Unknown QM mode name " + inString);
+		throw invalid_argument("Unknown QM mode name '" + inString + "'");
 	}
 }
 

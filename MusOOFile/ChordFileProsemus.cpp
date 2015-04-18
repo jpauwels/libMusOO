@@ -74,7 +74,7 @@ void ChordFileProsemus::close()
 		m_File.open(m_FilePath.c_str(), std::fstream::out);
 		if (!m_File.is_open())
 		{
-			throw std::runtime_error("Could not open file " + m_FilePath + " for writing");
+			throw std::runtime_error("Could not open file '" + m_FilePath + "' for writing");
 		}
 		for (size_t i = 0; i < this->m_TimedChords.size(); ++i)
 		{

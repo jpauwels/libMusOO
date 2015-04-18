@@ -114,7 +114,7 @@ ChordTypeProsemus::ChordTypeProsemus(std::string inName)
 	}
 	else
 	{
-		throw std::invalid_argument("Unknown Prosemus chord type " + inName);
+		throw std::invalid_argument("Unknown Prosemus chord type '" + inName + "'");
 	}
 }
 

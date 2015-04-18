@@ -183,7 +183,7 @@ Chroma::Chroma(const std::string& inName, const bool inHasSpelling /*= true*/)
 	}
 	else if (inName.find_first_not_of("s#bABCDEFGN") != string::npos)
 	{
-		throw invalid_argument("Illegal input \"" + inName + "\" for a chroma name");
+		throw invalid_argument("Illegal input '" + inName + "' for a chroma name");
 	}
 	//convert base note
 	m_LinePosition = s_NameToCirclePosition.find(inName[0])->second;
@@ -224,7 +224,7 @@ const int Chroma::stringModifierToCircleSteps(const std::string& inStringModifie
 		}
 		else
 		{
-			throw invalid_argument("Unknown modifier: " + inStringModifier.substr(i,1));
+			throw invalid_argument("Unknown modifier '" + inStringModifier.substr(i,1) + "'");
 		}
 	}
 	return theCircleModifier;

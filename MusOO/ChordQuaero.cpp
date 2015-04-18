@@ -52,7 +52,7 @@ ChordQuaero::ChordQuaero(const std::string& inChordName)
             }
             else
             {
-                throw std::invalid_argument("Malformed Quaero chord \"" + inChordName + "\"");
+                throw std::invalid_argument("Malformed Quaero chord '" + inChordName + "'");
             }
         }
         if (theSlashPosition != string::npos)
@@ -144,7 +144,7 @@ ChordTypeQuaero::ChordTypeQuaero(std::string inName)
 	}
 	else
 	{
-		throw std::invalid_argument("Unknown Quaero chord type " + inName);
+		throw std::invalid_argument("Unknown Quaero chord type '" + inName + "'");
 	}
 }
 
