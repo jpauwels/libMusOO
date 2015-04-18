@@ -42,19 +42,14 @@ void KeyFileProsemus::open(const std::string& inFileName)
 	m_File.open(inFileName.c_str(), std::fstream::in);
 	if (m_File.is_open())
 	{
-		string theLine;
-		getline(m_File, theLine);
-        // handle windows files under unix
-        if (theLine[theLine.size()-1] == '\r')
-        {
-            theLine.erase(theLine.size()-1);
-        }
-		if (!theLine.compare("C"))
+		string theKey;
+		m_File >> theKey;
+		if (!theKey.compare("C"))
 		{
 			this->m_TimedKeys = TimedKeySequence(1, TimedKey(0., std::numeric_limits<double>::max(),
 				Key(Chroma::C(), Mode::major())));
 		}
-		else if (!theLine.compare("Am"))
+		else if (!theKey.compare("Am"))
 		{
 			this->m_TimedKeys = TimedKeySequence(1, TimedKey(0., std::numeric_limits<double>::max(),
 				Key(Chroma::A(), Mode::minorGeneral())));

@@ -20,6 +20,20 @@
 
 namespace MusOO
 {
+inline std::stringstream& normaliseLineEndings(std::istream& inStream, std::stringstream& outNormalisedStream)
+{
+    std::string theLine;
+    while (getline(inStream, theLine, '\r'))
+    {
+        outNormalisedStream << theLine;
+        if (!inStream.eof() && inStream.peek() != '\n')
+        {
+            outNormalisedStream << '\n';
+        }
+    }
+    return outNormalisedStream;
+}
+    
 template <typename Label>
 class LabFile
 {
@@ -104,9 +118,13 @@ void MusOO::LabFile<Label>::open(const std::string& inFileName)
 	if (m_LabFile.is_open())
 	{
 		std::string theLine;
+        // read file into stringstream to normalise different line endings
+        std::stringstream theFileContent;
+        normaliseLineEndings(m_LabFile, theFileContent);
+        // parse stringstream line by line
 		if (!m_Header.empty())
 		{
-			getline(m_LabFile, theLine);
+			getline(theFileContent, theLine);
 			std::istringstream theStringStream(theLine);
 			std::string theOnsetCol, theOffsetCol, theLabelCol;
 			theStringStream >> theOnsetCol >> theOffsetCol >> theLabelCol;
@@ -116,7 +134,7 @@ void MusOO::LabFile<Label>::open(const std::string& inFileName)
 				throw std::invalid_argument("The file " + inFileName + " has a malformed header.");
 			}
 		}
-		while (getline(m_LabFile, theLine))
+		while (getline(theFileContent, theLine))
 		{
             if (!theLine.empty())
             {
@@ -131,11 +149,6 @@ void MusOO::LabFile<Label>::open(const std::string& inFileName)
                 std::string theExtraString;
                 getline(theStringStream,theExtraString);
                 theLabelString += theExtraString;
-                // handle windows files under unix
-                if (theLabelString[theLabelString.size()-1] == '\r')
-                {
-                    theLabelString.erase(theLabelString.size()-1);
-                }
                 theCurLabel.label() = Label(theLabelString);
                 if (m_MergeLabels && !m_TimedLabels.empty() && Label(theLabelString) == m_TimedLabels.back().label())
                 {
