@@ -8,10 +8,11 @@
 //============================================================================
 
 // Includes
-#include <sstream>
-#include <stdexcept>
 #include "MusOO/RelativeChord.h"
 #include "MusOO/ChordQM.h"
+#include <sstream>
+#include <stdexcept>
+#include <algorithm>
 
 using std::string;
 using std::ostringstream;

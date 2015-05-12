@@ -8,10 +8,12 @@
 //============================================================================
 
 // Includes
+#include "MusOO/IntervalClassSet.h"
 #include <sstream>
 #include <stdexcept>
 #include <algorithm>
-#include "MusOO/IntervalClassSet.h"
+#include <functional>
+#include <iterator>
 
 using std::ostringstream;
 using std::set;

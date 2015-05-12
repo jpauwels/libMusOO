@@ -1,7 +1,7 @@
 
-#include <stdexcept>
-#include <cmath>
 #include "MusOO/ChromaSolfege.h"
+#include <cmath>
+#include <stdexcept>
 
 using std::map;
 using std::string;

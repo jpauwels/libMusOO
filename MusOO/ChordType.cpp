@@ -8,16 +8,17 @@
 //============================================================================
 
 // Includes
+#include "MusOO/ChordType.h"
 #include <vector>
-	using std::vector;
 #include <sstream>
-	using std::ostringstream;
 #include <stdexcept>
 #include <algorithm>
-#include "MusOO/ChordType.h"
+#include <iterator>
 
 using std::set;
 using std::invalid_argument;
+using std::vector;
+using std::ostringstream;
 using namespace MusOO;
 
 /****************************/

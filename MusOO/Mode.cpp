@@ -8,10 +8,11 @@
 //============================================================================
 
 // Includes
-#include <cstdlib>
-#include <sstream>
 #include "MusOO/Mode.h"
 #include "MusOO/RelativeChord.h"
+#include <cstdlib>
+#include <sstream>
+#include <algorithm>
 
 using std::set;
 using std::string;

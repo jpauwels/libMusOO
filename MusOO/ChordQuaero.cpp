@@ -8,10 +8,11 @@
 //============================================================================
 
 // Includes
-#include <map>
-#include <stdexcept>
 #include "MusOO/ChordQuaero.h"
 #include "MusOO/ChromaSolfege.h"
+#include <map>
+#include <stdexcept>
+#include <algorithm>
 
 using std::map;
 using std::pair;

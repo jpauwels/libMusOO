@@ -8,12 +8,13 @@
 //============================================================================
 
 // Includes
+#include "MusOO/Chord.h"
+#include "MusOO/Key.h"
 #include <vector>
 #include <sstream>
 #include <algorithm>
 #include <set>
-#include "MusOO/Chord.h"
-#include "MusOO/Key.h"
+#include <iterator>
 
 using std::vector;
 using std::set;
