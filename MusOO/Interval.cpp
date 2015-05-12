@@ -375,7 +375,7 @@ const std::string Interval::majorDegree() const
     else
     {
         //limit the number of circle steps to the right range by adding modifiers
-        ptrdiff_t theNumOfModifiers = std::floor((m_LinePosition + 1) / 7.);
+        ptrdiff_t theNumOfModifiers = static_cast<ptrdiff_t>(std::floor((m_LinePosition + 1) / 7.));
         string theDegree = "";
         if (theNumOfModifiers > 0)
         {

@@ -79,7 +79,7 @@ const std::string ChromaSolfege::str() const
 	else
 	{
 		string theBaseString = s_linePositionToString[((m_LinePosition-1) % 7 + 7) % 7];
-		ptrdiff_t theNumOfModifiers = floor((m_LinePosition-1.) / 7);
+        ptrdiff_t theNumOfModifiers = static_cast<ptrdiff_t>(std::floor((m_LinePosition-1.) / 7));
 		if (theNumOfModifiers > 0)
 		{
 			return theBaseString + string(theNumOfModifiers, '#');
