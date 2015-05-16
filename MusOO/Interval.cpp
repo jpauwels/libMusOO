@@ -340,21 +340,37 @@ Interval& Interval::ignoreSpelling()
 
 const ptrdiff_t Interval::semiTonesUp() const
 {
+    if (!isTrueInterval())
+    {
+        throw invalid_argument("Only true intervals can be raised a semitone");
+    }
 	return ((7*m_LinePosition % 12) + 12) % 12;
 }
 
 const ptrdiff_t Interval::semiTonesDown() const
 {
+    if (!isTrueInterval())
+    {
+        throw invalid_argument("Only true intervals can be lowered a semitone");
+    }
 	return ((-7*m_LinePosition % 12) + 12) % 12;
 }
 
 const ptrdiff_t Interval::circleStepsCW() const
 {
+    if (!isTrueInterval())
+    {
+        throw invalid_argument("Circle steps can only be calculated for true intervals");
+    }
 	return ((m_LinePosition % 12) + 12) % 12;
 }
 
 const ptrdiff_t Interval::circleStepsCCW() const
 {
+    if (!isTrueInterval())
+    {
+        throw invalid_argument("Circle steps can only be calculated for true intervals");
+    }
 	return ((-m_LinePosition % 12) + 12) % 12;
 }
 
