@@ -74,7 +74,7 @@ const std::string ChromaSolfege::str() const
 	}
 	else if (*this == Chroma::undefined())
 	{
-		return "U";
+		return "X";
 	}
 	else
 	{

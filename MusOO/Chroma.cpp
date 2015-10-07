@@ -242,7 +242,7 @@ const std::string Chroma::str() const
 	}
 	else if (*this == undefined())
 	{
-		return "U";
+		return "X";
 	}
 	//limit the position on the circle to the allowed basic range by adding modifiers
 	int theRangeLimitedCirclePosition = m_LinePosition;
