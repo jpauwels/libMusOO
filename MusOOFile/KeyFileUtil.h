@@ -13,7 +13,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include "MusOOFile/KeyFileElis.h"
-#include "MusOOFile/KeyFileQM.h"
+#include "MusOOFile/KeyFileQMUL.h"
 #include "MusOOFile/KeyFileProsemus.h"
 #include "MusOOFile/KeyFileMuDesc.h"
 #include "MusOO/KeyQuaero.h"
@@ -29,7 +29,7 @@ namespace MusOO { namespace KeyFileUtil
 		}
 		else if (inFileFormat == "QMUL" || (inFileFormat == "auto" && inFileName.extension() == ".lab"))
 		{
-			return new KeyFileQM(inFileName.string(), inPitchSpelled);
+			return new KeyFileQMUL(inFileName.string(), inPitchSpelled);
 		}
 		else if (inFileFormat == "Prosemus" || (inFileFormat == "auto" && inFileName.extension() == ".key"))
 		{

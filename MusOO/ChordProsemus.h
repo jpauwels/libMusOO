@@ -14,28 +14,6 @@
 
 namespace MusOO
 {
-class ChordTypeProsemus : public ChordType
-{
-public:
-
-	/** Default constructor. */
-	ChordTypeProsemus();
-	ChordTypeProsemus(std::string inName);
-	/** Copy constructor */
-	ChordTypeProsemus(const ChordType& inChordType);
-
-	/** Destructor. */
-	virtual ~ChordTypeProsemus();
-
-	const std::string str() const;
-
-private:
-
-	static const std::map<std::string,ChordType> s_TypeStringMap;
-
-};
-
-
 class ChordProsemus : public Chord
 {
 public:

@@ -17,7 +17,8 @@
 #include "MusOOFile/ChordFileSonicAnnotatorCSV.h"
 #include "MusOOFile/ChordFileMuDesc.h"
 #include "MusOO/ChordQuaero.h"
-#include "MusOO/ChordQM.h"
+#include "MusOO/ChordQMUL.h"
+#include "MusOO/ChordChordino.h"
 
 
 namespace MusOO { namespace ChordFileUtil
@@ -27,7 +28,7 @@ namespace MusOO { namespace ChordFileUtil
         using boost::algorithm::ends_with;
 		if (inFileFormat == "QMUL" || (inFileFormat == "auto" && (inFileName.extension() == ".lab" || inFileName.extension() == ".txt")))
 		{
-			return new ChordFileLab<ChordQM>(inFileName.string(), inPitchSpelled);
+			return new ChordFileLab<ChordQMUL>(inFileName.string(), inPitchSpelled);
 		}
 		if (inFileFormat == "Chordino")
 		{
@@ -39,7 +40,7 @@ namespace MusOO { namespace ChordFileUtil
 		}
 		else if (inFileFormat == "SonicAnnotator" || (inFileFormat == "auto" && inFileName.extension() == ".csv"))
 		{
-			return new ChordFileSonicAnnotatorCSV<ChordQM>(inFileName.string(), inPitchSpelled);
+			return new ChordFileSonicAnnotatorCSV<ChordQMUL>(inFileName.string(), inPitchSpelled);
 		}
 		else if (inFileFormat == "QuaeroEval" || (inFileFormat == "auto" && ends_with(inFileName.stem().string(), ".f") && inFileName.extension() == ".xml"))
 		{

@@ -1,9 +1,10 @@
-#ifndef KeyElis_h
-#define KeyElis_h
+#ifndef KeyQMUL_h
+#define KeyQMUL_h
 
 //============================================================================
 /**
-	Class representing a key according to the Elis syntax.
+	Class representing a key with syntax inspired by the chord syntax of
+    Queen Mary University of London.
 
 	@author		Johan Pauwels
 	@date		20100330
@@ -13,28 +14,29 @@
 
 namespace MusOO
 {
-class KeyElis : public Key
+class KeyQMUL : public Key
 {
 public:
 
 	/** Default constructor. */
-	KeyElis();
-	KeyElis(const std::string& inKeyString);
+	KeyQMUL();
+	KeyQMUL(std::string inKeyString);
 	// copy constructor
-	KeyElis(const Key& inKey);
+	KeyQMUL(const Key& inKey);
 
 	/** Destructor. */
-	virtual ~KeyElis();
+	virtual ~KeyQMUL();
 
 	const std::string str() const;
 
 protected:
+
 
 private:
 
 
 };
 
-std::ostream& operator<<(std::ostream& inOutputStream, const KeyElis& inKey);
+std::ostream& operator<<(std::ostream& inOutputStream, const KeyQMUL& inKey);
 }
-#endif	// #ifndef KeyElis_h
+#endif	// #ifndef KeyQMUL_h

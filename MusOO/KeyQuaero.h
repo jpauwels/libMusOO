@@ -13,19 +13,6 @@
 
 namespace MusOO
 {
-class ModeQuaero : public Mode
-{
-public:
-	ModeQuaero();
-	ModeQuaero(const Mode& inMode);
-	ModeQuaero(const std::string& inString);
-    
-	const std::string str(const Chroma& inTonicChroma = Chroma::undefined()) const;
-    
-private:
-    static const std::map<std::string,Mode> s_ModeStringMap;
-};
-
 class KeyQuaero : public Key
 {
 public:
@@ -49,7 +36,6 @@ private:
     
 };
 
-std::ostream& operator<<(std::ostream& inOutputStream, const ModeQuaero& inMode);
 std::ostream& operator<<(std::ostream& inOutputStream, const KeyQuaero& inKey);
 }
 #endif	// #ifndef KeyQuaero_h

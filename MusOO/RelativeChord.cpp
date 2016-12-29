@@ -9,7 +9,8 @@
 
 // Includes
 #include "MusOO/RelativeChord.h"
-#include "MusOO/ChordQM.h"
+#include "MusOO/Chord.h"
+#include "MusOO/Key.h"
 #include <sstream>
 #include <stdexcept>
 #include <algorithm>
@@ -99,45 +100,6 @@ bool RelativeChord::operator<(const RelativeChord& inRelativeChord) const
 	}
 }
 
-const std::string RelativeChord::asDegree(const Mode& inMode) const
-{
-	if (*this == RelativeChord::unknown())
-	{
-		return "X";
-	}
-	else if (*this == RelativeChord::none())
-	{
-		return "N";
-	}
-	else if (*this == RelativeChord::silence())
-	{
-		return "S";
-	}
-	else
-	{
-		return m_RootInterval.asDegree(inMode) + ":" + ChordTypeQM(m_Type).str();
-	}
-}
-
-/*const std::string RelativeChord::str() const
-{
-	if (*this == RelativeChord::unknown())
-	{
-		return "X";
-	}
-	else if (*this == RelativeChord::none())
-	{
-		return "N";
-	}
-	else if (*this == RelativeChord::silence())
-	{
-		return "S";
-	}
-	ostringstream theStringStream;
-	theStringStream << m_RootInterval.str() << ":" << ChordTypeQM(m_Type).str();
-	return theStringStream.str();
-}*/
-
 const Interval& RelativeChord::rootInterval() const
 {
 	return m_RootInterval;
@@ -166,56 +128,4 @@ RelativeChord& RelativeChord::ignoreSpelling()
         m_Type.ignoreSpelling();
     }
     return *this;
-}
-
-
-RelativeChordQM::RelativeChordQM()
-{
-}
-
-RelativeChordQM::RelativeChordQM(const std::string& inString, const Mode inMode)
-{
-	if (!inString.compare(0,1,"S"))
-	{
-		// Silence
-		*this = RelativeChord::silence();
-	}
-	else if (!inString.compare(0,1,"N"))
-	{
-		// No-chord
-		*this = RelativeChord::none();
-	}
-	else
-	{
-		//find colon which separates root and type
-		size_t theColon = inString.find(":");
-		size_t theSlash = inString.find("/");
-		string theRootDegree = inString.substr(0,std::min(theColon, theSlash));
-		ChordTypeQM theType;
-
-		if (theColon != string::npos)
-		{
-			//explicit type, optional slash
-			theType = ChordTypeQM(inString.substr(theColon+1));
-		}
-		else
-		{
-			if (theSlash == string::npos)
-			{
-				//no explicit type, no slash
-				theType = ChordType::major();
-			}
-			else
-			{
-				//no explicit type, with slash
-				theType = ChordTypeQM("maj"+inString.substr(theSlash));
-			}
-		}
-		*this = RelativeChord(theRootDegree, theType, inMode);
-	}
-}
-
-RelativeChordQM::RelativeChordQM(const RelativeChord& inRelativeChord)
-	: RelativeChord(inRelativeChord)
-{
 }

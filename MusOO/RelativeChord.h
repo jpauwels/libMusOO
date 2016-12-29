@@ -9,11 +9,15 @@
 	@date		20101222
 */
 //============================================================================
-#include "MusOO/Chord.h"
-#include "MusOO/Key.h"
+#include "MusOO/ChordType.h"
 
 namespace MusOO
 {
+class Interval;
+class Key;
+class Chord;
+class Mode;
+    
 class RelativeChord
 {
 public:
@@ -34,10 +38,6 @@ public:
 	bool operator==(const RelativeChord& inRelativeChord) const;
 	bool operator!=(const RelativeChord& inRelativeChord) const;
 	bool operator<(const RelativeChord& inRelativeChord) const;
-
-//	const std::string str() const;
-	const std::string asDegree(const Mode& inMode) const;
-
 	const Interval& rootInterval() const;
 	const ChordType& type() const;
     
@@ -54,17 +54,6 @@ protected:
 private:
 
 
-};
-
-class RelativeChordQM : public RelativeChord
-{
-public:
-	RelativeChordQM();
-	RelativeChordQM(const std::string& inString, const Mode inMode);
-	RelativeChordQM(const RelativeChord& inRelativeChord);
-
-	//assignment operator
-// 		RelativeChordQM& operator=(const RelativeChord& inRelativeChord);
 };
 }
 #endif	// #ifndef RelativeChord_h

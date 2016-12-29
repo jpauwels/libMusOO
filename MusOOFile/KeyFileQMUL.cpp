@@ -1,6 +1,6 @@
 //============================================================================
 /**
-	Implementation file for KeyFileQM.h
+	Implementation file for KeyFileQMUL.h
 	
 	@author		Johan Pauwels
 	@date		20100401
@@ -8,31 +8,31 @@
 //============================================================================
 
 // Includes
-#include "MusOOFile/KeyFileQM.h"
+#include "MusOOFile/KeyFileQMUL.h"
 
 using namespace MusOO;
 
-KeyFileQM::KeyFileQM(const bool inPitchSpelled)
+KeyFileQMUL::KeyFileQMUL(const bool inPitchSpelled)
 : KeyFile(inPitchSpelled)
 {
 }
 
-KeyFileQM::KeyFileQM(std::string inFileName, const bool inPitchSpelled)
+KeyFileQMUL::KeyFileQMUL(std::string inFileName, const bool inPitchSpelled)
 : KeyFile(inPitchSpelled)
 {
 	open(inFileName);
 }
 
-KeyFileQM::~KeyFileQM()
+KeyFileQMUL::~KeyFileQMUL()
 {
 	close();
 }
 
-void KeyFileQM::open(const std::string& inFileName)
+void KeyFileQMUL::open(const std::string& inFileName)
 {
 	m_FileHasChanged = false;
 	m_File.open(inFileName);
-	KeyQMSequence theKeyQMs = m_File.readAll();
+	KeyQMULSequence theKeyQMs = m_File.readAll();
 	m_TimedKeys.resize(theKeyQMs.size());
 	for (size_t i = 0; i < theKeyQMs.size(); ++i)
 	{
@@ -41,15 +41,15 @@ void KeyFileQM::open(const std::string& inFileName)
     KeyFile::open(inFileName);
 }
 
-void KeyFileQM::close()
+void KeyFileQMUL::close()
 {
 	if (m_FileHasChanged)
 	{
-		KeyQMSequence theKeyQMs(m_TimedKeys.size());
-		for (size_t i = 0; i < theKeyQMs.size(); ++i)
+		KeyQMULSequence theKeyQMULs(m_TimedKeys.size());
+		for (size_t i = 0; i < theKeyQMULs.size(); ++i)
 		{
-			theKeyQMs[i] = m_TimedKeys[i]; 
+			theKeyQMULs[i] = m_TimedKeys[i];
 		}
-		m_File.writeAll(theKeyQMs);
+		m_File.writeAll(theKeyQMULs);
 	}
 }

@@ -1,6 +1,6 @@
 //============================================================================
 /**
-	Implementation file for KeyQM.h
+	Implementation file for ModeQMUL.h
 	
 	@author		Johan Pauwels
 	@date		20100330
@@ -10,7 +10,7 @@
 // Includes
 #include <sstream>
 #include <stdexcept>
-#include "MusOO/KeyQM.h"
+#include "MusOO/ModeQMUL.h"
 
 using std::string;
 using std::istringstream;
@@ -18,86 +18,16 @@ using std::ostringstream;
 using std::invalid_argument;
 using namespace MusOO;
 
-KeyQM::KeyQM()
+ModeQMUL::ModeQMUL()
 {
 }
 
-KeyQM::KeyQM(std::string inKeyString)
-{
-	if (!inKeyString.compare(0,1,"S") || !inKeyString.compare("N"))
-	{
-		// Silence
-		*this = Key::silence();
-	}
-	else
-	{
-		if (!inKeyString.compare(0, 3, "Key"))
-		{
-            istringstream theStringStream(inKeyString.substr(3));
-            theStringStream >> inKeyString;
-			string theExtraString;
-            std::getline(theStringStream, theExtraString);
-            inKeyString += theExtraString;
-		}
-		if (!inKeyString.compare("N"))
-		{
-			*this = Key::silence();
-		}
-		else
-		{
-			//find colon which separates tonic and mode
-			size_t theColon = inKeyString.find(":");
-			m_Tonic = Chroma(inKeyString.substr(0,theColon));
-			if (theColon == string::npos)
-			{
-				m_Mode = Mode::major();
-			}
-			else
-			{
-				m_Mode = ModeQM(inKeyString.substr(theColon+1));
-			}
-		}
-	}
-}
-
-KeyQM::KeyQM(const Key& inKey)
-: Key(inKey.tonic(), ModeQM(inKey.mode()))
-{
-}
-
-KeyQM::~KeyQM()
-{
-	// Nothing to do...
-}
-
-const std::string KeyQM::str() const
-{
-	string theKeyString;
-	if (*this == Key::silence())
-	{
-		theKeyString = "Silence";
-	}
-	else
-	{
-		theKeyString = "Key " + m_Tonic.str();
-		if (m_Mode != Mode::major())
-		{
-			theKeyString += ":" + ModeQM(m_Mode).str();
-		}
-	}
-	return theKeyString;
-}
-
-ModeQM::ModeQM()
-{
-}
-
-ModeQM::ModeQM(const Mode& inMode)
+ModeQMUL::ModeQMUL(const Mode& inMode)
 : Mode(inMode)
 {
 }
 
-ModeQM::ModeQM(const std::string& inString)
+ModeQMUL::ModeQMUL(const std::string& inString)
 {
 	if (inString == "" || inString == "major")
 	{
@@ -137,11 +67,11 @@ ModeQM::ModeQM(const std::string& inString)
 	}
 	else
 	{
-		throw invalid_argument("Unknown QM mode name '" + inString + "'");
+		throw invalid_argument("Unknown QMUL mode name '" + inString + "'");
 	}
 }
 
-const std::string ModeQM::str() const
+const std::string ModeQMUL::str() const
 {
 	if (*this == major())
 	{
@@ -193,13 +123,7 @@ const std::string ModeQM::str() const
 	}
 }
 
-std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const KeyQM& inKey)
-{
-	inOutputStream << inKey.str();
-	return inOutputStream;
-}
-
-std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ModeQM& inMode)
+std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ModeQMUL& inMode)
 {
 	inOutputStream << inMode.str();
 	return inOutputStream;

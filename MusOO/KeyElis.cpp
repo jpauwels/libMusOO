@@ -11,6 +11,7 @@
 #include <sstream>
 #include <stdexcept>
 #include "MusOO/KeyElis.h"
+#include "MusOO/ModeElis.h"
 
 using std::istringstream;
 using std::stringbuf;
@@ -52,91 +53,8 @@ const std::string KeyElis::str() const
 	return theKeyString;
 }
 
-ModeElis::ModeElis() 
-{
-}
-
-ModeElis::ModeElis(const std::string& inString)
-{
-	if (inString == "major")
-	{
-		*this = major();
-	}
-	else if (inString == "minor" || inString == "minor general")
-	{
-		*this = minorGeneral();
-	}
-	else if (inString == "minor natural")
-	{
-		*this = minorNatural();
-	}
-	else if (inString == "minor harmonic")
-	{
-		*this = minorHarmonic();
-	}
-	else if (inString == "minor melodic")
-	{
-		*this = minorMelodic();
-	}
-	else
-	{
-		throw invalid_argument("Unknown Elis mode name '" + inString + "'");
-	}
-}
-
-ModeElis::ModeElis(const Mode& inMode)
-: Mode(inMode)
-{
-}
-
-const std::string ModeElis::str() const
-{
-	if (*this == major())
-	{
-		return "major";
-	}
-	else if (*this == minorHarmonic())
-	{
-		return "minor harmonic";
-	}
-	else if (*this == minorMelodic())
-	{
-		return "minor melodic";
-	}
-	else if (*this == minorGeneral())
-	{
-		return "minor";
-	}
-	else if (*this == dorian())
-	{
-		return "dorian";
-	}
-	else if (*this == mixolydian())
-	{
-		return "mixolydian";
-	}
-	else if (*this == aeolian())
-	{
-		return "aeolian";
-	}
-	else if (*this == modal())
-	{
-		return "modal";
-	}
-	else
-	{
-		return Mode::str();
-	}
-}
-
 std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const KeyElis& inKey)
 {
 	inOutputStream << inKey.str();
-	return inOutputStream;
-}
-
-std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ModeElis& inMode)
-{
-	inOutputStream << inMode.str();
 	return inOutputStream;
 }
