@@ -22,7 +22,7 @@ public:
 	/** Default constructor. */
 	ChromaSolfege();
 	ChromaSolfege(const std::string& inName);
-	ChromaSolfege(const Chroma& inReference, const Interval& inInterval);
+	ChromaSolfege(const Chroma& inReference, const SimpleInterval& inInterval);
 	/** Copy constructor. */
 	ChromaSolfege(const Chroma& inChroma);
 	

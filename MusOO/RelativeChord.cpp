@@ -21,28 +21,28 @@ using namespace MusOO;
 
 const RelativeChord& RelativeChord::silence()
 {
-	static const RelativeChord silence(Interval::silence(), ChordType::none());
+	static const RelativeChord silence(SimpleInterval::silence(), ChordType::none());
 	return silence;
 }
 
 const RelativeChord& RelativeChord::none()
 {
-	static const RelativeChord none(Interval::none(), ChordType::none());
+	static const RelativeChord none(SimpleInterval::none(), ChordType::none());
 	return none;
 }
 
 const RelativeChord& RelativeChord::unknown()
 {
-	static const RelativeChord unknown(Interval::undefined(), ChordType::none());
+	static const RelativeChord unknown(SimpleInterval::undefined(), ChordType::none());
 	return unknown;
 }
 
 RelativeChord::RelativeChord()
-: m_RootInterval(Interval::undefined()), m_Type(ChordType::none())
+: m_RootInterval(SimpleInterval::undefined()), m_Type(ChordType::none())
 {
 }
 
-RelativeChord::RelativeChord(const Interval& inRootInterval, const ChordType& inType)
+RelativeChord::RelativeChord(const SimpleInterval& inRootInterval, const ChordType& inType)
 : m_RootInterval(inRootInterval), m_Type(inType)
 {
 }
@@ -100,7 +100,7 @@ bool RelativeChord::operator<(const RelativeChord& inRelativeChord) const
 	}
 }
 
-const Interval& RelativeChord::rootInterval() const
+const SimpleInterval& RelativeChord::rootInterval() const
 {
 	return m_RootInterval;
 }

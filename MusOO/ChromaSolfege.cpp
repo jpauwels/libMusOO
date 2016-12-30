@@ -48,7 +48,7 @@ ChromaSolfege::ChromaSolfege(const std::string& inName)
 	m_HasSpelling = true;
 }
 
-ChromaSolfege::ChromaSolfege(const Chroma& inReference, const Interval& inInterval)
+ChromaSolfege::ChromaSolfege(const Chroma& inReference, const SimpleInterval& inInterval)
 : Chroma(inReference, inInterval)
 {
 }

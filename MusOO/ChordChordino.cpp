@@ -51,7 +51,7 @@ ChordChordino::ChordChordino(std::string inChordString)
 		if (theSlash != string::npos)
 		{
 			ostringstream theDistanceStream;
-			theDistanceStream << Interval(m_Root, Chroma(inChordString.substr(theSlash+1,1))).circleStepsCW();
+			theDistanceStream << SimpleInterval(m_Root, Chroma(inChordString.substr(theSlash+1,1))).circleStepsCW();
 			inChordString.replace(theSlash+1,string::npos,theDistanceStream.str());
 		}
 		if (theTypeStart != string::npos && theSlash == string::npos)

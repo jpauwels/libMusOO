@@ -18,7 +18,7 @@
 
 namespace MusOO
 {
-class Interval;
+class SimpleInterval;
 
 class Chroma
 {
@@ -54,7 +54,7 @@ public:
 	/** Default constructor. */
 	Chroma();
 	Chroma(const std::string& inName, const bool inHasSpelling = true);
-	Chroma(const Chroma& inReference, const Interval& inInterval);
+	Chroma(const Chroma& inReference, const SimpleInterval& inInterval);
 
 	virtual const std::string str() const;
 	/** Destructor. */
@@ -68,13 +68,13 @@ public:
 
 	const bool operator==(const Chroma& inChroma) const;
 	const bool operator!=(const Chroma& inChroma) const;
-	Chroma& operator+=(const Interval& inInterval);
-	Chroma& operator-=(const Interval& inInterval);
+	Chroma& operator+=(const SimpleInterval& inInterval);
+	Chroma& operator-=(const SimpleInterval& inInterval);
 	bool operator<(const Chroma& inChroma) const;
-	//const Chroma operator+(const Interval& inInterval) const; as friend function
-	//const Chroma operator-(const Interval& inInterval) const;
+	//const Chroma operator+(const SimpleInterval& inInterval) const; as friend function
+	//const Chroma operator-(const SimpleInterval& inInterval) const;
 
-	friend class Interval; //to access stringModifierToCircleSteps() and m_LinePosition in Interval::Interval(...)
+	friend class SimpleInterval; //to access stringModifierToCircleSteps() and m_LinePosition in SimpleInterval::SimpleInterval()
 
 protected:
 

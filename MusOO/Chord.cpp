@@ -112,22 +112,22 @@ const bool Chord::isDiatonic(const Key& inKey) const
 
 void Chord::addChroma(const Chroma& inChroma)
 {
-	type().addInterval(Interval(root(), inChroma));
+	type().addInterval(SimpleInterval(root(), inChroma));
 }
 
 void Chord::deleteChroma(const Chroma& inChroma)
 {
-	type().deleteInterval(Interval(root(), inChroma));
+	type().deleteInterval(SimpleInterval(root(), inChroma));
 }
 
 void Chord::replaceChroma(const Chroma& inChromaToReplace, const Chroma& inReplacementChroma)
 {
-	type().replaceInterval(Interval(root(), inChromaToReplace), Interval(root(), inReplacementChroma));
+	type().replaceInterval(SimpleInterval(root(), inChromaToReplace), SimpleInterval(root(), inReplacementChroma));
 }
 
 void Chord::addBass(const Chroma& inChroma)
 {
-	type().addBass(Interval(root(), inChroma));
+	type().addBass(SimpleInterval(root(), inChroma));
 }
 
 void Chord::deleteBass(const Chroma& inChroma)
@@ -138,9 +138,9 @@ void Chord::deleteBass(const Chroma& inChroma)
 const std::set<Chroma> Chord::chromas() const
 {
 	set<Chroma> theChromaSet;
-	for (set<Interval>::const_iterator it = m_Type.m_IntervalList.begin(); it != m_Type.m_IntervalList.end(); ++it)
+	for (set<Interval>::const_iterator it = m_Type.m_set.begin(); it != m_Type.m_set.end(); ++it)
 	{
-		theChromaSet.insert(Chroma(m_Root, *it));
+		theChromaSet.insert(Chroma(m_Root, it->simpleInterval()));
 	}
 	return theChromaSet;
 }

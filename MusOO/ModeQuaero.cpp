@@ -15,7 +15,6 @@
 #include "MusOO/ChromaSolfege.h"
 
 
-
 using std::pair;
 using std::map;
 using std::istringstream;
@@ -31,16 +30,16 @@ static const pair<string,Mode> modeStringMap[] =
 	pair<string,Mode>("m", Mode::minorNatural()),
 	pair<string,Mode>("harmo", Mode::minorHarmonic()),
 	pair<string,Mode>("meloa", Mode::minorMelodic()),
-	pair<string,Mode>("melod", Mode::minorNatural().addInterval(Interval::majorSixth())),
+	pair<string,Mode>("melod", Mode::minorNatural().addInterval(SimpleInterval::majorSixth())),
 	pair<string,Mode>("dor", Mode::dorian()),
-	pair<string,Mode>("blues", Mode::mixolydian().addInterval(Interval::minorThird()).addInterval(Interval::diminishedFifth())),
-	pair<string,Mode>("bluesm", Mode::dorian().addInterval(Interval::diminishedFifth()))
+	pair<string,Mode>("blues", Mode::mixolydian().addInterval(SimpleInterval::minorThird()).addInterval(SimpleInterval::diminishedFifth())),
+	pair<string,Mode>("bluesm", Mode::dorian().addInterval(SimpleInterval::diminishedFifth()))
 };
 const map<string,Mode> ModeQuaero::s_ModeStringMap(modeStringMap, modeStringMap+9);
 
 ModeQuaero::ModeQuaero()
 {
-    Mode t(Mode::minorNatural().addInterval(Interval::majorSixth()));
+    Mode t(Mode::minorNatural().addInterval(SimpleInterval::majorSixth()));
 }
 
 ModeQuaero::ModeQuaero(const Mode& inMode)
@@ -83,7 +82,7 @@ const std::string ModeQuaero::str(const Chroma& inTonicChroma /*= Chroma::undefi
 	{
 		return "meloa";
 	}
-	if (*this == minorNatural().addInterval(Interval::majorSixth()))
+	if (*this == minorNatural().addInterval(SimpleInterval::majorSixth()))
 	{
 		return "melod";
 	}
@@ -91,11 +90,11 @@ const std::string ModeQuaero::str(const Chroma& inTonicChroma /*= Chroma::undefi
 	{
 		return "dor";
 	}
-	if (*this == mixolydian().addInterval(Interval::minorThird()).addInterval(Interval::diminishedFifth()))
+	if (*this == mixolydian().addInterval(SimpleInterval::minorThird()).addInterval(SimpleInterval::diminishedFifth()))
 	{
 		return "blues";
 	}
-	if (*this == dorian().addInterval(Interval::diminishedFifth()))
+	if (*this == dorian().addInterval(SimpleInterval::diminishedFifth()))
 	{
 		return "bluesm";
 	}
@@ -106,7 +105,7 @@ const std::string ModeQuaero::str(const Chroma& inTonicChroma /*= Chroma::undefi
 	else
 	{
 		ostringstream theModeStream;
-        for (std::set<Interval>::const_iterator i = m_IntervalList.begin(); i != m_IntervalList.end(); ++i)
+        for (std::set<SimpleInterval>::const_iterator i = m_set.begin(); i != m_set.end(); ++i)
         {
             theModeStream << " + " << ChordTypeQuaero::getConstrainedString(ChromaSolfege(inTonicChroma, *i));
         }

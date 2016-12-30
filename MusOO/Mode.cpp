@@ -27,107 +27,107 @@ Mode Mode::none()
 
 Mode Mode::major()
 {
-	const Interval majorList[] = {Interval::unison(), Interval::majorSecond(), Interval::majorThird(), 
-		Interval::perfectFourth(), Interval::perfectFifth(), Interval::majorSixth(), Interval::majorSeventh()};
+	const SimpleInterval majorList[] = {SimpleInterval::unison(), SimpleInterval::majorSecond(), SimpleInterval::majorThird(), 
+		SimpleInterval::perfectFourth(), SimpleInterval::perfectFifth(), SimpleInterval::majorSixth(), SimpleInterval::majorSeventh()};
 	static const Mode major(majorList,7);
 	return major;
 }
 
 Mode Mode::minorNatural()
 {
-	const Interval minorNaturalList[] = {Interval::unison(), Interval::majorSecond(), Interval::minorThird(), 
-		Interval::perfectFourth(), Interval::perfectFifth(), Interval::minorSixth(), Interval::minorSeventh()};
+	const SimpleInterval minorNaturalList[] = {SimpleInterval::unison(), SimpleInterval::majorSecond(), SimpleInterval::minorThird(), 
+		SimpleInterval::perfectFourth(), SimpleInterval::perfectFifth(), SimpleInterval::minorSixth(), SimpleInterval::minorSeventh()};
 	static const Mode minorNatural(minorNaturalList,7);
 	return minorNatural;
 }
 
 Mode Mode::minorHarmonic()
 {
-	const Interval minorHarmonicList[] = {Interval::unison(), Interval::majorSecond(), Interval::minorThird(), 
-		Interval::perfectFourth(), Interval::perfectFifth(), Interval::minorSixth(), Interval::majorSeventh()};
+	const SimpleInterval minorHarmonicList[] = {SimpleInterval::unison(), SimpleInterval::majorSecond(), SimpleInterval::minorThird(), 
+		SimpleInterval::perfectFourth(), SimpleInterval::perfectFifth(), SimpleInterval::minorSixth(), SimpleInterval::majorSeventh()};
 	static const Mode minorHarmonic(minorHarmonicList,7);
 	return minorHarmonic;
 }
 
 Mode Mode::minorMelodic()
 {
-	const Interval minorMelodicList[] = {Interval::unison(), Interval::majorSecond(), Interval::minorThird(), 
-		Interval::perfectFourth(), Interval::perfectFifth(), Interval::majorSixth(), Interval::majorSeventh()};
+	const SimpleInterval minorMelodicList[] = {SimpleInterval::unison(), SimpleInterval::majorSecond(), SimpleInterval::minorThird(), 
+		SimpleInterval::perfectFourth(), SimpleInterval::perfectFifth(), SimpleInterval::majorSixth(), SimpleInterval::majorSeventh()};
 	static const Mode minorMelodic(minorMelodicList,7);
 	return minorMelodic;
 }
 
 Mode Mode::minorGeneral()
 {
-	const Interval minorGeneralList[] = {Interval::unison(), Interval::majorSecond(), Interval::minorThird(),
-		Interval::perfectFourth(), Interval::perfectFifth(), Interval::minorSixth(), Interval::majorSixth(), 
-		Interval::minorSeventh(), Interval::majorSeventh()};
+	const SimpleInterval minorGeneralList[] = {SimpleInterval::unison(), SimpleInterval::majorSecond(), SimpleInterval::minorThird(),
+		SimpleInterval::perfectFourth(), SimpleInterval::perfectFifth(), SimpleInterval::minorSixth(), SimpleInterval::majorSixth(), 
+		SimpleInterval::minorSeventh(), SimpleInterval::majorSeventh()};
 	static const Mode minorGeneral(minorGeneralList,9);
 	return minorGeneral;
 }
 
 Mode Mode::dorian()
 {
-	const Interval dorianList[] = {Interval::unison(), Interval::majorSecond(), Interval::minorThird(), 
-		Interval::perfectFourth(), Interval::perfectFifth(), Interval::majorSixth(), Interval::minorSeventh()};
+	const SimpleInterval dorianList[] = {SimpleInterval::unison(), SimpleInterval::majorSecond(), SimpleInterval::minorThird(), 
+		SimpleInterval::perfectFourth(), SimpleInterval::perfectFifth(), SimpleInterval::majorSixth(), SimpleInterval::minorSeventh()};
 	static const Mode dorian(dorianList,7);
 	return dorian;
 }
 
 Mode Mode::phrygian()
 {
-	const Interval phrygianList[] = {Interval::unison(), Interval::minorSecond(), Interval::minorThird(), 
-		Interval::perfectFourth(), Interval::perfectFifth(), Interval::minorSixth(), Interval::minorSeventh()};
+	const SimpleInterval phrygianList[] = {SimpleInterval::unison(), SimpleInterval::minorSecond(), SimpleInterval::minorThird(), 
+		SimpleInterval::perfectFourth(), SimpleInterval::perfectFifth(), SimpleInterval::minorSixth(), SimpleInterval::minorSeventh()};
 	static const Mode phrygian(phrygianList,7);
 	return phrygian;
 }
 
 Mode Mode::lydian()
 {
-	const Interval lydianList[] = {Interval::unison(), Interval::majorSecond(), Interval::majorThird(), 
-		Interval::augmentedFourth(), Interval::perfectFifth(), Interval::majorSixth(), Interval::majorSeventh()};
+	const SimpleInterval lydianList[] = {SimpleInterval::unison(), SimpleInterval::majorSecond(), SimpleInterval::majorThird(), 
+		SimpleInterval::augmentedFourth(), SimpleInterval::perfectFifth(), SimpleInterval::majorSixth(), SimpleInterval::majorSeventh()};
 	static const Mode lydian(lydianList,7);
 	return lydian;
 }
 
 Mode Mode::mixolydian()
 {
-	const Interval mixolydianList[] = {Interval::unison(), Interval::majorSecond(), Interval::majorThird(), 
-		Interval::perfectFourth(), Interval::perfectFifth(), Interval::majorSixth(), Interval::minorSeventh()};
+	const SimpleInterval mixolydianList[] = {SimpleInterval::unison(), SimpleInterval::majorSecond(), SimpleInterval::majorThird(), 
+		SimpleInterval::perfectFourth(), SimpleInterval::perfectFifth(), SimpleInterval::majorSixth(), SimpleInterval::minorSeventh()};
 	static const Mode mixolydian(mixolydianList,7);
 	return mixolydian;
 }
 
 Mode Mode::aeolian()
 {
-	const Interval aeolianList[] = {Interval::unison(), Interval::majorSecond(), Interval::minorThird(), 
-		Interval::perfectFourth(), Interval::perfectFifth(), Interval::minorSixth(), Interval::minorSeventh()};
+	const SimpleInterval aeolianList[] = {SimpleInterval::unison(), SimpleInterval::majorSecond(), SimpleInterval::minorThird(), 
+		SimpleInterval::perfectFourth(), SimpleInterval::perfectFifth(), SimpleInterval::minorSixth(), SimpleInterval::minorSeventh()};
 	static const Mode aeolian(aeolianList,7);
 	return aeolian;
 }
 
 Mode Mode::locrian()
 {
-	const Interval locrianList[] = {Interval::unison(), Interval::minorSecond(), Interval::minorThird(), 
-		Interval::perfectFourth(), Interval::diminishedFifth(), Interval::minorSixth(), Interval::minorSeventh()};
+	const SimpleInterval locrianList[] = {SimpleInterval::unison(), SimpleInterval::minorSecond(), SimpleInterval::minorThird(), 
+		SimpleInterval::perfectFourth(), SimpleInterval::diminishedFifth(), SimpleInterval::minorSixth(), SimpleInterval::minorSeventh()};
 	static const Mode locrian(locrianList,7);
 	return locrian;
 }
 
 Mode Mode::modal()
 {
-	const Interval modalList[] = {Interval::unison()};
+	const SimpleInterval modalList[] = {SimpleInterval::unison()};
 	static const Mode modal(modalList,1);
 	return modal;
 }
 
 Mode::Mode()
-: IntervalClassSet()
+: Set()
 {
 }
 
-Mode::Mode(const Interval* inIntervalList, const int inNumOfIntervals)
-: IntervalClassSet(inIntervalList, inNumOfIntervals)
+Mode::Mode(const SimpleInterval* inIntervalList, const int inNumOfIntervals)
+: Set(inIntervalList, inNumOfIntervals)
 {
 }
 
@@ -137,10 +137,10 @@ Mode::~Mode()
 
 size_t Mode::diatonicCircleDistance(const Interval& inInterval1, const Interval& inInterval2) const
 {
-	if ((m_IntervalList.count(inInterval1) == 0 || m_IntervalList.count(inInterval2) == 0) && 
-		m_IntervalList.count(inInterval1) != m_IntervalList.count(inInterval2))
+	if ((m_set.count(inInterval1.simpleInterval()) == 0 || m_set.count(inInterval2.simpleInterval()) == 0) &&
+		m_set.count(inInterval1.simpleInterval()) != m_set.count(inInterval2.simpleInterval()))
 	{
-		return m_IntervalList.size()/2;
+		return m_set.size()/2;
 	}
 	ptrdiff_t theDiatonicPosition1 = diatonicPosition(inInterval1.diatonicNumber());
 	ptrdiff_t theDiatonicPosition2 = diatonicPosition(inInterval2.diatonicNumber());
@@ -154,7 +154,7 @@ ptrdiff_t Mode::diatonicPosition(const ptrdiff_t inDiatonicNumber) const
 
 RelativeChord Mode::diatonicTriad(size_t inDegree) const
 {
-	Interval theRootInterval = getDiatonicInterval(inDegree);
+	SimpleInterval theRootInterval = getDiatonicInterval(inDegree);
 	ChordType theType = ChordType::rootOnly();
 	theType.addInterval(getDiatonicInterval((inDegree+1)%7+1) - theRootInterval);
 	theType.addInterval(getDiatonicInterval((inDegree+3)%7+1) - theRootInterval);
@@ -174,20 +174,31 @@ const size_t Mode::chromaticCOFDistance(Interval inRootInterval, const Mode& inM
 	return std::min(inRootInterval.circleStepsCCW(), inRootInterval.circleStepsCW());
 }
 
-Mode& Mode::addInterval(const Interval& inInterval)
+Mode& Mode::addInterval(const SimpleInterval& inInterval)
 {
-    IntervalClassSet::addInterval(inInterval);
+    Set::add(inInterval);
     return *this;
 }
 
-Mode& Mode::deleteInterval(const Interval& inInterval)
+Mode& Mode::deleteInterval(const SimpleInterval& inInterval)
 {
-    IntervalClassSet::deleteInterval(inInterval);
+    Set::remove(inInterval);
 	return *this;
 }
 
-Mode& Mode::replaceInterval(const Interval& inIntervalToReplace, const Interval& inReplacementInterval)
+Mode& Mode::replaceInterval(const SimpleInterval& inIntervalToReplace, const SimpleInterval& inReplacementInterval)
 {
-    IntervalClassSet::replaceInterval(inIntervalToReplace, inReplacementInterval);
+    Set::replace(inIntervalToReplace, inReplacementInterval);
 	return *this;
 }
+
+bool Mode::isMajor() const
+{
+    return contains(SimpleInterval::majorThird());
+}
+
+bool Mode::isMinor() const
+{
+    return contains(SimpleInterval::minorThird());
+}
+

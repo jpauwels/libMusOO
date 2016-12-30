@@ -11,11 +11,12 @@
 //============================================================================
 #include <string>
 #include <set>
-#include "MusOO/IntervalClassSet.h"
+#include "MusOO/Set.h"
+#include "MusOO/Interval.h"
 
 namespace MusOO
 {
-class ChordType: public IntervalClassSet
+class ChordType: public Set<Interval>
 {
 public:
 
@@ -67,7 +68,7 @@ public:
 	static ChordType power();
 	static ChordType tristan();
 
-	friend class Chord; //to access m_IntervalList in Chord::chromas() and m_Bass in Chord::bass()
+	friend class Chord; //to access m_set in Chord::chromas() and m_Bass in Chord::bass()
 
 	ChordType();
 	~ChordType();
@@ -92,7 +93,7 @@ public:
     ChordType& addInterval(const Interval& inInterval);
 	ChordType& deleteInterval(const Interval& inInterval);
 	ChordType& replaceInterval(const Interval& inIntervalToReplace, const Interval& inReplacementInterval);
-	ChordType& addBass(const Interval& inInterval);
+	ChordType& addBass(const SimpleInterval& inInterval);
 	ChordType& deleteBass();
     
     const bool hasSpelling() const;
@@ -103,12 +104,12 @@ protected:
 	
 	void subtract(const ChordType& inType);
 	void subtract(const ChordType& inType, std::set<Interval>& outRestIntervals, std::set<Interval>& outMissingIntervals) const;
-	Interval m_Bass;
+	SimpleInterval m_Bass;
 
 private:
 
 	// only used for construction of static modes
-	ChordType(const Interval* inIntervalList, const int inNumOfIntervals, const Interval& inBass = Interval::undefined());
+	ChordType(const Interval* inIntervalList, const int inNumOfIntervals, const SimpleInterval& inBass = SimpleInterval::undefined());
 };
 }
 #endif	// #ifndef ChordType_h

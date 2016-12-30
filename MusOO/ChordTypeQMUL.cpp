@@ -136,7 +136,7 @@ void ChordTypeQMUL::addNote(const std::string& inDegree)
 
 void ChordTypeQMUL::addBassNote(const std::string& inDegree)
 {
-	addBass(Interval(inDegree));
+	addBass(SimpleInterval(inDegree));
 }
 
 void ChordTypeQMUL::replaceNote(const std::string& inToBeReplaced, const std::string& inReplacement)
@@ -162,18 +162,18 @@ const std::string ChordTypeQMUL::str() const
 	else
     {
         //if the formula contains major third
-        if (m_IntervalList.count(Interval::majorThird()) > 0)
+        if (m_set.count(Interval::majorThird()) > 0)
         {
             //if formula contains only augmented fifth
-            if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            if (m_set.count(Interval::augmentedFifth()) > 0 && m_set.count(Interval::perfectFifth()) == 0)
             {
                 theString = "aug";
                 subtract(augmented(), theRestIntervals, theMissingIntervals);
             }
             //if formula contains minor seventh (no fifth necessary)
-            else if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+            else if (m_set.count(Interval::minorSeventh()) > 0)
             {
-                if (m_IntervalList.count(Interval::majorSecond()) > 0)
+                if (m_set.count(Interval::majorSecond()) > 0)
                 {
                     theString = "9";
                     subtract(dominantNinth(), theRestIntervals, theMissingIntervals);
@@ -185,9 +185,9 @@ const std::string ChordTypeQMUL::str() const
                 }
             }
             //if formula contains major seventh (no fifth necessary)
-            else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+            else if (m_set.count(Interval::majorSeventh()) > 0)
             {
-                if (m_IntervalList.count(Interval::majorSecond()) > 0)
+                if (m_set.count(Interval::majorSecond()) > 0)
                 {
                     theString = "maj9";
                     subtract(majorNinth(), theRestIntervals, theMissingIntervals);
@@ -199,13 +199,13 @@ const std::string ChordTypeQMUL::str() const
                 }
             }
             //if formula contains major sixth (no fifth necessary)
-            else if (m_IntervalList.count(Interval::majorSixth()) > 0)
+            else if (m_set.count(Interval::majorSixth()) > 0)
             {
                 theString = "maj6";
                 subtract(majorSixth(), theRestIntervals, theMissingIntervals);
             }
             //if formula contains perfect fifth
-            else //if (m_IntervalList.count(Interval::perfectFifth()) > 0)
+            else //if (m_set.count(Interval::perfectFifth()) > 0)
             {
                 //major triad
                 theString = "maj";
@@ -213,17 +213,17 @@ const std::string ChordTypeQMUL::str() const
             }
         }
         //if formula contains minor third
-        else if (m_IntervalList.count(Interval::minorThird()) > 0)
+        else if (m_set.count(Interval::minorThird()) > 0)
         {
             //if formula contains only diminished fifth
-            if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            if (m_set.count(Interval::diminishedFifth()) > 0 && m_set.count(Interval::perfectFifth()) == 0)
             {
-                if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+                if (m_set.count(Interval::minorSeventh()) > 0)
                 {
                     theString = "hdim7";
                     subtract(halfDiminished(), theRestIntervals, theMissingIntervals);
                 }
-                else if (m_IntervalList.count(Interval::diminishedSeventh()) > 0)
+                else if (m_set.count(Interval::diminishedSeventh()) > 0)
                 {
                     theString = "dim7";
                     subtract(diminishedSeventh(), theRestIntervals, theMissingIntervals);
@@ -236,9 +236,9 @@ const std::string ChordTypeQMUL::str() const
                 }
             }
             //if formula contains minor seventh (no fifth necessary)
-            else if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+            else if (m_set.count(Interval::minorSeventh()) > 0)
             {
-                if (m_IntervalList.count(Interval::majorSecond()) > 0)
+                if (m_set.count(Interval::majorSecond()) > 0)
                 {
                     theString = "min9";
                     subtract(minorNinth(), theRestIntervals, theMissingIntervals);
@@ -250,19 +250,19 @@ const std::string ChordTypeQMUL::str() const
                 }
             }
             //if formula contains major seventh (no fifth necessary)
-            else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+            else if (m_set.count(Interval::majorSeventh()) > 0)
             {
                 theString = "minmaj7";
                 subtract(minorMajorSeventh(), theRestIntervals, theMissingIntervals);
             }
             //if formula contains major sixth (no fifth necessary)
-            else if (m_IntervalList.count(Interval::majorSixth()) > 0)
+            else if (m_set.count(Interval::majorSixth()) > 0)
             {
                 theString = "min6";
                 subtract(minorSixth(), theRestIntervals, theMissingIntervals);
             }
             //if the formula contains perfect fifth
-            else //if (m_IntervalList.count(Interval::perfectFifth()) > 0)
+            else //if (m_set.count(Interval::perfectFifth()) > 0)
             {
                 //minor triad
                 theString = "min";
@@ -270,13 +270,13 @@ const std::string ChordTypeQMUL::str() const
             }
         }
         //if the formula contains perfect fourth (and no third or major second)
-        else if (m_IntervalList.count(Interval::perfectFourth()) > 0 && m_IntervalList.count(Interval::majorSecond()) == 0)
+        else if (m_set.count(Interval::perfectFourth()) > 0 && m_set.count(Interval::majorSecond()) == 0)
         {
             theString = "sus4";
             subtract(suspendedFourth(), theRestIntervals, theMissingIntervals);
         }
         //if the formula contains major second (and no third or perfect fourth)
-        else if (m_IntervalList.count(Interval::majorSecond()) > 0 && m_IntervalList.count(Interval::perfectFourth()) == 0)
+        else if (m_set.count(Interval::majorSecond()) > 0 && m_set.count(Interval::perfectFourth()) == 0)
         {
             theString = "sus2";
             subtract(suspendedSecond(), theRestIntervals, theMissingIntervals);
@@ -284,7 +284,7 @@ const std::string ChordTypeQMUL::str() const
         else
         {
             theString = "";
-            theRestIntervals = m_IntervalList;
+            theRestIntervals = m_set;
         }
     }
     
@@ -313,7 +313,7 @@ const std::string ChordTypeQMUL::str() const
         }
         theString += ")";
     }
-	if (this->m_Bass != Interval::undefined())
+	if (this->m_Bass != SimpleInterval::undefined())
 	{
 		theString += "/" + this->m_Bass.majorDegree();
 	}

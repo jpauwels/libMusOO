@@ -218,19 +218,19 @@ ChordType ChordType::suspendedFourthNinth()
 ChordType ChordType::italianSixth()
 {
 	const Interval italianSixthList[] = {Interval::unison(), Interval::augmentedFourth(), Interval::minorSixth()};
-	static ChordType italianSixth(italianSixthList, 3, Interval::minorSixth());
+	static ChordType italianSixth(italianSixthList, 3, SimpleInterval::minorSixth());
 	return italianSixth;
 }
 ChordType ChordType::frenchSixth()
 {
 	const Interval frenchSixthList[] = {Interval::unison(), Interval::majorSecond(), Interval::augmentedFourth(), Interval::minorSixth()};
-	static ChordType frenchSixth(frenchSixthList, 4, Interval::minorSixth());
+	static ChordType frenchSixth(frenchSixthList, 4, SimpleInterval::minorSixth());
 	return frenchSixth;
 }
 ChordType ChordType::germanSixth()
 {
 	const Interval germanSixthList[] = {Interval::unison(), Interval::minorThird(), Interval::augmentedFourth(), Interval::minorSixth()};
-	static ChordType germanSixth(germanSixthList, 4, Interval::minorSixth());
+	static ChordType germanSixth(germanSixthList, 4, SimpleInterval::minorSixth());
 	return germanSixth;
 }
 ChordType ChordType::power()
@@ -250,7 +250,7 @@ ChordType ChordType::tristan()
 /* Constructors and destructor */
 /*******************************/
 ChordType::ChordType()
-: IntervalClassSet(), m_Bass(Interval::undefined())
+: Set(), m_Bass(SimpleInterval::undefined())
 {
 }
 
@@ -259,8 +259,8 @@ ChordType::~ChordType()
 	// Nothing to do...
 }
 
-ChordType::ChordType(const Interval* inIntervalList, const int inNumOfIntervals, const Interval& inBass /*= Interval::undefined()*/)
-: IntervalClassSet(inIntervalList, inNumOfIntervals), m_Bass(inBass)
+ChordType::ChordType(const Interval* inIntervalList, const int inNumOfIntervals, const SimpleInterval& inBass /*= SimpleInterval::undefined()*/)
+: Set(inIntervalList, inNumOfIntervals), m_Bass(inBass)
 {
 }
 
@@ -269,19 +269,19 @@ ChordType::ChordType(const Interval* inIntervalList, const int inNumOfIntervals,
 /*************/
 bool ChordType::operator==(const ChordType& inChordType) const
 {
-	return IntervalClassSet::operator==(inChordType) && m_Bass == inChordType.m_Bass;
+	return Set::operator==(inChordType) && m_Bass == inChordType.m_Bass;
 }
 
 bool ChordType::operator!=(const ChordType& inChordType) const
 {
-	return IntervalClassSet::operator!=(inChordType) || m_Bass != inChordType.m_Bass;
+	return Set::operator!=(inChordType) || m_Bass != inChordType.m_Bass;
 }
 
 bool ChordType::operator<(const ChordType& inChordType) const
 {
-    if (m_IntervalList != inChordType.m_IntervalList)
+    if (m_set != inChordType.m_set)
     {
-        return IntervalClassSet::operator<(inChordType);
+        return Set::operator<(inChordType);
     }
     else
     {
@@ -301,9 +301,9 @@ const std::vector<ChordType> ChordType::inversions() const
 {
     vector<ChordType> theInversions(cardinality()+1, *this);
     theInversions[1].deleteBass();
-    for (set<Interval>::const_iterator theIntervalIt = m_IntervalList.begin(); theIntervalIt != m_IntervalList.end(); ++theIntervalIt)
+    for (set<Interval>::const_iterator theIntervalIt = m_set.begin(); theIntervalIt != m_set.end(); ++theIntervalIt)
     {
-        theInversions.push_back(ChordType(*this).addBass(*theIntervalIt));
+        theInversions.push_back(ChordType(*this).addBass(theIntervalIt->simpleInterval()));
     }
     return theInversions;
 }
@@ -312,11 +312,11 @@ const std::vector<ChordType> ChordType::inversions() const
 //{
 //	ostringstream theChordTypeStream;
 //	theChordTypeStream << "[";
-//	if (!m_IntervalList.empty())
+//	if (!m_set.empty())
 //	{
-//		theChordTypeStream << m_IntervalList.begin()->circleStepsCW();
+//		theChordTypeStream << m_set.begin()->circleStepsCW();
 //	}
-//	for (set<Interval>::const_iterator it = ++m_IntervalList.begin(); it != m_IntervalList.end(); ++it)
+//	for (set<Interval>::const_iterator it = ++m_set.begin(); it != m_set.end(); ++it)
 //	{
 //		theChordTypeStream << "," << it->circleStepsCW();
 //	}
@@ -339,16 +339,16 @@ const ChordType ChordType::triad(bool inWithBass) const
     {
         ChordType theTriadType = ChordType::undefined();
         //if the formula contains major third
-        if (m_IntervalList.count(Interval::majorThird()) > 0)
+        if (m_set.count(Interval::majorThird()) > 0)
         {
             //if formula contains only augmented fifth
-            if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0 && m_IntervalList.count(Interval::diminishedFifth()) == 0)
+            if (m_set.count(Interval::augmentedFifth()) > 0 && m_set.count(Interval::perfectFifth()) == 0 && m_set.count(Interval::diminishedFifth()) == 0)
             {
                 //augmented triad
                 theTriadType = augmented();
             }
             //if formula contains only diminished fifth
-            else if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0 && m_IntervalList.count(Interval::augmentedFifth()) == 0)
+            else if (m_set.count(Interval::diminishedFifth()) > 0 && m_set.count(Interval::perfectFifth()) == 0 && m_set.count(Interval::augmentedFifth()) == 0)
             {
                 //majorb5 triad
                 theTriadType = majorFlatFifth();
@@ -360,16 +360,16 @@ const ChordType ChordType::triad(bool inWithBass) const
             }
         }
         //if formula contains minor third
-        else if (m_IntervalList.count(Interval::minorThird()) > 0)
+        else if (m_set.count(Interval::minorThird()) > 0)
         {
             //if formula contains only diminished fifth
-            if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0 && m_IntervalList.count(Interval::augmentedFifth()) == 0)
+            if (m_set.count(Interval::diminishedFifth()) > 0 && m_set.count(Interval::perfectFifth()) == 0 && m_set.count(Interval::augmentedFifth()) == 0)
             {
                 //diminished triad
                 theTriadType = diminished();
             }
             //if formula contains only augmented fifth
-            else if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0 && m_IntervalList.count(Interval::diminishedFifth()) == 0)
+            else if (m_set.count(Interval::augmentedFifth()) > 0 && m_set.count(Interval::perfectFifth()) == 0 && m_set.count(Interval::diminishedFifth()) == 0)
             {
                 theTriadType = minorSharpFifth();
             }
@@ -380,19 +380,19 @@ const ChordType ChordType::triad(bool inWithBass) const
             }
         }
         //if the formula contains perfect fourth (and no third or major second)
-        else if (m_IntervalList.count(Interval::perfectFourth()) > 0 && m_IntervalList.count(Interval::majorSecond()) == 0)
+        else if (m_set.count(Interval::perfectFourth()) > 0 && m_set.count(Interval::majorSecond()) == 0)
         {
             //suspended fourth triad
             theTriadType = suspendedFourth();
         }
         //if the formula contains major second (and no third or perfect fourth)
-        else if (m_IntervalList.count(Interval::majorSecond()) > 0 && m_IntervalList.count(Interval::perfectFourth()) == 0)
+        else if (m_set.count(Interval::majorSecond()) > 0 && m_set.count(Interval::perfectFourth()) == 0)
         {
             //suspended second triad
             theTriadType = suspendedSecond();
         }
         //if the formula only contains root and perfect fifth
-        else if (m_IntervalList.count(Interval::unison()) > 0 && m_IntervalList.count(Interval::perfectFifth()) > 0)
+        else if (m_set.count(Interval::unison()) > 0 && m_set.count(Interval::perfectFifth()) > 0)
         {
             //power chord
             theTriadType = power();
@@ -403,7 +403,7 @@ const ChordType ChordType::triad(bool inWithBass) const
             theTriadType = rootOnly();
         }
         // if bass has to be kept and if the original bass is part of the mapped type
-        if (inWithBass && theTriadType.m_IntervalList.count(this->m_Bass) > 0)
+        if (inWithBass && theTriadType.m_set.count(this->m_Bass) > 0)
         {
             theTriadType.m_Bass = this->m_Bass;
         }
@@ -421,16 +421,16 @@ const ChordType ChordType::tetrad(bool inWithBass) const
     {
         ChordType theTetradType = ChordType::undefined();
         //if the formula contains major third
-        if (m_IntervalList.count(Interval::majorThird()) > 0)
+        if (m_set.count(Interval::majorThird()) > 0)
         {
             //if formula contains only augmented fifth
-            if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0 && m_IntervalList.count(Interval::diminishedFifth()) == 0)
+            if (m_set.count(Interval::augmentedFifth()) > 0 && m_set.count(Interval::perfectFifth()) == 0 && m_set.count(Interval::diminishedFifth()) == 0)
             {
-                if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+                if (m_set.count(Interval::minorSeventh()) > 0)
                 {
                     theTetradType = augmentedSeventh();
                 }
-                else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+                else if (m_set.count(Interval::majorSeventh()) > 0)
                 {
                     theTetradType = augmentedMajorSeventh();
                 }
@@ -441,13 +441,13 @@ const ChordType ChordType::tetrad(bool inWithBass) const
                 }
             }
             //if formula contains only diminished fifth
-            else if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0 && m_IntervalList.count(Interval::augmentedFifth()) == 0)
+            else if (m_set.count(Interval::diminishedFifth()) > 0 && m_set.count(Interval::perfectFifth()) == 0 && m_set.count(Interval::augmentedFifth()) == 0)
             {
-                if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+                if (m_set.count(Interval::minorSeventh()) > 0)
                 {
                     theTetradType = majorFlatFifth().addInterval(Interval::minorSeventh());
                 }
-                else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+                else if (m_set.count(Interval::majorSeventh()) > 0)
                 {
                     theTetradType = majorFlatFifth().addInterval(Interval::majorSeventh());
                 }
@@ -458,38 +458,38 @@ const ChordType ChordType::tetrad(bool inWithBass) const
                 }
             }
             //if formula contains minor seventh (no fifth necessary)
-            else if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+            else if (m_set.count(Interval::minorSeventh()) > 0)
             {
                 theTetradType = dominantSeventh();
             }
             //if formula contains major seventh (no fifth necessary)
-            else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+            else if (m_set.count(Interval::majorSeventh()) > 0)
             {
                 theTetradType = majorSeventh();
             }
             //if formula contains major sixth (no fifth necessary)
-            else if (m_IntervalList.count(Interval::majorSixth()) > 0)
+            else if (m_set.count(Interval::majorSixth()) > 0)
             {
                 theTetradType = majorSixth();
             }
             //if formula contains perfect fifth
-            else //if (m_IntervalList.count(Interval::perfectFifth()) > 0)
+            else //if (m_set.count(Interval::perfectFifth()) > 0)
             {
                 //major triad
                 theTetradType = major();
             }
         }
         //if formula contains minor third
-        else if (m_IntervalList.count(Interval::minorThird()) > 0)
+        else if (m_set.count(Interval::minorThird()) > 0)
         {
             //if formula contains only diminished fifth
-            if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            if (m_set.count(Interval::diminishedFifth()) > 0 && m_set.count(Interval::perfectFifth()) == 0)
             {
-                if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+                if (m_set.count(Interval::minorSeventh()) > 0)
                 {
                     theTetradType = halfDiminished();
                 }
-                else if (m_IntervalList.count(Interval::diminishedSeventh()) > 0)
+                else if (m_set.count(Interval::diminishedSeventh()) > 0)
                 {
                     theTetradType = diminishedSeventh();
                 }
@@ -500,13 +500,13 @@ const ChordType ChordType::tetrad(bool inWithBass) const
                 }
             }
             //if formula contains only augmented fifth
-            else if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            else if (m_set.count(Interval::augmentedFifth()) > 0 && m_set.count(Interval::perfectFifth()) == 0)
             {
-                if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+                if (m_set.count(Interval::minorSeventh()) > 0)
                 {
                     theTetradType = minorSharpFifth().addInterval(Interval::minorSeventh());
                 }
-                else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+                else if (m_set.count(Interval::majorSeventh()) > 0)
                 {
                     theTetradType = minorSharpFifth().addInterval(Interval::majorSeventh());
                 }
@@ -516,40 +516,40 @@ const ChordType ChordType::tetrad(bool inWithBass) const
                 }
             }
             //if formula contains minor seventh (no fifth necessary)
-            else if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+            else if (m_set.count(Interval::minorSeventh()) > 0)
             {
                 theTetradType = minorSeventh();
             }
             //if formula contains major seventh (no fifth necessary)
-            else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+            else if (m_set.count(Interval::majorSeventh()) > 0)
             {
                 theTetradType = minorMajorSeventh();
             }
             //if formula contains major sixth (no fifth necessary)
-            else if (m_IntervalList.count(Interval::majorSixth()) > 0)
+            else if (m_set.count(Interval::majorSixth()) > 0)
             {
                 theTetradType = minorSixth();
             }
             //if the formula contains perfect fifth
-            else //if (m_IntervalList.count(Interval::perfectFifth()) > 0)
+            else //if (m_set.count(Interval::perfectFifth()) > 0)
             {
                 //minor triad
                 theTetradType = minor();
             }
         }
         //if the formula contains perfect fourth (and no third or major second)
-        else if (m_IntervalList.count(Interval::perfectFourth()) > 0 && m_IntervalList.count(Interval::majorSecond()) == 0)
+        else if (m_set.count(Interval::perfectFourth()) > 0 && m_set.count(Interval::majorSecond()) == 0)
         {
-            if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+            if (m_set.count(Interval::minorSeventh()) > 0)
             {
                 theTetradType = suspendedFourthSeventh();
             }
-            else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+            else if (m_set.count(Interval::majorSeventh()) > 0)
             {
                 theTetradType = suspendedFourth().addInterval(Interval::majorSeventh());
             }
             //if formula contains major sixth (no fifth necessary)
-            else if (m_IntervalList.count(Interval::majorSixth()) > 0)
+            else if (m_set.count(Interval::majorSixth()) > 0)
             {
                 theTetradType = suspendedFourth().addInterval(Interval::majorSixth());
             }
@@ -560,18 +560,18 @@ const ChordType ChordType::tetrad(bool inWithBass) const
             }
         }
         //if the formula contains major second (and no third or perfect fourth)
-        else if (m_IntervalList.count(Interval::majorSecond()) > 0 && m_IntervalList.count(Interval::perfectFourth()) == 0)
+        else if (m_set.count(Interval::majorSecond()) > 0 && m_set.count(Interval::perfectFourth()) == 0)
         {
-            if (m_IntervalList.count(Interval::minorSeventh()) > 0)
+            if (m_set.count(Interval::minorSeventh()) > 0)
             {
                 theTetradType = suspendedSecond().addInterval(Interval::minorSeventh());
             }
-            else if (m_IntervalList.count(Interval::majorSeventh()) > 0)
+            else if (m_set.count(Interval::majorSeventh()) > 0)
             {
                 theTetradType = suspendedSecond().addInterval(Interval::majorSeventh());
             }
             //if formula contains major sixth (no fifth necessary)
-            else if (m_IntervalList.count(Interval::majorSixth()) > 0)
+            else if (m_set.count(Interval::majorSixth()) > 0)
             {
                 theTetradType = suspendedSecond().addInterval(Interval::majorSixth());
             }
@@ -582,7 +582,7 @@ const ChordType ChordType::tetrad(bool inWithBass) const
             }
         }
         //if the formula only contains root and perfect fifth
-        else if (m_IntervalList.count(Interval::unison()) > 0 && m_IntervalList.count(Interval::perfectFifth()) > 0)
+        else if (m_set.count(Interval::unison()) > 0 && m_set.count(Interval::perfectFifth()) > 0)
         {
             //power chord
             theTetradType = power();
@@ -593,7 +593,7 @@ const ChordType ChordType::tetrad(bool inWithBass) const
             theTetradType = rootOnly();
         }
         // if bass has to be kept and if the original bass is part of the mapped type
-        if (inWithBass && theTetradType.m_IntervalList.count(this->m_Bass) > 0)
+        if (inWithBass && theTetradType.m_set.count(this->m_Bass) > 0)
         {
             theTetradType.m_Bass = this->m_Bass;
         }
@@ -610,7 +610,7 @@ void ChordType::subtract(const ChordType& inType)
 	{
 		throw invalid_argument("The subtractable chord type should contain all intervals of the chord type to be subtracted");
 	}
-	for (set<Interval>::const_iterator it = inType.m_IntervalList.begin(); it != inType.m_IntervalList.end(); ++it)
+	for (set<Interval>::const_iterator it = inType.m_set.begin(); it != inType.m_set.end(); ++it)
 	{
 		deleteInterval(*it);
 	}
@@ -619,9 +619,9 @@ void ChordType::subtract(const ChordType& inType)
 void ChordType::subtract(const ChordType& inType, std::set<Interval>& outRestIntervals, std::set<Interval>& outMissingIntervals) const
 {
     outRestIntervals = set<Interval>();
-    std::set_difference(m_IntervalList.begin(), m_IntervalList.end(), inType.m_IntervalList.begin(), inType.m_IntervalList.end(), std::inserter(outRestIntervals, outRestIntervals.end()));
+    std::set_difference(m_set.begin(), m_set.end(), inType.m_set.begin(), inType.m_set.end(), std::inserter(outRestIntervals, outRestIntervals.end()));
     outMissingIntervals = set<Interval>();
-    std::set_difference(inType.m_IntervalList.begin(), inType.m_IntervalList.end(), m_IntervalList.begin(), m_IntervalList.end(), std::inserter(outMissingIntervals, outMissingIntervals.end()));
+    std::set_difference(inType.m_set.begin(), inType.m_set.end(), m_set.begin(), m_set.end(), std::inserter(outMissingIntervals, outMissingIntervals.end()));
 }
 
 /**********************/
@@ -629,31 +629,31 @@ void ChordType::subtract(const ChordType& inType, std::set<Interval>& outRestInt
 /**********************/
 ChordType& ChordType::addInterval(const Interval& inInterval)
 {
-    IntervalClassSet::addInterval(inInterval);
+    Set::add(inInterval);
     return *this;
 }
 
 ChordType& ChordType::deleteInterval(const Interval& inInterval)
 {
-    IntervalClassSet::deleteInterval(inInterval);
-	if (m_Bass == inInterval)
+    Set::remove(inInterval);
+	if (m_Bass == inInterval.simpleInterval())
 	{
-		m_Bass = Interval::undefined();
+		m_Bass = SimpleInterval::undefined();
 	}
 	return *this;
 }
 
 ChordType& ChordType::replaceInterval(const Interval& inIntervalToReplace, const Interval& inReplacementInterval)
 {
-    IntervalClassSet::replaceInterval(inIntervalToReplace, inReplacementInterval);
-	if (m_Bass == inIntervalToReplace)
+    Set::replace(inIntervalToReplace, inReplacementInterval);
+	if (m_Bass == inIntervalToReplace.simpleInterval())
 	{
-		m_Bass = inReplacementInterval;
+		m_Bass = inReplacementInterval.simpleInterval();
 	}
 	return *this;
 }
 
-ChordType& ChordType::addBass(const Interval& inInterval)
+ChordType& ChordType::addBass(const SimpleInterval& inInterval)
 {
 	addInterval(inInterval);
 	m_Bass = inInterval;
@@ -662,20 +662,20 @@ ChordType& ChordType::addBass(const Interval& inInterval)
 
 ChordType& ChordType::deleteBass()
 {
-	m_Bass = Interval::undefined();
+	m_Bass = SimpleInterval::undefined();
 	return *this;
 }
 
 const ChordType ChordType::withoutBass() const
 {
 	ChordType theChordType(*this);
-	theChordType.m_Bass = Interval::undefined();
+	theChordType.m_Bass = SimpleInterval::undefined();
 	return theChordType;
 }
 
 const bool ChordType::hasSpelling() const
 {
-    return IntervalClassSet::hasSpelling() && m_Bass.hasSpelling();
+    return Set::hasSpelling() && m_Bass.hasSpelling();
 }
 
 ChordType ChordType::withoutSpelling() const
@@ -685,7 +685,7 @@ ChordType ChordType::withoutSpelling() const
 
 ChordType& ChordType::ignoreSpelling()
 {
-    IntervalClassSet::ignoreSpelling();
+    Set::ignoreSpelling();
     m_Bass.ignoreSpelling();
 	return *this;
 }

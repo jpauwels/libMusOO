@@ -191,11 +191,11 @@ Chroma::Chroma(const std::string& inName, const bool inHasSpelling /*= true*/)
 	m_LinePosition += stringModifierToCircleSteps(inName.substr(1));
 }
 
-Chroma::Chroma(const Chroma& inReference, const Interval& inInterval)
+Chroma::Chroma(const Chroma& inReference, const SimpleInterval& inInterval)
 : m_LinePosition(inReference.m_LinePosition + inInterval.m_LinePosition),
   m_HasSpelling(inReference.m_HasSpelling && inInterval.hasSpelling())
 {
-    if (!inInterval.isTrueInterval())
+    if (!inInterval.isTrueSimpleInterval())
     {
         m_LinePosition = inInterval.m_LinePosition;
         m_HasSpelling = true;
@@ -297,14 +297,14 @@ const bool Chroma::operator!=(const Chroma& inChroma) const
 	return !(*this == inChroma);
 }
 
-Chroma& Chroma::operator+=(const Interval& inInterval)
+Chroma& Chroma::operator+=(const SimpleInterval& inInterval)
 {
 	m_LinePosition += inInterval.m_LinePosition;
 	m_HasSpelling = m_HasSpelling && inInterval.m_LinePosition;
 	return *this;
 }
 
-Chroma& Chroma::operator-=(const Interval& inInterval)
+Chroma& Chroma::operator-=(const SimpleInterval& inInterval)
 {
 	m_LinePosition += inInterval.m_LinePosition;
 	m_HasSpelling = m_HasSpelling && inInterval.m_LinePosition;

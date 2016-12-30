@@ -85,7 +85,7 @@ bool Key::operator!=(const Key& inKey) const
 const std::set<Chroma> Key::chromas() const
 {
 	set<Chroma> theChromaSet;
-	for (set<Interval>::const_iterator it = m_Mode.m_IntervalList.begin(); it != m_Mode.m_IntervalList.end(); ++it)
+	for (set<SimpleInterval>::const_iterator it = m_Mode.m_set.begin(); it != m_Mode.m_set.end(); ++it)
 	{
 		theChromaSet.insert(Chroma(m_Tonic, *it));
 	}
@@ -99,7 +99,7 @@ const size_t Key::cardinality() const
 
 const size_t Key::chromaticCOFDistance(const Key& inKey) const
 {
-	return mode().chromaticCOFDistance(Interval(tonic(), inKey.tonic()), inKey.mode());
+	return mode().chromaticCOFDistance(SimpleInterval(tonic(), inKey.tonic()), inKey.mode());
 }
 
 Chord Key::chord(const RelativeChord& inRelChord) const
@@ -110,7 +110,7 @@ Chord Key::chord(const RelativeChord& inRelChord) const
 
 RelativeChord Key::relativeChord(const Chord& inChord) const
 {
-	return RelativeChord(Interval(tonic(), inChord.root()), inChord.type());
+	return RelativeChord(SimpleInterval(tonic(), inChord.root()), inChord.type());
 }
 
 const bool Key::isTrueKey() const
@@ -140,10 +140,10 @@ Key& Key::ignoreSpelling()
 
 void Key::addChroma(const Chroma& inChroma)
 {
-	mode().addInterval(Interval(tonic(), inChroma));
+	mode().addInterval(SimpleInterval(tonic(), inChroma));
 }
 
 void Key::deleteChroma(const Chroma& inChroma)
 {
-	mode().deleteInterval(Interval(tonic(), inChroma));
+	mode().deleteInterval(SimpleInterval(tonic(), inChroma));
 }

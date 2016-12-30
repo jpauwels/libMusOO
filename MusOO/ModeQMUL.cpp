@@ -109,10 +109,10 @@ const std::string ModeQMUL::str() const
 	{
 		ostringstream theModeStream;
         theModeStream << "(";
-        if (!m_IntervalList.empty())
+        if (!m_set.empty())
         {
-            theModeStream << m_IntervalList.begin()->majorDegree();
-            for (std::set<Interval>::const_iterator i = ++m_IntervalList.begin(); i != m_IntervalList.end(); ++i)
+            theModeStream << m_set.begin()->majorDegree();
+            for (std::set<SimpleInterval>::const_iterator i = ++m_set.begin(); i != m_set.end(); ++i)
             {
                 theModeStream << ",";
                 theModeStream << i->majorDegree();

@@ -3,12 +3,13 @@
 
 //============================================================================
 /**
-	Class representing a musical interval.
+	Class representing a complex musical interval.
 
 	@author		Johan Pauwels
 	@date		20100916
 */
 //============================================================================
+#include "MusOO/SimpleInterval.h"
 #include <cstddef>
 #include <string>
 #include <map>
@@ -57,10 +58,11 @@ public:
 
 	/** Default constructor. */
 	Interval();
-	Interval(const Chroma& inRoot, const Chroma& inOther, const bool inUp = true);
-	Interval(const std::string& inMajorDegree, const bool inUp = true);
-	Interval(const std::string& inDegree, const Mode& inMode);
-	Interval(const int inSemiTones);
+//	Interval(const Chroma& inRoot, const Chroma& inOther, const bool inUp = true);
+//	Interval(const std::string& inMajorDegree, const bool inUp = true);
+//	Interval(const std::string& inDegree, const Mode& inMode);
+	Interval(const ptrdiff_t inSemiTones);
+    Interval(const SimpleInterval& inSimpleInterval, const size_t inOctaves = 0);
 
 	// Operators
 	bool operator==(const Interval& inInterval) const;
@@ -91,20 +93,14 @@ public:
 	const bool hasSpelling() const;
     Interval withoutSpelling() const;
     Interval& ignoreSpelling();
+    const SimpleInterval& simpleInterval() const;
 
 protected:
 
 
 private:
-	//only for creation of static distances
-	Interval(const ptrdiff_t inCircleSteps, const bool inHasSpelling, const size_t inOctaves);
-	ptrdiff_t m_LinePosition;
+    SimpleInterval m_simpleInterval;
 	size_t m_Octaves;
-	bool m_HasSpelling;
-	static const std::map<size_t,ptrdiff_t> s_MajorDegreeToCircleSteps;
-	static const std::map<ptrdiff_t,size_t> s_CircleStepsToMajorDegree;
-	static const std::vector<std::string> s_MajorDegrees;
-	static const std::vector<std::string> s_MinorDegrees;
 
 };
 }

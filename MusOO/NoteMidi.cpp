@@ -10,7 +10,7 @@
 // Includes
 #include <sstream>
 #include "MusOO/NoteMidi.h"
-#include "MusOO/Interval.h"
+#include "MusOO/SimpleInterval.h"
 
 using std::istringstream;
 using std::ostringstream;
@@ -46,7 +46,7 @@ NoteMidi::~NoteMidi()
 
 const ptrdiff_t NoteMidi::value() const
 {
-	return 12*(this->m_Octave+1) + Interval(Chroma::C(), this->m_Chroma).semiTonesUp();
+	return 12*(this->m_Octave+1) + SimpleInterval(Chroma::C(), this->m_Chroma).semiTonesUp();
 }
 
 NoteMidi& NoteMidi::operator=(const ptrdiff_t inNoteMidiNumber)
@@ -58,7 +58,7 @@ NoteMidi& NoteMidi::operator=(const ptrdiff_t inNoteMidiNumber)
 void NoteMidi::setNoteNumber(const ptrdiff_t inNoteMidiNumber)
 {
 	this->m_Octave = inNoteMidiNumber / 12 - 1;
-	this->m_Chroma = Chroma(Chroma::C(), Interval(inNoteMidiNumber % 12));
+	this->m_Chroma = Chroma(Chroma::C(), SimpleInterval(inNoteMidiNumber % 12));
 }
 
 const std::string NoteMidi::str() const

@@ -13,7 +13,6 @@
 
 namespace MusOO
 {
-class Interval;
 class Key;
 class Chord;
 class Mode;
@@ -28,7 +27,7 @@ public:
 
 	/** Default constructor. */
 	RelativeChord();
-	RelativeChord(const Interval& inRootInterval, const ChordType& inType);
+	RelativeChord(const SimpleInterval& inRootInterval, const ChordType& inType);
 	RelativeChord(const Key& inKey, const Chord& inChord);
 	RelativeChord(const std::string& inDegree, const ChordType& inChordType, const Mode& inMode);
 
@@ -38,7 +37,7 @@ public:
 	bool operator==(const RelativeChord& inRelativeChord) const;
 	bool operator!=(const RelativeChord& inRelativeChord) const;
 	bool operator<(const RelativeChord& inRelativeChord) const;
-	const Interval& rootInterval() const;
+	const SimpleInterval& rootInterval() const;
 	const ChordType& type() const;
     
     const bool isTrueRelativeChord() const;
@@ -48,7 +47,7 @@ public:
     
 protected:
 
-	Interval m_RootInterval;
+	SimpleInterval m_RootInterval;
 	ChordType m_Type;
 
 private:

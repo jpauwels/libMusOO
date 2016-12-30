@@ -9,18 +9,19 @@
 	@date		20100401
 */
 //============================================================================
-#include "MusOO/IntervalClassSet.h"
+#include "MusOO/Set.h"
+#include "MusOO/SimpleInterval.h"
 
 namespace MusOO
 {
 class RelativeChord;
 class Interval;
 
-class Mode : public IntervalClassSet
+class Mode : public Set<SimpleInterval>
 {
 public:
     
-    friend class Key; // to access m_IntervalList in Key::chromas()
+    friend class Key; // to access m_set in Key::chromas()
     
 	static Mode none();
 	static Mode major();
@@ -50,10 +51,13 @@ public:
 
 	const size_t chromaticCOFDistance(Interval inRootInterval, const Mode& inMode) const;
     
-    Mode& addInterval(const Interval& inInterval);
-	Mode& deleteInterval(const Interval& inInterval);
-	Mode& replaceInterval(const Interval& inIntervalToReplace, const Interval& inReplacementInterval);
-
+    Mode& addInterval(const SimpleInterval& inInterval);
+	Mode& deleteInterval(const SimpleInterval& inInterval);
+	Mode& replaceInterval(const SimpleInterval& inIntervalToReplace, const SimpleInterval& inReplacementInterval);
+    
+    bool isMajor() const;
+    bool isMinor() const;
+    
 protected:
     
 	/* Returns position on diatonic circle of fifths where 0 equals IV, 1 is I, 2 is V and so on */
@@ -62,7 +66,7 @@ protected:
 private:
 
 	// only used for construction of static modes
-	Mode(const Interval* inIntervalList, const int inNumOfIntervals);
+	Mode(const SimpleInterval* inIntervalList, const int inNumOfIntervals);
 };
 }
 #endif	// #ifndef Mode_h
