@@ -12,6 +12,7 @@ Implementation file for ChordQMUL.h
 #include <algorithm>
 #include <sstream>
 #include "MusOO/ChordQMUL.h"
+#include "MusOO/ChromaLetter.h"
 #include "MusOO/ChordTypeQMUL.h"
 
 using std::string;
@@ -51,7 +52,7 @@ ChordQMUL::ChordQMUL(const std::string& inChordString)
 		//find colon which separates root and type
 		size_t theColon = inChordString.find(":");
 		size_t theSlash = inChordString.find("/");
-		m_Root = Chroma(inChordString.substr(0,min(theColon, theSlash)));
+		m_Root = ChromaLetter(inChordString.substr(0,min(theColon, theSlash)));
 		
 		if (theColon != string::npos)
 		{
@@ -86,7 +87,7 @@ ChordQMUL::~ChordQMUL()
 
 const std::string ChordQMUL::str() const
 {
-	string theChordString = m_Root.str();
+	string theChordString = ChromaLetter(m_Root).str();
 	if (m_Type != ChordType::none())
 	{
 		theChordString += ":" + ChordTypeQMUL(m_Type).str();

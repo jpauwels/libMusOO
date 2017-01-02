@@ -18,7 +18,6 @@ namespace MusOO
 {
 class Chroma;
 class Mode;
-
 class SimpleInterval
 {
 public:

@@ -11,6 +11,7 @@
 #include <sstream>
 #include <stdexcept>
 #include "MusOO/KeyElis.h"
+#include "MusOO/ChromaLetter.h"
 #include "MusOO/ModeElis.h"
 
 using std::istringstream;
@@ -28,7 +29,7 @@ KeyElis::KeyElis(const std::string& inKeyString)
 	istringstream theStringStream(inKeyString);
 	string theString;
 	theStringStream >> theString;
-	m_Tonic = Chroma(theString);
+	m_Tonic = ChromaLetter(theString);
 	theStringStream >> theString;
 	m_Mode = ModeElis(theString);
 }
@@ -45,7 +46,7 @@ KeyElis::~KeyElis()
 
 const std::string KeyElis::str() const
 {
-    string theKeyString = m_Tonic.str();
+    string theKeyString = ChromaLetter(m_Tonic).str();
 	if (isTrueKey())
 	{
 		theKeyString += "\t" + ModeElis(m_Mode).str();

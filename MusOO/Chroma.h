@@ -53,10 +53,8 @@ public:
 
 	/** Default constructor. */
 	Chroma();
-	Chroma(const std::string& inName, const bool inHasSpelling = true);
 	Chroma(const Chroma& inReference, const SimpleInterval& inInterval);
 
-	virtual const std::string str() const;
 	/** Destructor. */
 	virtual ~Chroma();
 
@@ -80,9 +78,6 @@ protected:
 
 	static const ptrdiff_t stringModifierToCircleSteps(const std::string& inStringModifier);
 
-	static const std::map<char,ptrdiff_t> s_NameToCirclePosition;
-	static const std::map<ptrdiff_t,char> s_CirclePositionToName;
-	
 	ptrdiff_t m_LinePosition;
 	bool m_HasSpelling;
 	
@@ -91,7 +86,5 @@ private:
 	Chroma(const ptrdiff_t inCirclePosition, const bool inHasSpelling);
 
 };
-
-std::ostream& operator<<(std::ostream& inOutputStream, const Chroma& inChroma);
 }
 #endif	// #ifndef Chroma_h

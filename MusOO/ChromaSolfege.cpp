@@ -90,3 +90,17 @@ const std::string ChromaSolfege::str() const
 		}
 	}
 }
+
+std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ChromaSolfege& inChroma)
+{
+    inOutputStream << inChroma.str();
+    return inOutputStream;
+}
+
+std::istream& MusOO::operator>>(std::istream& inInputStream, ChromaSolfege& outChroma)
+{
+    std::string theString;
+    inInputStream >> theString;
+    outChroma = ChromaSolfege(theString);
+    return inInputStream;
+}

@@ -10,9 +10,6 @@
 // Includes
 #include <string>
 	using std::string;
-#include <map>
-	using std::map;
-	using std::pair;
 #include <stdexcept>
 	using std::invalid_argument;
 #include <limits>
@@ -154,16 +151,6 @@ const std::vector<Chroma>& Chroma::circleOfFifths(const Chroma& inStartChroma /*
 	return theCircleOfFifths;
 }
 
-static const pair<char,ptrdiff_t> theNameToCirclePosition[] = {pair<char,ptrdiff_t>('A',5), pair<char,ptrdiff_t>('B',7),
-	pair<char,ptrdiff_t>('C',2), pair<char,ptrdiff_t>('D',4), pair<char,ptrdiff_t>('E',6), pair<char,ptrdiff_t>('F',1),
-	pair<char,ptrdiff_t>('G',3), pair<char,ptrdiff_t>('N',numeric_limits<ptrdiff_t>::max()-1)};
-const map<char,ptrdiff_t> Chroma::s_NameToCirclePosition(theNameToCirclePosition, theNameToCirclePosition+8);
-
-static const pair<ptrdiff_t,char> theCirclePositionToName[] = {pair<ptrdiff_t,char>(1,'F'), pair<ptrdiff_t,char>(2,'C'),
-	pair<ptrdiff_t,char>(3,'G'), pair<ptrdiff_t,char>(4,'D'), pair<ptrdiff_t,char>(5,'A'), pair<ptrdiff_t,char>(6,'E'), 
-	pair<ptrdiff_t,char>(7,'B')};
-const map<ptrdiff_t,char> Chroma::s_CirclePositionToName(theCirclePositionToName, theCirclePositionToName+7);
-
 Chroma::Chroma() 
 : m_LinePosition(Chroma::undefined().m_LinePosition), m_HasSpelling(true)
 {
@@ -172,23 +159,6 @@ Chroma::Chroma()
 Chroma::Chroma(const ptrdiff_t inCirclePosition, const bool inHasSpelling)
 : m_LinePosition(inCirclePosition), m_HasSpelling(inHasSpelling)
 {
-}
-
-Chroma::Chroma(const std::string& inName, const bool inHasSpelling /*= true*/)
-: m_HasSpelling(inHasSpelling)
-{
-	if (inName.empty())
-	{
-		throw invalid_argument("Empty note name");
-	}
-	else if (inName.find_first_not_of("s#bABCDEFGN") != string::npos)
-	{
-		throw invalid_argument("Illegal input '" + inName + "' for a chroma name");
-	}
-	//convert base note
-	m_LinePosition = s_NameToCirclePosition.find(inName[0])->second;
-	//convert modifier
-	m_LinePosition += stringModifierToCircleSteps(inName.substr(1));
 }
 
 Chroma::Chroma(const Chroma& inReference, const SimpleInterval& inInterval)
@@ -228,37 +198,6 @@ const ptrdiff_t Chroma::stringModifierToCircleSteps(const std::string& inStringM
 		}
 	}
 	return theCircleModifier;
-}
-
-const std::string Chroma::str() const
-{
-	if (*this == silence())
-	{
-		return "S";
-	}
-	else if (*this == none())
-	{
-		return "N";
-	}
-	else if (*this == undefined())
-	{
-		return "X";
-	}
-	//limit the position on the circle to the allowed basic range by adding modifiers
-	ptrdiff_t theRangeLimitedCirclePosition = m_LinePosition;
-	string theModifierString = "";
-	while (theRangeLimitedCirclePosition < s_CirclePositionToName.begin()->first)
-	{
-		theModifierString.append("b");
-		theRangeLimitedCirclePosition += 7;
-	}
-	while (s_CirclePositionToName.lower_bound(theRangeLimitedCirclePosition) == s_CirclePositionToName.end())
-	{
-		theModifierString.append("#");
-		theRangeLimitedCirclePosition -= 7;
-	}
-	//convert the range-limited circle position to the basic note string
-	return s_CirclePositionToName.find(theRangeLimitedCirclePosition)->second + theModifierString;
 }
 
 const bool Chroma::hasSpelling() const
@@ -340,10 +279,4 @@ bool Chroma::operator<(const Chroma& inChroma) const
 const bool Chroma::isTrueChroma() const
 {
 	return m_LinePosition < numeric_limits<ptrdiff_t>::max()-2;
-}
-
-std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const Chroma& inChroma)
-{
-	inOutputStream << inChroma.str();
-	return inOutputStream;
 }

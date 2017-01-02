@@ -12,6 +12,7 @@ Implementation file for ChordChordino.h
 #include <algorithm>
 #include <sstream>
 #include "MusOO/ChordChordino.h"
+#include "MusOO/ChromaLetter.h"
 #include "MusOO/ChordTypeQMUL.h"
 
 using std::string;
@@ -46,12 +47,12 @@ ChordChordino::ChordChordino(std::string inChordString)
 		//find colon which separates root and type
 		size_t theTypeStart = inChordString.find_first_not_of("ABCDEFGb#");
 		size_t theSlash = inChordString.find("/");
-		m_Root = Chroma(inChordString.substr(0,theTypeStart));
+		m_Root = ChromaLetter(inChordString.substr(0,theTypeStart));
 		//replace bass note name by circle steps
 		if (theSlash != string::npos)
 		{
 			ostringstream theDistanceStream;
-			theDistanceStream << SimpleInterval(m_Root, Chroma(inChordString.substr(theSlash+1,1))).circleStepsCW();
+			theDistanceStream << SimpleInterval(m_Root, ChromaLetter(inChordString.substr(theSlash+1,1))).circleStepsCW();
 			inChordString.replace(theSlash+1,string::npos,theDistanceStream.str());
 		}
 		if (theTypeStart != string::npos && theSlash == string::npos)
@@ -86,7 +87,7 @@ ChordChordino::~ChordChordino()
 
 const std::string ChordChordino::str() const
 {
-	string theChordString = m_Root.str();
+	string theChordString = ChromaLetter(m_Root).str();
 	if (m_Type != ChordType::none() && m_Type != ChordType::major())
 	{
 		theChordString += ChordTypeQMUL(m_Type).str();

@@ -9,6 +9,7 @@
 
 // Includes
 #include "MusOO/ChordQuaero.h"
+#include "MusOO/ChromaLetter.h"
 #include "MusOO/ChromaSolfege.h"
 #include "MusOO/ChordTypeQuaero.h"
 #include <map>
@@ -35,7 +36,7 @@ ChordQuaero::ChordQuaero(const std::string& inChordName)
     }
     else
     {
-        m_Root = Chroma(trimRight(inChordName.substr(0,2)));
+        m_Root = ChromaLetter(trimRight(inChordName.substr(0,2)));
         size_t theTypeEndPosition = inChordName.substr(2).find_first_of(" ");
         m_Type = ChordTypeQuaero(inChordName.substr(2,theTypeEndPosition));
         size_t theSlashPosition = inChordName.substr(2).find_first_of("/");
@@ -72,7 +73,7 @@ ChordQuaero::~ChordQuaero()
 
 const std::string ChordQuaero::str() const
 {
-	return m_Root.str() + ChordTypeQuaero(m_Type).str(m_Root);
+	return ChromaLetter(m_Root).str() + ChordTypeQuaero(m_Type).str(m_Root);
 }
 
 const std::string ChordQuaero::trimRight(const std::string& inString)

@@ -11,6 +11,7 @@
 #include <map>
 #include <stdexcept>
 #include "MusOO/ChordProsemus.h"
+#include "MusOO/ChromaLetter.h"
 #include "MusOO/ChordTypeProsemus.h"
 
 using std::map;
@@ -26,7 +27,7 @@ ChordProsemus::ChordProsemus(const std::string& inChordString)
 {
 	//find root
 	size_t theRootIndex = inChordString.find_first_not_of("ABCDEFG#b");
-	m_Root = Chroma(inChordString.substr(0,theRootIndex));
+	m_Root = ChromaLetter(inChordString.substr(0,theRootIndex));
 	if (theRootIndex == string::npos)
 	{
 		m_Type = ChordType::major();
@@ -48,5 +49,5 @@ ChordProsemus::~ChordProsemus()
 
 const std::string ChordProsemus::str() const
 {
-	return m_Root.str() + ChordTypeProsemus(m_Type).str();
+	return ChromaLetter(m_Root).str() + ChordTypeProsemus(m_Type).str();
 }

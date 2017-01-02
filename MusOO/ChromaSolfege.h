@@ -38,5 +38,8 @@ private:
 	static const std::string s_linePositionToString[];
 	static const std::map<std::string,ptrdiff_t> s_stringToLinePositionMap;
 };
+    
+std::ostream& operator<<(std::ostream& inOutputStream, const ChromaSolfege& inChroma);
+std::istream& operator>>(std::istream& inInputStream, ChromaSolfege& inChroma);
 }
 #endif	// #ifndef ChromaSolfege_h

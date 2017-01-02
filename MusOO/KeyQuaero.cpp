@@ -11,6 +11,7 @@
 #include <sstream>
 #include <stdexcept>
 #include "MusOO/ModeQuaero.h"
+#include "MusOO/ChromaLetter.h"
 #include "MusOO/ChromaSolfege.h"
 #include "MusOO/ChordQuaero.h"
 #include "MusOO/KeyQuaero.h"
@@ -39,7 +40,7 @@ KeyQuaero::KeyQuaero(const std::string& inKeyString)
     }
     else
     {
-        m_Tonic = Chroma(ChordQuaero::trimRight(inKeyString.substr(0,2)));
+        m_Tonic = ChromaLetter(ChordQuaero::trimRight(inKeyString.substr(0,2)));
         size_t theModeEndPosition = inKeyString.substr(2).find_first_of(" ");
         m_Mode = ModeQuaero(inKeyString.substr(2,theModeEndPosition));
         for (size_t theModBeginPosition = theModeEndPosition; theModBeginPosition < inKeyString.size()-2; theModBeginPosition+=6)
@@ -82,7 +83,7 @@ const std::string KeyQuaero::str() const
 	}
 	else
 	{
-        return m_Tonic.str() + ModeQuaero(m_Mode).str(m_Tonic);
+        return ChromaLetter(m_Tonic).str() + ModeQuaero(m_Mode).str(m_Tonic);
 	}
 }
 

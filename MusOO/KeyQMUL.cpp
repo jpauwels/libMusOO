@@ -11,6 +11,7 @@
 #include <sstream>
 #include <stdexcept>
 #include "MusOO/KeyQMUL.h"
+#include "MusOO/ChromaLetter.h"
 #include "MusOO/ModeQMUL.h"
 
 using std::string;
@@ -48,7 +49,7 @@ KeyQMUL::KeyQMUL(std::string inKeyString)
 		{
 			//find colon which separates tonic and mode
 			size_t theColon = inKeyString.find(":");
-			m_Tonic = Chroma(inKeyString.substr(0,theColon));
+			m_Tonic = ChromaLetter(inKeyString.substr(0,theColon));
 			if (theColon == string::npos)
 			{
 				m_Mode = Mode::major();
@@ -80,7 +81,7 @@ const std::string KeyQMUL::str() const
 	}
 	else
 	{
-		theKeyString = "Key " + m_Tonic.str();
+		theKeyString = "Key " + ChromaLetter(m_Tonic).str();
 		if (m_Mode != Mode::major())
 		{
 			theKeyString += ":" + ModeQMUL(m_Mode).str();
