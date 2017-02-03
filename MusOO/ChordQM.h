@@ -67,18 +67,18 @@ private:
 
 };
 
-class ChordinoChord : public Chord
+class ChordChordino : public Chord
 {
 public:
 
 	/** Default constructor. */
-	ChordinoChord();
-	ChordinoChord(std::string inChordString);
+	ChordChordino();
+	ChordChordino(std::string inChordString);
 	// copy constructor
-	ChordinoChord(const Chord& inChord);
+	ChordChordino(const Chord& inChord);
 
 	/** Destructor. */
-	virtual ~ChordinoChord();
+	virtual ~ChordChordino();
 
 	const std::string str() const;
 
@@ -94,7 +94,7 @@ std::ostream& operator<<(std::ostream& inOutputStream, const ChordQM& inChord);
 std::istream& operator>>(std::istream& inInputStream, ChordQM& inChord);
 std::ostream& operator<<(std::ostream& inOutputStream, const ChordTypeQM& inChordType);
 std::istream& operator>>(std::istream& inInputStream, ChordTypeQM& inChordType);
-std::ostream& operator<<(std::ostream& inOutputStream, const ChordinoChord& inChord);
-std::istream& operator>>(std::istream& inInputStream, ChordinoChord& inChord);
+std::ostream& operator<<(std::ostream& inOutputStream, const ChordChordino& inChord);
+std::istream& operator>>(std::istream& inInputStream, ChordChordino& inChord);
 }
 #endif	// #ifndef ChordQM_h

@@ -97,13 +97,13 @@ const std::string ChordQM::str() const
 }
 
 //----------------------------------------------------------------------------//
-// ChordinoChord                                                                 //
+// ChordChordino                                                                 //
 //----------------------------------------------------------------------------//
-ChordinoChord::ChordinoChord()
+ChordChordino::ChordChordino()
 {
 }
 
-ChordinoChord::ChordinoChord(std::string inChordString)
+ChordChordino::ChordChordino(std::string inChordString)
 {
 	if (!inChordString.compare(0,1,"S"))
 	{
@@ -149,16 +149,16 @@ ChordinoChord::ChordinoChord(std::string inChordString)
 	}
 }
 
-ChordinoChord::ChordinoChord(const Chord& inChord)
+ChordChordino::ChordChordino(const Chord& inChord)
 : Chord(inChord)
 {
 }
 
-ChordinoChord::~ChordinoChord()
+ChordChordino::~ChordChordino()
 {
 }
 
-const std::string ChordinoChord::str() const
+const std::string ChordChordino::str() const
 {
 	string theChordString = m_Root.str();
 	if (m_Type != ChordType::none() && m_Type != ChordType::major())
@@ -497,16 +497,16 @@ std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ChordTypeQM&
 	return inOutputStream;
 }
 
-std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ChordinoChord& inChord)
+std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ChordChordino& inChord)
 {
 	inOutputStream << inChord.str();
 	return inOutputStream;
 }
 
-std::istream& MusOO::operator>>(std::istream& inInputStream, ChordinoChord& inChord)
+std::istream& MusOO::operator>>(std::istream& inInputStream, ChordChordino& inChord)
 {
 	string theChordString;
 	inInputStream >> theChordString;
-	inChord = ChordinoChord(theChordString);
+	inChord = ChordChordino(theChordString);
 	return inInputStream;
 }

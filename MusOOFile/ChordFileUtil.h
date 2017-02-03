@@ -12,11 +12,12 @@
 #include <stdexcept>
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string/predicate.hpp>
-#include "MusOOFile/ChordFileQM.h"
+#include "MusOOFile/ChordFileLab.h"
 #include "MusOOFile/ChordFileProsemus.h"
 #include "MusOOFile/ChordFileSonicAnnotatorCSV.h"
 #include "MusOOFile/ChordFileMuDesc.h"
 #include "MusOO/ChordQuaero.h"
+#include "MusOO/ChordQM.h"
 
 
 namespace MusOO { namespace ChordFileUtil
@@ -26,7 +27,11 @@ namespace MusOO { namespace ChordFileUtil
         using boost::algorithm::ends_with;
 		if (inFileFormat == "QMUL" || (inFileFormat == "auto" && (inFileName.extension() == ".lab" || inFileName.extension() == ".txt")))
 		{
-			return new ChordFileQM(inFileName.string(), inPitchSpelled);
+			return new ChordFileLab<ChordQM>(inFileName.string(), inPitchSpelled);
+		}
+		if (inFileFormat == "Chordino")
+		{
+			return new ChordFileLab<ChordChordino>(inFileName.string(), inPitchSpelled);
 		}
 		else if (inFileFormat == "Prosemus" || (inFileFormat == "auto" && inFileName.extension() == ".chords"))
 		{
@@ -38,7 +43,7 @@ namespace MusOO { namespace ChordFileUtil
 		}
 		else if (inFileFormat == "QuaeroEval" || (inFileFormat == "auto" && ends_with(inFileName.stem().string(), ".f") && inFileName.extension() == ".xml"))
 		{
-			return new ChordFileMuDesc<ChordinoChord>(inFileName.string(), inPitchSpelled);
+			return new ChordFileMuDesc<ChordChordino>(inFileName.string(), inPitchSpelled);
 		}
 		else if (inFileFormat == "Quaero" || (inFileFormat == "auto" && inFileName.extension() == ".xml"))
 		{
@@ -56,6 +61,10 @@ namespace MusOO { namespace ChordFileUtil
     
     const TimedChordSequence readChordSequenceFromFile(const boost::filesystem::path& inFilePath, const bool inPitchSpelled, const std::string& inFileFormat = "auto")
     {
+        if (!exists(inFilePath))
+        {
+            throw std::runtime_error("The file '" + inFilePath.string() + "' does not exist");
+        }
         ChordFile* const theChordFile = newChordFileFromExtension(inFilePath, inPitchSpelled, inFileFormat);
         if (theChordFile->isEmpty())
         {
