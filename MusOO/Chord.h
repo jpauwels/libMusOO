@@ -48,6 +48,11 @@ public:
     const std::set<Chroma> commonChromas(const Chord& inOtherChord) const;
     const Chroma bass(bool inDefaultToRoot) const;
 	const size_t cardinality() const;
+    
+    /** Returns the basic triad the current chord can be mapped to
+     @return		a Chord object with ChordType of size 3 or ChordType::rootOnly() */
+    const Chord triad(bool inWithBass) const;
+    const Chord tetrad(bool inWithBass) const;
 
 	const bool isTrueChord() const;
 

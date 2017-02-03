@@ -169,6 +169,16 @@ const size_t Chord::cardinality() const
     return m_Type.cardinality();
 }
 
+const Chord Chord::triad(bool inWithBass) const
+{
+    return Chord(m_Root, m_Type.triad(inWithBass));
+}
+
+const Chord Chord::tetrad(bool inWithBass) const
+{
+    return Chord(m_Root, m_Type.tetrad(inWithBass));
+}
+
 const bool Chord::hasSpelling() const
 {
     return m_Root.hasSpelling() && m_Type.hasSpelling();
