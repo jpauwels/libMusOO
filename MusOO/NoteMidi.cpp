@@ -21,15 +21,15 @@ NoteMidi::NoteMidi()
 {
 }
 
-NoteMidi::NoteMidi(std::string inNoteMidiNumber)
+NoteMidi::NoteMidi(const std::string& inNoteMidiNumber)
 {
 	istringstream theNoteMidiStream(inNoteMidiNumber);
-	size_t theNoteMidiNumber;
+	ptrdiff_t theNoteMidiNumber;
 	theNoteMidiStream >> theNoteMidiNumber;
 	setNoteNumber(theNoteMidiNumber);
 }
 
-NoteMidi::NoteMidi(size_t inNoteMidiNumber)
+NoteMidi::NoteMidi(const ptrdiff_t inNoteMidiNumber)
 {
 	setNoteNumber(inNoteMidiNumber);
 }
@@ -44,18 +44,18 @@ NoteMidi::~NoteMidi()
 	// Nothing to do...
 }
 
-const size_t NoteMidi::number() const
+const ptrdiff_t NoteMidi::value() const
 {
 	return 12*(this->m_Octave+1) + Interval(Chroma::C(), this->m_Chroma).semiTonesUp();
 }
 
-NoteMidi& NoteMidi::operator=(const size_t inNoteMidiNumber)
+NoteMidi& NoteMidi::operator=(const ptrdiff_t inNoteMidiNumber)
 {
 	setNoteNumber(inNoteMidiNumber);
 	return *this;
 }
 
-void NoteMidi::setNoteNumber(const size_t inNoteMidiNumber)
+void NoteMidi::setNoteNumber(const ptrdiff_t inNoteMidiNumber)
 {
 	this->m_Octave = inNoteMidiNumber / 12 - 1;
 	this->m_Chroma = Chroma(Chroma::C(), Interval(inNoteMidiNumber % 12));
@@ -64,7 +64,7 @@ void NoteMidi::setNoteNumber(const size_t inNoteMidiNumber)
 const std::string NoteMidi::str() const
 {
 	ostringstream theNoteNumberStream;
-	theNoteNumberStream << number();
+	theNoteNumberStream << value();
 	return theNoteNumberStream.str();
 }
 

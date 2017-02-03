@@ -30,7 +30,12 @@ public:
 	const bool operator==(const Note& inNote) const;
 
 	const std::string str() const;
-
+    
+    Chroma& chroma();
+    const Chroma& chroma() const;
+    ptrdiff_t& octave();
+    const ptrdiff_t& octave() const;
+    
 // 	const double frequency(double inDiapason = 440.) const;
 // 	const std::string name() const;
 

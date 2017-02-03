@@ -19,16 +19,16 @@ public:
 
 	/** Default constructor. */
 	NoteMidi();
-	NoteMidi(std::string inNoteMidiNumber);
-	NoteMidi(size_t inNoteMidiNumber);
+	NoteMidi(const std::string& inNoteMidiNumber);
+	NoteMidi(const ptrdiff_t inNoteMidiNumber);
 	NoteMidi(const Note& inNote);
 
 	/** Destructor. */
 	virtual ~NoteMidi();
 
-	NoteMidi& operator=(const size_t inNoteMidiNumber);
+	NoteMidi& operator=(const ptrdiff_t inNoteMidiNumber);
 
-	const size_t number() const;
+	const ptrdiff_t value() const;
 
 	const std::string str() const;
 
@@ -37,7 +37,7 @@ protected:
 
 private:
 
-	void setNoteNumber(const size_t inNoteMidiNumber);
+	void setNoteNumber(const ptrdiff_t inNoteMidiNumber);
 
 };
 

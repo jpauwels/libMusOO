@@ -59,6 +59,26 @@ const std::string Note::str() const
 	return "";
 }
 
+Chroma& Note::chroma()
+{
+    return m_Chroma;
+}
+
+const Chroma& Note::chroma() const
+{
+    return m_Chroma;
+}
+
+ptrdiff_t& Note::octave()
+{
+    return m_Octave;
+}
+
+const ptrdiff_t& Note::octave() const
+{
+    return m_Octave;
+}
+
 // const double Note::frequency(double inDiapason /*= 440.*/) const
 // {
 // 	return inDiapason;
