@@ -337,24 +337,23 @@ const ChordType ChordType::triad(bool inWithBass) const
 	}
 	else
     {
-        ChordType theTriadType;
+        ChordType theTriadType = ChordType::undefined();
         //if the formula contains major third
         if (m_IntervalList.count(Interval::majorThird()) > 0)
         {
             //if formula contains only augmented fifth
-            if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0 && m_IntervalList.count(Interval::diminishedFifth()) == 0)
             {
                 //augmented triad
                 theTriadType = augmented();
             }
             //if formula contains only diminished fifth
-            else if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            else if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0 && m_IntervalList.count(Interval::augmentedFifth()) == 0)
             {
                 //majorb5 triad
                 theTriadType = majorFlatFifth();
             }
-            //if formula contains perfect fifth
-            else //if (m_IntervalList.count(Interval::perfectFifth()) > 0)
+            else
             {
                 //major triad
                 theTriadType = major();
@@ -364,18 +363,17 @@ const ChordType ChordType::triad(bool inWithBass) const
         else if (m_IntervalList.count(Interval::minorThird()) > 0)
         {
             //if formula contains only diminished fifth
-            if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0 && m_IntervalList.count(Interval::augmentedFifth()) == 0)
             {
                 //diminished triad
                 theTriadType = diminished();
             }
             //if formula contains only augmented fifth
-            else if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            else if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0 && m_IntervalList.count(Interval::diminishedFifth()) == 0)
             {
                 theTriadType = minorSharpFifth();
             }
-            //if the formula contains perfect fifth
-            else //if (m_IntervalList.count(Interval::perfectFifth()) > 0)
+            else
             {
                 //minor triad
                 theTriadType = minor();
@@ -421,12 +419,12 @@ const ChordType ChordType::tetrad(bool inWithBass) const
 	}
 	else
     {
-        ChordType theTetradType;
+        ChordType theTetradType = ChordType::undefined();
         //if the formula contains major third
         if (m_IntervalList.count(Interval::majorThird()) > 0)
         {
             //if formula contains only augmented fifth
-            if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            if (m_IntervalList.count(Interval::augmentedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0 && m_IntervalList.count(Interval::diminishedFifth()) == 0)
             {
                 if (m_IntervalList.count(Interval::minorSeventh()) > 0)
                 {
@@ -443,7 +441,7 @@ const ChordType ChordType::tetrad(bool inWithBass) const
                 }
             }
             //if formula contains only diminished fifth
-            else if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0)
+            else if (m_IntervalList.count(Interval::diminishedFifth()) > 0 && m_IntervalList.count(Interval::perfectFifth()) == 0 && m_IntervalList.count(Interval::augmentedFifth()) == 0)
             {
                 if (m_IntervalList.count(Interval::minorSeventh()) > 0)
                 {
