@@ -78,17 +78,17 @@ public:
 
 protected:
 
-	static const int stringModifierToCircleSteps(const std::string& inStringModifier);
+	static const ptrdiff_t stringModifierToCircleSteps(const std::string& inStringModifier);
 
-	static const std::map<char,int> s_NameToCirclePosition;
-	static const std::map<int,char> s_CirclePositionToName;
+	static const std::map<char,ptrdiff_t> s_NameToCirclePosition;
+	static const std::map<ptrdiff_t,char> s_CirclePositionToName;
 	
 	ptrdiff_t m_LinePosition;
 	bool m_HasSpelling;
 	
 private:
 	//only for creation of static chromas
-	Chroma(const int inCirclePosition, const bool inHasSpelling);
+	Chroma(const ptrdiff_t inCirclePosition, const bool inHasSpelling);
 
 };
 

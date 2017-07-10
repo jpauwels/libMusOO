@@ -39,17 +39,17 @@ const map<ptrdiff_t,size_t> Interval::s_CircleStepsToMajorDegree(circleStepsToMa
 
 const Interval& Interval::silence()
 {
-	static const Interval silence(std::numeric_limits<int>::max(), true, 0);
+	static const Interval silence(std::numeric_limits<ptrdiff_t>::max(), true, 0);
 	return silence;
 }
 const Interval& Interval::none()
 {
-	static const Interval none(std::numeric_limits<int>::max()-1, true, 0);
+	static const Interval none(std::numeric_limits<ptrdiff_t>::max()-1, true, 0);
 	return none;
 }
 const Interval& Interval::undefined()
 {
-	static const Interval undefined(std::numeric_limits<int>::max()-2, true, 0);
+	static const Interval undefined(std::numeric_limits<ptrdiff_t>::max()-2, true, 0);
 	return undefined;
 }
 Interval Interval::unison()
@@ -185,7 +185,7 @@ const std::string minorDegrees[] = {"I", "bII", "II", "III", "#III", "IV", "bV",
 const std::vector<std::string> Interval::s_MinorDegrees(minorDegrees, minorDegrees+12);
 
 Interval::Interval()
-: m_Octaves(0), m_HasSpelling(true), m_LinePosition(std::numeric_limits<int>::max())
+: m_Octaves(0), m_HasSpelling(true), m_LinePosition(std::numeric_limits<ptrdiff_t>::max())
 {
 }
 
@@ -250,7 +250,7 @@ Interval::Interval(const std::string& inDegree, const Mode& inMode)
 	m_HasSpelling = false;
 }
 
-Interval::Interval(int inCircleSteps, const bool inHasSpelling, const size_t inOctaves)
+Interval::Interval(ptrdiff_t inCircleSteps, const bool inHasSpelling, const size_t inOctaves)
 : m_LinePosition(inCircleSteps), m_Octaves(inOctaves), m_HasSpelling(inHasSpelling)
 {
 }
@@ -411,7 +411,7 @@ const std::string Interval::majorDegree() const
 
 const bool Interval::isTrueInterval() const
 {
-	return m_LinePosition < std::numeric_limits<int>::max()-2;
+	return m_LinePosition < std::numeric_limits<ptrdiff_t>::max()-2;
 }
 
 const ptrdiff_t Interval::diatonicNumber() const

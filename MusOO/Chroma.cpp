@@ -26,17 +26,17 @@ using namespace MusOO;
 
 const Chroma& Chroma::silence()
 {
-	static const Chroma silence(numeric_limits<int>::max(), true);
+	static const Chroma silence(numeric_limits<ptrdiff_t>::max(), true);
 	return silence;
 }
 const Chroma& Chroma::none()
 {
-	static const Chroma noChroma(numeric_limits<int>::max()-1, true);
+	static const Chroma noChroma(numeric_limits<ptrdiff_t>::max()-1, true);
 	return noChroma;
 }
 const Chroma& Chroma::undefined()
 {
-	static const Chroma undefined(numeric_limits<int>::max()-2, true);
+	static const Chroma undefined(numeric_limits<ptrdiff_t>::max()-2, true);
 	return undefined;
 }
 Chroma Chroma::Fb()
@@ -147,29 +147,29 @@ Chroma Chroma::Bs()
 const std::vector<Chroma>& Chroma::circleOfFifths(const Chroma& inStartChroma /* = Chroma::A*/, const bool inHasSpelling /*= false*/)
 {
 	static vector<Chroma> theCircleOfFifths(12);
-	for(int i = 0; i < 12; ++i)
+	for(ptrdiff_t i = 0; i < 12; ++i)
 	{
 		theCircleOfFifths[i] = Chroma((inStartChroma.m_LinePosition+i)%12, inHasSpelling);
 	}
 	return theCircleOfFifths;
 }
 
-static const pair<char,int> theNameToCirclePosition[] = {pair<char,int>('A',5), pair<char,int>('B',7), 
-	pair<char,int>('C',2), pair<char,int>('D',4), pair<char,int>('E',6), pair<char,int>('F',1), 
-	pair<char,int>('G',3), pair<char,int>('N',numeric_limits<int>::max()-1)};
-const map<char,int> Chroma::s_NameToCirclePosition(theNameToCirclePosition, theNameToCirclePosition+8);
+static const pair<char,ptrdiff_t> theNameToCirclePosition[] = {pair<char,ptrdiff_t>('A',5), pair<char,ptrdiff_t>('B',7),
+	pair<char,ptrdiff_t>('C',2), pair<char,ptrdiff_t>('D',4), pair<char,ptrdiff_t>('E',6), pair<char,ptrdiff_t>('F',1),
+	pair<char,ptrdiff_t>('G',3), pair<char,ptrdiff_t>('N',numeric_limits<ptrdiff_t>::max()-1)};
+const map<char,ptrdiff_t> Chroma::s_NameToCirclePosition(theNameToCirclePosition, theNameToCirclePosition+8);
 
-static const pair<int,char> theCirclePositionToName[] = {pair<int,char>(1,'F'), pair<int,char>(2,'C'), 
-	pair<int,char>(3,'G'), pair<int,char>(4,'D'), pair<int,char>(5,'A'), pair<int,char>(6,'E'), 
-	pair<int,char>(7,'B')};
-const map<int,char> Chroma::s_CirclePositionToName(theCirclePositionToName, theCirclePositionToName+7);
+static const pair<ptrdiff_t,char> theCirclePositionToName[] = {pair<ptrdiff_t,char>(1,'F'), pair<ptrdiff_t,char>(2,'C'),
+	pair<ptrdiff_t,char>(3,'G'), pair<ptrdiff_t,char>(4,'D'), pair<ptrdiff_t,char>(5,'A'), pair<ptrdiff_t,char>(6,'E'), 
+	pair<ptrdiff_t,char>(7,'B')};
+const map<ptrdiff_t,char> Chroma::s_CirclePositionToName(theCirclePositionToName, theCirclePositionToName+7);
 
 Chroma::Chroma() 
 : m_LinePosition(Chroma::undefined().m_LinePosition), m_HasSpelling(true)
 {
 }
 
-Chroma::Chroma(const int inCirclePosition, const bool inHasSpelling)
+Chroma::Chroma(const ptrdiff_t inCirclePosition, const bool inHasSpelling)
 : m_LinePosition(inCirclePosition), m_HasSpelling(inHasSpelling)
 {
 }
@@ -207,9 +207,9 @@ Chroma::~Chroma()
 	// Nothing to do...
 }
 
-const int Chroma::stringModifierToCircleSteps(const std::string& inStringModifier)
+const ptrdiff_t Chroma::stringModifierToCircleSteps(const std::string& inStringModifier)
 {
-	int theCircleModifier = 0;
+	ptrdiff_t theCircleModifier = 0;
 	for (size_t i = 0; i < inStringModifier.length(); i++)
 	{
 		//if the next character is a flat, move 7 positions to the left
@@ -245,7 +245,7 @@ const std::string Chroma::str() const
 		return "X";
 	}
 	//limit the position on the circle to the allowed basic range by adding modifiers
-	int theRangeLimitedCirclePosition = m_LinePosition;
+	ptrdiff_t theRangeLimitedCirclePosition = m_LinePosition;
 	string theModifierString = "";
 	while (theRangeLimitedCirclePosition < s_CirclePositionToName.begin()->first)
 	{
@@ -339,7 +339,7 @@ bool Chroma::operator<(const Chroma& inChroma) const
 
 const bool Chroma::isTrueChroma() const
 {
-	return m_LinePosition < numeric_limits<int>::max()-2;
+	return m_LinePosition < numeric_limits<ptrdiff_t>::max()-2;
 }
 
 std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const Chroma& inChroma)

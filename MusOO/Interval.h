@@ -97,7 +97,7 @@ protected:
 
 private:
 	//only for creation of static distances
-	Interval(const int inCircleSteps, const bool inHasSpelling, const size_t inOctaves);
+	Interval(const ptrdiff_t inCircleSteps, const bool inHasSpelling, const size_t inOctaves);
 	ptrdiff_t m_LinePosition;
 	size_t m_Octaves;
 	bool m_HasSpelling;
