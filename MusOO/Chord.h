@@ -63,6 +63,7 @@ public:
 	void deleteBass(const Chroma& inChroma);
     
     const bool hasSpelling() const;
+    Chord withoutSpelling() const;
     Chord& ignoreSpelling();
     
 protected:

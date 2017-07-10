@@ -55,6 +55,7 @@ public:
     const bool isTrueKey() const;
     
     const bool hasSpelling() const;
+    Key withoutSpelling() const;
     Key& ignoreSpelling();
     
     void addChroma(const Chroma& inChroma);

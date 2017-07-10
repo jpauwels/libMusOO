@@ -680,6 +680,11 @@ const bool ChordType::hasSpelling() const
     return IntervalClassSet::hasSpelling() && m_Bass.hasSpelling();
 }
 
+ChordType ChordType::withoutSpelling() const
+{
+    return ChordType(*this).ignoreSpelling();
+}
+
 ChordType& ChordType::ignoreSpelling()
 {
     IntervalClassSet::ignoreSpelling();

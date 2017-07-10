@@ -96,6 +96,7 @@ public:
 	ChordType& deleteBass();
     
     const bool hasSpelling() const;
+    ChordType withoutSpelling() const;
     ChordType& ignoreSpelling();
 
 protected:

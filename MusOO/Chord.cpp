@@ -174,6 +174,11 @@ const bool Chord::hasSpelling() const
     return m_Root.hasSpelling() && m_Type.hasSpelling();
 }
 
+Chord Chord::withoutSpelling() const
+{
+    return Chord(*this).ignoreSpelling();
+}
+
 Chord& Chord::ignoreSpelling()
 {
     if (isTrueChord())

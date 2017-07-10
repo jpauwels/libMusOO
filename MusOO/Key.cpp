@@ -123,6 +123,11 @@ const bool Key::hasSpelling() const
     return m_Tonic.hasSpelling() && m_Mode.hasSpelling();
 }
 
+Key Key::withoutSpelling() const
+{
+    return Key(*this).ignoreSpelling();
+}
+
 Key& Key::ignoreSpelling()
 {
     if (isTrueKey())
