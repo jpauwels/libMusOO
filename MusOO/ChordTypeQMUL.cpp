@@ -97,9 +97,13 @@ ChordTypeQMUL::ChordTypeQMUL(std::string inName)
 	}
 	//check if there is a bass note after a forward slash
 	size_t theSlash = inName.find("/");
+    if (theSlash == 0)
+    {
+        *this = ChordTypeQMUL::major();
+    }
 	if (theSlash != string::npos)
 	{
-		addBassNote(inName.substr(theSlash+1,string::npos));
+		addBassNote(inName.substr(theSlash+1));
 	}
 }
 

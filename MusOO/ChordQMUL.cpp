@@ -69,7 +69,7 @@ ChordQMUL::ChordQMUL(const std::string& inChordString)
 			else
 			{
 				//no explicit type, with slash
-				m_Type = ChordTypeQMUL("maj"+inChordString.substr(theSlash));
+				m_Type = ChordTypeQMUL(inChordString.substr(theSlash));
 			}
 		}
 	}
