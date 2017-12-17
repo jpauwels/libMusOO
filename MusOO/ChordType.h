@@ -12,11 +12,11 @@
 #include <string>
 #include <set>
 #include "MusOO/Set.h"
-#include "MusOO/Interval.h"
+#include "MusOO/SimpleInterval.h"
 
 namespace MusOO
 {
-class ChordType: public Set<Interval>
+class ChordType: public Set<SimpleInterval>
 {
 public:
 
@@ -90,9 +90,9 @@ public:
 	const std::vector<ChordType> inversions() const;
 
 	/** Modifiers */
-    ChordType& addInterval(const Interval& inInterval);
-	ChordType& deleteInterval(const Interval& inInterval);
-	ChordType& replaceInterval(const Interval& inIntervalToReplace, const Interval& inReplacementInterval);
+    ChordType& addInterval(const SimpleInterval& inInterval);
+	ChordType& deleteInterval(const SimpleInterval& inInterval);
+	ChordType& replaceInterval(const SimpleInterval& inIntervalToReplace, const SimpleInterval& inReplacementInterval);
 	ChordType& addBass(const SimpleInterval& inInterval);
 	ChordType& deleteBass();
     
@@ -103,13 +103,13 @@ public:
 protected:
 	
 	void subtract(const ChordType& inType);
-	void subtract(const ChordType& inType, std::set<Interval>& outRestIntervals, std::set<Interval>& outMissingIntervals) const;
+	void subtract(const ChordType& inType, std::set<SimpleInterval>& outRestIntervals, std::set<SimpleInterval>& outMissingIntervals) const;
 	SimpleInterval m_Bass;
 
 private:
 
 	// only used for construction of static modes
-	ChordType(const Interval* inIntervalList, const int inNumOfIntervals, const SimpleInterval& inBass = SimpleInterval::undefined());
+	ChordType(const SimpleInterval* inIntervalList, const int inNumOfIntervals, const SimpleInterval& inBass = SimpleInterval::undefined());
 };
 }
 #endif	// #ifndef ChordType_h

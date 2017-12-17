@@ -15,7 +15,6 @@
 namespace MusOO
 {
 class RelativeChord;
-class Interval;
 
 class Mode : public Set<SimpleInterval>
 {
@@ -42,14 +41,14 @@ public:
 	//Mode(const Mode& inMode) = default;
 	virtual ~Mode();
 
-	size_t diatonicCircleDistance(const Interval& inInterval1, const Interval& inInterval2) const;
+	size_t diatonicCircleDistance(const SimpleInterval& inInterval1, const SimpleInterval& inInterval2) const;
 
 	/** Returns the diatonic relative triad of a given degree in this mode 
 	@param	inDegree			the degree on which a diatonic chord needs to be constructed 
 	@return		a relative triad diatonic in this mode built on a given degree */
 	RelativeChord diatonicTriad(size_t inDegree) const;
 
-	const size_t chromaticCOFDistance(Interval inRootInterval, const Mode& inMode) const;
+	const size_t chromaticCOFDistance(SimpleInterval inRootInterval, const Mode& inMode) const;
     
     Mode& addInterval(const SimpleInterval& inInterval);
 	Mode& deleteInterval(const SimpleInterval& inInterval);

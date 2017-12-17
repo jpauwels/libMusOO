@@ -37,25 +37,25 @@ static const pair<string,ChordType> typeStringMap[] =
 	pair<string,ChordType>("7+",ChordType::augmentedSeventh()),
 	pair<string,ChordType>("m6",ChordType::minorSixth()),
     //pentads
-	pair<string,ChordType>("7#9",ChordType::dominantSeventh().addInterval(Interval::augmentedNinth())),
-	pair<string,ChordType>("7#11",ChordType::dominantSeventh().addInterval(Interval::augmentedEleventh())),
+	pair<string,ChordType>("7#9",ChordType::dominantSeventh().addInterval(SimpleInterval::augmentedSecond())),
+	pair<string,ChordType>("7#11",ChordType::dominantSeventh().addInterval(SimpleInterval::augmentedFourth())),
 	pair<string,ChordType>("7b5#9",ChordType::majorFlatFifth().
-        addInterval(Interval::minorSeventh()).addInterval(Interval::augmentedNinth())),
+        addInterval(SimpleInterval::minorSeventh()).addInterval(SimpleInterval::augmentedSecond())),
 	pair<string,ChordType>("7susb9",ChordType::suspendedFourth().
-                           addInterval(Interval::minorSeventh()).addInterval(Interval::minorNinth())),
+                           addInterval(SimpleInterval::minorSeventh()).addInterval(SimpleInterval::minorSecond())),
 	pair<string,ChordType>("maj7#5",ChordType::majorSeventh().
-                           replaceInterval(Interval::perfectFifth(),Interval::augmentedFifth())),
+                           replaceInterval(SimpleInterval::perfectFifth(),SimpleInterval::augmentedFifth())),
     //hexads
 	pair<string,ChordType>("7b9#11",ChordType::dominantSeventh().
-		addInterval(Interval::minorNinth()).addInterval(Interval::augmentedEleventh())),
+		addInterval(SimpleInterval::minorSecond()).addInterval(SimpleInterval::augmentedFourth())),
 	pair<string,ChordType>("11",ChordType::dominantEleventh()),
-	pair<string,ChordType>("9#11",ChordType::dominantNinth().addInterval(Interval::augmentedEleventh())),
-	pair<string,ChordType>("maj9#11",ChordType::majorNinth().addInterval(Interval::augmentedEleventh())),
+	pair<string,ChordType>("9#11",ChordType::dominantNinth().addInterval(SimpleInterval::augmentedFourth())),
+	pair<string,ChordType>("maj9#11",ChordType::majorNinth().addInterval(SimpleInterval::augmentedFourth())),
     //heptads
 	pair<string,ChordType>("13#11",ChordType::dominantThirteenth().
-		replaceInterval(Interval::perfectEleventh(),Interval::augmentedEleventh())),
+		replaceInterval(SimpleInterval::perfectFourth(),SimpleInterval::augmentedFourth())),
 	pair<string,ChordType>("13sus",ChordType::dominantThirteenth().
-		replaceInterval(Interval::majorThird(),Interval::perfectFourth())),
+		replaceInterval(SimpleInterval::majorThird(),SimpleInterval::perfectFourth())),
 	pair<string,ChordType>("maj13",ChordType::majorThirteenth()),
     //not clear
 	pair<string,ChordType>("whole",ChordType::rootOnly()),

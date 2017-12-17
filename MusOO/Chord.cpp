@@ -138,9 +138,9 @@ void Chord::deleteBass(const Chroma& inChroma)
 const std::set<Chroma> Chord::chromas() const
 {
 	set<Chroma> theChromaSet;
-	for (set<Interval>::const_iterator it = m_Type.m_set.begin(); it != m_Type.m_set.end(); ++it)
+	for (set<SimpleInterval>::const_iterator it = m_Type.m_set.begin(); it != m_Type.m_set.end(); ++it)
 	{
-		theChromaSet.insert(Chroma(m_Root, it->simpleInterval()));
+		theChromaSet.insert(Chroma(m_Root, *it));
 	}
 	return theChromaSet;
 }

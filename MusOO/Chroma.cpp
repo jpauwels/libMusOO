@@ -18,7 +18,7 @@
 #include <vector>
 	using std::vector;
 #include "MusOO/Chroma.h"
-#include "MusOO/Interval.h"
+#include "MusOO/SimpleInterval.h"
 using namespace MusOO;
 
 const Chroma& Chroma::silence()

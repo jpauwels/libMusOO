@@ -135,10 +135,10 @@ Mode::~Mode()
 {
 }
 
-size_t Mode::diatonicCircleDistance(const Interval& inInterval1, const Interval& inInterval2) const
+size_t Mode::diatonicCircleDistance(const SimpleInterval& inInterval1, const SimpleInterval& inInterval2) const
 {
-	if ((m_set.count(inInterval1.simpleInterval()) == 0 || m_set.count(inInterval2.simpleInterval()) == 0) &&
-		m_set.count(inInterval1.simpleInterval()) != m_set.count(inInterval2.simpleInterval()))
+	if ((m_set.count(inInterval1) == 0 || m_set.count(inInterval2) == 0) &&
+		m_set.count(inInterval1) != m_set.count(inInterval2))
 	{
 		return m_set.size()/2;
 	}
@@ -161,15 +161,15 @@ RelativeChord Mode::diatonicTriad(size_t inDegree) const
 	return RelativeChord(theRootInterval, theType);
 }
 
-const size_t Mode::chromaticCOFDistance(Interval inRootInterval, const Mode& inMode) const
+const size_t Mode::chromaticCOFDistance(SimpleInterval inRootInterval, const Mode& inMode) const
 {
 	if (isMinor())
 	{
-		inRootInterval -= Interval::minorThird();
+		inRootInterval -= SimpleInterval::minorThird();
 	}
 	if (inMode.isMinor())
 	{
-		inRootInterval += Interval::minorThird();
+		inRootInterval += SimpleInterval::minorThird();
 	}
 	return std::min(inRootInterval.circleStepsCCW(), inRootInterval.circleStepsCW());
 }

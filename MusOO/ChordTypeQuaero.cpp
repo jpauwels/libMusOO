@@ -38,18 +38,18 @@ static const pair<string,ChordType> typeStringMap[] =
 	pair<string,ChordType>("m7M",ChordType::minorMajorSeventh()),
 	pair<string,ChordType>("d7",ChordType::halfDiminished()),
 	pair<string,ChordType>("7d",ChordType::diminishedSeventh()),
-	pair<string,ChordType>("7sus2",ChordType::suspendedSecond().addInterval(Interval::minorSeventh())),
-	pair<string,ChordType>("7sus4",ChordType::suspendedFourth().addInterval(Interval::minorSeventh())),
-	pair<string,ChordType>("7Msus2",ChordType::suspendedSecond().addInterval(Interval::majorSeventh())),
-	pair<string,ChordType>("7Msus4",ChordType::suspendedFourth().addInterval(Interval::majorSeventh())),
+	pair<string,ChordType>("7sus2",ChordType::suspendedSecond().addInterval(SimpleInterval::minorSeventh())),
+	pair<string,ChordType>("7sus4",ChordType::suspendedFourth().addInterval(SimpleInterval::minorSeventh())),
+	pair<string,ChordType>("7Msus2",ChordType::suspendedSecond().addInterval(SimpleInterval::majorSeventh())),
+	pair<string,ChordType>("7Msus4",ChordType::suspendedFourth().addInterval(SimpleInterval::majorSeventh())),
 	pair<string,ChordType>("6",ChordType::majorSixth()),
-	pair<string,ChordType>("m6",ChordType::minor().addInterval(Interval::minorSixth())),
+	pair<string,ChordType>("m6",ChordType::minor().addInterval(SimpleInterval::minorSixth())),
 	pair<string,ChordType>("m6M",ChordType::minorSixth()),
 	//pentads
 	pair<string,ChordType>("9",ChordType::dominantNinth()),
 	pair<string,ChordType>("m9",ChordType::minorNinth()),
 	pair<string,ChordType>("9(7M)",ChordType::majorNinth()),
-	pair<string,ChordType>("m9(7M)",ChordType::minorMajorSeventh().addInterval(Interval::majorNinth()))
+	pair<string,ChordType>("m9(7M)",ChordType::minorMajorSeventh().addInterval(SimpleInterval::majorSecond()))
 };
 const map<string,ChordType> ChordTypeQuaero::s_TypeStringMap(typeStringMap, typeStringMap+24);
 
@@ -82,26 +82,26 @@ ChordTypeQuaero::~ChordTypeQuaero()
 const std::string ChordTypeQuaero::str(const Chroma& inRootChroma /*= Chroma::undefined()*/) const
 {	
 	string theString = "";
-	set<Interval> theRestIntervals;
-	set<Interval> theMissingIntervals;
+	set<SimpleInterval> theRestIntervals;
+	set<SimpleInterval> theMissingIntervals;
 	if (*this == ChordType::none())
 	{
 		//initialised values are correct
 	}
 	//if the formula contains major third
-	else if (m_set.count(Interval::majorThird()) > 0)
+	else if (m_set.count(SimpleInterval::majorThird()) > 0)
 	{
 		//if formula contains only augmented fifth
-		if (m_set.count(Interval::augmentedFifth()) > 0 && m_set.count(Interval::perfectFifth()) == 0)
+		if (m_set.count(SimpleInterval::augmentedFifth()) > 0 && m_set.count(SimpleInterval::perfectFifth()) == 0)
 		{
 			theString = "a";
 			subtract(ChordType::augmented(), theRestIntervals, theMissingIntervals);
 		}
 		//if formula contains minor seventh
-		else if (m_set.count(Interval::minorSeventh()) > 0)
+		else if (m_set.count(SimpleInterval::minorSeventh()) > 0)
 		{
 			//if formula contains major ninth
-			if (m_set.count(Interval::majorNinth()) > 0)
+			if (m_set.count(SimpleInterval::majorSecond()) > 0)
 			{
 				theString = "9";
 				subtract(ChordType::dominantNinth(), theRestIntervals, theMissingIntervals);
@@ -113,10 +113,10 @@ const std::string ChordTypeQuaero::str(const Chroma& inRootChroma /*= Chroma::un
 			}
 		}
 		//if formula contains major seventh
-		else if (m_set.count(Interval::majorSeventh()) > 0)
+		else if (m_set.count(SimpleInterval::majorSeventh()) > 0)
 		{
 			//if formula contains major ninth
-			if (m_set.count(Interval::majorNinth()) > 0)
+			if (m_set.count(SimpleInterval::majorSecond()) > 0)
 			{
 				theString = "9(7M)";
 				subtract(ChordType::majorNinth(), theRestIntervals, theMissingIntervals);
@@ -128,7 +128,7 @@ const std::string ChordTypeQuaero::str(const Chroma& inRootChroma /*= Chroma::un
 			}
 		}
 		//if formula contains major sixth
-		else if (m_set.count(Interval::majorSixth()) > 0)
+		else if (m_set.count(SimpleInterval::majorSixth()) > 0)
 		{
 			theString = "6";
 			subtract(ChordType::majorSixth(), theRestIntervals, theMissingIntervals);
@@ -140,19 +140,19 @@ const std::string ChordTypeQuaero::str(const Chroma& inRootChroma /*= Chroma::un
 		}
 	}
 	//if the formula contains minor third
-	else if (m_set.count(Interval::minorThird()) > 0)
+	else if (m_set.count(SimpleInterval::minorThird()) > 0)
 	{
 		//if formula contains only diminished fifth
-		if (m_set.count(Interval::diminishedFifth()) > 0 && m_set.count(Interval::perfectFifth()) == 0)
+		if (m_set.count(SimpleInterval::diminishedFifth()) > 0 && m_set.count(SimpleInterval::perfectFifth()) == 0)
 		{
 			//if formula contains minor seventh
-			if (m_set.count(Interval::minorSeventh()) > 0)
+			if (m_set.count(SimpleInterval::minorSeventh()) > 0)
 			{
 				theString = "d7";
 				subtract(ChordType::halfDiminished(), theRestIntervals, theMissingIntervals);
 			}
 			//if formula contains diminished seventh
-			else if (m_set.count(Interval::diminishedSeventh()) > 0)
+			else if (m_set.count(SimpleInterval::diminishedSeventh()) > 0)
 			{
 				theString = "7d";
 				subtract(ChordType::diminishedSeventh(), theRestIntervals, theMissingIntervals);
@@ -164,10 +164,10 @@ const std::string ChordTypeQuaero::str(const Chroma& inRootChroma /*= Chroma::un
 			}
 		}
 		//if formula contains minor seventh
-		else if (m_set.count(Interval::minorSeventh()) > 0)
+		else if (m_set.count(SimpleInterval::minorSeventh()) > 0)
 		{
 			//if formula contains major ninth
-			if (m_set.count(Interval::majorNinth()) > 0)
+			if (m_set.count(SimpleInterval::majorSecond()) > 0)
 			{
 				theString = "m9";
 				subtract(ChordType::minorNinth(), theRestIntervals, theMissingIntervals);
@@ -179,13 +179,13 @@ const std::string ChordTypeQuaero::str(const Chroma& inRootChroma /*= Chroma::un
 			}
 		}
 		//if formula contains major seventh
-		else if (m_set.count(Interval::majorSeventh()) > 0)
+		else if (m_set.count(SimpleInterval::majorSeventh()) > 0)
 		{
 			//if formula contains major ninth
-			if (m_set.count(Interval::majorNinth()) > 0)
+			if (m_set.count(SimpleInterval::majorSecond()) > 0)
 			{
 				theString = "m9(7M)";
-				subtract(ChordType::minorMajorSeventh().addInterval(Interval::majorNinth()), theRestIntervals, theMissingIntervals);
+				subtract(ChordType::minorMajorSeventh().addInterval(SimpleInterval::majorSecond()), theRestIntervals, theMissingIntervals);
 			}
 			else
 			{
@@ -194,16 +194,16 @@ const std::string ChordTypeQuaero::str(const Chroma& inRootChroma /*= Chroma::un
 			}
 		}
 		//if formula contains major sixth
-		else if (m_set.count(Interval::majorSixth()) > 0)
+		else if (m_set.count(SimpleInterval::majorSixth()) > 0)
 		{
 			theString = "m6M";
 			subtract(ChordType::minorSixth(), theRestIntervals, theMissingIntervals);
 		}
 		//if formula contains minor sixth
-		else if (m_set.count(Interval::majorSixth()) > 0)
+		else if (m_set.count(SimpleInterval::majorSixth()) > 0)
 		{
 			theString = "m6";
-			subtract(ChordType::minor().addInterval(Interval::minorSixth()), theRestIntervals, theMissingIntervals);
+			subtract(ChordType::minor().addInterval(SimpleInterval::minorSixth()), theRestIntervals, theMissingIntervals);
 		}
 		else 
 		{
@@ -212,41 +212,40 @@ const std::string ChordTypeQuaero::str(const Chroma& inRootChroma /*= Chroma::un
 		}
 	}
 	//if the formula contains perfect fourth (and no third or major second)
-	else if (m_set.count(Interval::perfectFourth()) > 0 && m_set.count(Interval::majorSecond()) == 0)
+	else if (m_set.count(SimpleInterval::perfectFourth()) > 0 && m_set.count(SimpleInterval::majorSecond()) == 0)
 	{
 		//if formula contains minor seventh
-		if (m_set.count(Interval::minorSeventh()) > 0)
+		if (m_set.count(SimpleInterval::minorSeventh()) > 0)
 		{
 			theString = "7sus4";
 			subtract(ChordType::suspendedFourthSeventh(), theRestIntervals, theMissingIntervals);
 		}
 		//if formula contains major seventh
-		else if (m_set.count(Interval::majorSeventh()) > 0)
+		else if (m_set.count(SimpleInterval::majorSeventh()) > 0)
 		{
 			theString = "7Msus4";
-			subtract(ChordType::suspendedFourth().addInterval(Interval::majorSeventh()), theRestIntervals, theMissingIntervals);
+			subtract(ChordType::suspendedFourth().addInterval(SimpleInterval::majorSeventh()), theRestIntervals, theMissingIntervals);
 		}
 		else
 		{
 			theString = "sus4";
 			subtract(ChordType::suspendedFourth(), theRestIntervals, theMissingIntervals);
 		}
-
 	}
 	//if the formula contains major second (and no third or perfect fourth)
-	else if (m_set.count(Interval::majorSecond()) > 0 && m_set.count(Interval::perfectFourth()) == 0)
+	else if (m_set.count(SimpleInterval::majorSecond()) > 0 && m_set.count(SimpleInterval::perfectFourth()) == 0)
 	{
 		//if formula contains minor seventh
-		if (m_set.count(Interval::minorSeventh()) > 0)
+		if (m_set.count(SimpleInterval::minorSeventh()) > 0)
 		{
 			theString = "7sus2";
-			subtract(ChordType::suspendedSecond().addInterval(Interval::minorSeventh()), theRestIntervals, theMissingIntervals);
+			subtract(ChordType::suspendedSecond().addInterval(SimpleInterval::minorSeventh()), theRestIntervals, theMissingIntervals);
 		}
 		//if formula contains major seventh
-		else if (m_set.count(Interval::majorSeventh()) > 0)
+		else if (m_set.count(SimpleInterval::majorSeventh()) > 0)
 		{
 			theString = "7Msus2";
-			subtract(ChordType::suspendedSecond().addInterval(Interval::majorSeventh()), theRestIntervals, theMissingIntervals);
+			subtract(ChordType::suspendedSecond().addInterval(SimpleInterval::majorSeventh()), theRestIntervals, theMissingIntervals);
 		}
 		else
 		{
@@ -256,19 +255,19 @@ const std::string ChordTypeQuaero::str(const Chroma& inRootChroma /*= Chroma::un
 
 	}
 	//if the formula contains perfect fifth
-	else if (m_set.count(Interval::perfectFifth()) > 0)
+	else if (m_set.count(SimpleInterval::perfectFifth()) > 0)
 	{
 		theString = "5th";
 		subtract(ChordType::power(), theRestIntervals, theMissingIntervals);
 	}
 	
-	for (set<Interval>::const_iterator theRestIt = theRestIntervals.begin(); theRestIt != theRestIntervals.end(); ++theRestIt)
+	for (set<SimpleInterval>::const_iterator theRestIt = theRestIntervals.begin(); theRestIt != theRestIntervals.end(); ++theRestIt)
 	{
-		theString += " + " + getConstrainedString(ChromaSolfege(inRootChroma, theRestIt->simpleInterval()));
+		theString += " + " + getConstrainedString(ChromaSolfege(inRootChroma, *theRestIt));
 	}
-	for (set<Interval>::const_iterator theMissingIt = theMissingIntervals.begin(); theMissingIt != theMissingIntervals.end(); ++theMissingIt)
+	for (set<SimpleInterval>::const_iterator theMissingIt = theMissingIntervals.begin(); theMissingIt != theMissingIntervals.end(); ++theMissingIt)
 	{
-		theString += " - " + getConstrainedString(ChromaSolfege(inRootChroma, theMissingIt->simpleInterval()));
+		theString += " - " + getConstrainedString(ChromaSolfege(inRootChroma, *theMissingIt));
 	}
 	if (m_Bass != SimpleInterval::undefined())
 	{

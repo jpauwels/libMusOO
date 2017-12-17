@@ -9,8 +9,6 @@
 
 // Includes
 #include "MusOO/Note.h"
-#include "MusOO/Interval.h"
-
 using namespace MusOO;
 
 const Note& Note::silence()
