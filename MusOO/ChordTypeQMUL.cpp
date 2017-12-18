@@ -60,8 +60,8 @@ static const pair<string,ChordType> typeStringMap[] = {
     pair<string,ChordType>("11",ChordType::dominantEleventh()),
     pair<string,ChordType>("min11",ChordType::minorEleventh()),
     pair<string,ChordType>("maj13",ChordType::majorThirteenth()),
-    pair<string,ChordType>("13",ChordType::dominantEleventh()),
-    pair<string,ChordType>("min13",ChordType::minorEleventh())};
+    pair<string,ChordType>("13",ChordType::dominantThirteenth()),
+    pair<string,ChordType>("min13",ChordType::minorThirteenth())};
 const map<string,ChordType> ChordTypeQMUL::s_TypeStringMap(typeStringMap, typeStringMap+28);
 
 ChordTypeQMUL::ChordTypeQMUL(std::string inName)
@@ -180,8 +180,24 @@ const std::string ChordTypeQMUL::str() const
             {
                 if (m_set.count(SimpleInterval::majorSecond()) > 0)
                 {
-                    theString = "9";
-                    subtract(dominantNinth(), theRestIntervals, theMissingIntervals);
+                    if (m_set.count(SimpleInterval::perfectFourth()) > 0)
+                    {
+                        if (m_set.count(SimpleInterval::majorSixth()) > 0)
+                        {
+                            theString = "13";
+                            subtract(dominantThirteenth(), theRestIntervals, theMissingIntervals);
+                        }
+                        else
+                        {
+                            theString = "11";
+                            subtract(dominantEleventh(), theRestIntervals, theMissingIntervals);
+                        }
+                    }
+                    else
+                    {
+                        theString = "9";
+                        subtract(dominantNinth(), theRestIntervals, theMissingIntervals);
+                    }
                 }
                 else
                 {
@@ -194,8 +210,24 @@ const std::string ChordTypeQMUL::str() const
             {
                 if (m_set.count(SimpleInterval::majorSecond()) > 0)
                 {
-                    theString = "maj9";
-                    subtract(majorNinth(), theRestIntervals, theMissingIntervals);
+                    if (m_set.count(SimpleInterval::perfectFourth()) > 0)
+                    {
+                        if (m_set.count(SimpleInterval::majorSixth()) > 0)
+                        {
+                            theString = "maj13";
+                            subtract(majorThirteenth(), theRestIntervals, theMissingIntervals);
+                        }
+                        else
+                        {
+                            theString = "maj11";
+                            subtract(majorEleventh(), theRestIntervals, theMissingIntervals);
+                        }
+                    }
+                    else
+                    {
+                        theString = "maj9";
+                        subtract(majorNinth(), theRestIntervals, theMissingIntervals);
+                    }
                 }
                 else
                 {
@@ -245,8 +277,24 @@ const std::string ChordTypeQMUL::str() const
             {
                 if (m_set.count(SimpleInterval::majorSecond()) > 0)
                 {
-                    theString = "min9";
-                    subtract(minorNinth(), theRestIntervals, theMissingIntervals);
+                    if (m_set.count(SimpleInterval::perfectFourth()) > 0)
+                    {
+                        if (m_set.count(SimpleInterval::majorSixth()) > 0)
+                        {
+                            theString = "min13";
+                            subtract(minorThirteenth(), theRestIntervals, theMissingIntervals);
+                        }
+                        else
+                        {
+                            theString = "min11";
+                            subtract(minorEleventh(), theRestIntervals, theMissingIntervals);
+                        }
+                    }
+                    else
+                    {
+                        theString = "min9";
+                        subtract(minorNinth(), theRestIntervals, theMissingIntervals);
+                    }
                 }
                 else
                 {
