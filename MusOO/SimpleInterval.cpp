@@ -322,7 +322,23 @@ const ptrdiff_t SimpleInterval::circleStepsCCW() const
 	return ((-m_LinePosition % 12) + 12) % 12;
 }
 
-const std::string SimpleInterval::majorDegree() const
+const std::tuple<ptrdiff_t, ptrdiff_t> SimpleInterval::majorDegree() const
+{
+    if (*this == SimpleInterval::silence() || *this == SimpleInterval::none() || *this == SimpleInterval::undefined())
+    {
+        return std::make_tuple(0, this->m_LinePosition);
+    }
+    else
+    {
+        //limit the number of circle steps to the right range by adding modifiers
+        ptrdiff_t theNumOfModifiers = static_cast<ptrdiff_t>(std::floor((m_LinePosition + 1) / 7.));
+        //convert the range-limited circle steps to the degree
+        ptrdiff_t naturalDegree = s_CircleStepsToMajorDegree.find(m_LinePosition-7*theNumOfModifiers)->second;
+        return std::make_pair(theNumOfModifiers, naturalDegree);
+    }
+}
+
+const std::string SimpleInterval::majorDegreeString() const
 {
     if (*this == SimpleInterval::silence())
     {
@@ -339,21 +355,18 @@ const std::string SimpleInterval::majorDegree() const
     else
     {
         //limit the number of circle steps to the right range by adding modifiers
-        ptrdiff_t theNumOfModifiers = static_cast<ptrdiff_t>(std::floor((m_LinePosition + 1) / 7.));
-        string theDegree = "";
-        if (theNumOfModifiers > 0)
+        const auto majDegree = majorDegree();
+        const ptrdiff_t numModifiers = std::get<0>(majDegree);
+        string modifiers = "";
+        if (numModifiers > 0)
         {
-            theDegree = string(theNumOfModifiers, '#');
+            modifiers = string(numModifiers, '#');
         }
-        else if (theNumOfModifiers < 0)
+        else if (numModifiers < 0)
         {
-            theDegree = string(-theNumOfModifiers, 'b');
+            modifiers = string(-numModifiers, 'b');
         }
-        //convert the range-limited circle steps to the degree
-        ostringstream theStream;
-        theStream << s_CircleStepsToMajorDegree.find(m_LinePosition-7*theNumOfModifiers)->second;
-        theDegree.append(theStream.str());
-        return theDegree;
+        return modifiers + std::to_string(std::get<1>(majDegree));
     }
 }
 

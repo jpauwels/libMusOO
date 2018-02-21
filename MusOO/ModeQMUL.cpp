@@ -111,11 +111,11 @@ const std::string ModeQMUL::str() const
         theModeStream << "(";
         if (!m_set.empty())
         {
-            theModeStream << m_set.begin()->majorDegree();
+            theModeStream << m_set.begin()->majorDegreeString();
             for (std::set<SimpleInterval>::const_iterator i = ++m_set.begin(); i != m_set.end(); ++i)
             {
                 theModeStream << ",";
-                theModeStream << i->majorDegree();
+                theModeStream << i->majorDegreeString();
             }
         }
         theModeStream << ")";

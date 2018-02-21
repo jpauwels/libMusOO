@@ -321,9 +321,36 @@ const ptrdiff_t ComplexInterval::circleStepsCCW() const
     return m_simpleInterval.circleStepsCCW() - 12 * m_Octaves;
 }
 
-const std::string ComplexInterval::majorDegree() const
+const std::string ComplexInterval::majorDegreeString() const
 {
-    return m_simpleInterval.majorDegree();
+    if (*this == ComplexInterval::silence())
+    {
+        return "S";
+    }
+    else if (*this == ComplexInterval::none())
+    {
+        return "N";
+    }
+    else if (*this == ComplexInterval::undefined())
+    {
+        return "X";
+    }
+    else
+    {
+        //limit the number of circle steps to the right range by adding modifiers
+        const auto majDegree = m_simpleInterval.majorDegree();
+        const ptrdiff_t numModifiers = std::get<0>(majDegree);
+        string modifiers = "";
+        if (numModifiers > 0)
+        {
+            modifiers = string(numModifiers, '#');
+        }
+        else if (numModifiers < 0)
+        {
+            modifiers = string(-numModifiers, 'b');
+        }
+        return modifiers + std::to_string(7*m_Octaves+std::get<1>(majDegree));
+    }
 }
 
 const bool ComplexInterval::isTrueInterval() const

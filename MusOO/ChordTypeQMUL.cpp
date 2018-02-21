@@ -346,10 +346,10 @@ const std::string ChordTypeQMUL::str() const
         theString += "(";
         if (!theRestIntervals.empty())
         {
-            theString += theRestIntervals.begin()->majorDegree();
+            theString += autoVoicing(*(theRestIntervals.begin())).majorDegreeString();
             for (set<SimpleInterval>::const_iterator it = ++theRestIntervals.begin(); it != theRestIntervals.end(); ++it)
             {
-                theString += "," + it->majorDegree();
+                theString += "," + autoVoicing(*it).majorDegreeString();
             }
         }
         if (!theMissingIntervals.empty())
@@ -358,17 +358,17 @@ const std::string ChordTypeQMUL::str() const
             {
                 theString += ",";
             }
-            theString += "*" + theMissingIntervals.begin()->majorDegree();
+            theString += "*" + theMissingIntervals.begin()->majorDegreeString();
             for (set<SimpleInterval>::const_iterator it = ++theMissingIntervals.begin(); it != theMissingIntervals.end(); ++it)
             {
-                theString += ",*" + it->majorDegree();
+                theString += ",*" + it->majorDegreeString();
             }
         }
         theString += ")";
     }
 	if (this->m_Bass != SimpleInterval::undefined())
 	{
-		theString += "/" + this->m_Bass.majorDegree();
+		theString += "/" + this->m_Bass.majorDegreeString();
 	}
 	return theString;
 }

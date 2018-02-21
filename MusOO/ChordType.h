@@ -12,7 +12,7 @@
 #include <string>
 #include <set>
 #include "MusOO/Set.h"
-#include "MusOO/SimpleInterval.h"
+#include "MusOO/ComplexInterval.h"
 
 namespace MusOO
 {
@@ -104,6 +104,7 @@ protected:
 	
 	void subtract(const ChordType& inType);
 	void subtract(const ChordType& inType, std::set<SimpleInterval>& outRestIntervals, std::set<SimpleInterval>& outMissingIntervals) const;
+    const ComplexInterval autoVoicing(const SimpleInterval& inSimpleInterval) const;
 	SimpleInterval m_Bass;
 
 private:

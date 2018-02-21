@@ -80,7 +80,7 @@ public:
 	const ptrdiff_t semiTonesDown() const;
 	const ptrdiff_t circleStepsCW() const;
 	const ptrdiff_t circleStepsCCW() const;
-	const std::string majorDegree() const;
+	const std::string majorDegreeString() const;
 	const ptrdiff_t diatonicNumber() const;
 
 	const std::string asDegree(const Mode& inMode) const;

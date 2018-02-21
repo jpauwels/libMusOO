@@ -689,3 +689,64 @@ ChordType& ChordType::ignoreSpelling()
     m_Bass.ignoreSpelling();
 	return *this;
 }
+
+const ComplexInterval ChordType::autoVoicing(const SimpleInterval& inSimpleInterval) const
+{
+    const bool roomAvailable = m_set.count(inSimpleInterval+1) == 0 && m_set.count(inSimpleInterval-1) == 0;
+    if (hasSpelling() && inSimpleInterval.hasSpelling())
+    {
+        ptrdiff_t naturalDegree;
+        std::tie(std::ignore, naturalDegree) = inSimpleInterval.majorDegree();
+        if (!roomAvailable && (naturalDegree == 2 || naturalDegree == 4 || naturalDegree == 6))
+        {
+            return ComplexInterval(inSimpleInterval, 1);
+        }
+        else
+        {
+            return ComplexInterval(inSimpleInterval, 0);
+        }
+    }
+    else
+    {
+        if (roomAvailable || inSimpleInterval == SimpleInterval::perfectFifth() || inSimpleInterval == SimpleInterval::minorSeventh() || inSimpleInterval == SimpleInterval::majorSeventh())
+        {
+            return ComplexInterval(inSimpleInterval, 0);
+        }
+        else if (inSimpleInterval == SimpleInterval::minorSecond())
+        {
+            return ComplexInterval(SimpleInterval::minorSecond(), 1);
+        }
+        else if (inSimpleInterval == SimpleInterval::majorSecond())
+        {
+            return ComplexInterval(SimpleInterval::majorSecond(), 1);
+        }
+        else if (inSimpleInterval == SimpleInterval::augmentedSecond())
+        {
+            return ComplexInterval(SimpleInterval::augmentedSecond(), 1);
+        }
+        else if (inSimpleInterval == SimpleInterval::diminishedFourth())
+        {
+            return ComplexInterval(SimpleInterval::diminishedFourth(), 1);
+        }
+        else if (inSimpleInterval == SimpleInterval::perfectFourth())
+        {
+            return ComplexInterval(SimpleInterval::perfectFourth(), 1);
+        }
+        else if (inSimpleInterval == SimpleInterval::augmentedFourth())
+        {
+            return ComplexInterval(SimpleInterval::augmentedFourth(), 1);
+        }
+        else if (inSimpleInterval == SimpleInterval::minorSixth())
+        {
+            return ComplexInterval(SimpleInterval::minorSixth(), 1);
+        }
+        else if (inSimpleInterval == SimpleInterval::majorSixth())
+        {
+            return ComplexInterval(SimpleInterval::majorSixth(), 1);
+        }
+        else //unison
+        {
+            return ComplexInterval(inSimpleInterval, 0);
+        }
+    }
+}
