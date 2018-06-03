@@ -48,6 +48,27 @@ Chord::Chord(const Chroma& inRoot, const ChordType& inChordType)
 {
 }
 
+const Chord Chord::chordFromChromas(const Chroma& inRoot, const std::set<Chroma>& inChromas, const Chroma& inBass /*= Chroma::undefined()*/)
+{
+    ChordType chordType;
+    for (std::set<Chroma>::const_iterator iChroma = inChromas.begin(); iChroma != inChromas.end(); ++iChroma)
+    {
+        chordType.add(SimpleInterval(inRoot, *iChroma));
+    }
+    chordType.addBass(SimpleInterval(inRoot, inBass));
+    return Chord(inRoot, chordType);
+}
+
+const std::set<Chord> Chord::allChordsFromChromas(const std::set<Chroma>& inChromas, const Chroma& inBass /*= Chroma::undefined()*/)
+{
+    std::set<Chord> allChords;
+    for (std::set<Chroma>::const_iterator iChroma = inChromas.begin(); iChroma != inChromas.end(); ++iChroma)
+    {
+        allChords.insert(chordFromChromas(*iChroma, inChromas, inBass));
+    }
+    return allChords;
+}
+
 Chroma& Chord::root()
 {
 	return m_Root;
@@ -80,6 +101,11 @@ bool Chord::operator==(const Chord& inChord) const
 bool Chord::operator!=(const Chord& inChord) const
 {
 	return m_Root != inChord.m_Root || m_Type != inChord.m_Type;
+}
+
+bool Chord::operator<(const Chord& inChord) const
+{
+    return m_Root < inChord.m_Root || m_Type < inChord.m_Type;
 }
 
 const bool Chord::isTrueChord() const

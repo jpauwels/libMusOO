@@ -655,8 +655,19 @@ ChordType& ChordType::replaceInterval(const SimpleInterval& inIntervalToReplace,
 
 ChordType& ChordType::addBass(const SimpleInterval& inInterval)
 {
-	addInterval(inInterval);
-	m_Bass = inInterval;
+    if (inInterval == SimpleInterval::silence() || inInterval == SimpleInterval::none())
+    {
+        throw invalid_argument("Only true or undefined intervals can be added as bass");
+    }
+    else if (inInterval == SimpleInterval::undefined())
+    {
+        m_Bass = inInterval;
+    }
+    else
+    {
+        addInterval(inInterval);
+        m_Bass = inInterval;
+    }
 	return *this;
 }
 

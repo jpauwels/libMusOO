@@ -20,7 +20,8 @@ public:
 	const static Note& silence();
 
 	/** Constructors. */
-	Note();
+    Note();
+    Note(const Chroma& inChroma, const ptrdiff_t inOctave);
 // 	Note(double inFrequency);
 // 	Note(std::string inNoteName);
 
@@ -53,10 +54,6 @@ protected:
 
 	Chroma m_Chroma;
 	ptrdiff_t m_Octave;
-
-private:
-
-	Note(Chroma inChroma, ptrdiff_t inOctave);
 	
 };
 }

@@ -148,7 +148,7 @@ Set<Interval>& Set<Interval>::ignoreSpelling()
 template<typename Interval>
 Set<Interval>& Set<Interval>::add(const Interval& inInterval)
 {
-    if (hasSpelling() && !inInterval.hasSpelling())
+    if (m_set.size() > 0 && hasSpelling() && !inInterval.hasSpelling())
     {
         throw invalid_argument("The interval class to be added should have a spelling");
     }
@@ -185,6 +185,30 @@ Set<Interval>& Set<Interval>::replace(const Interval& inIntervalToReplace, const
 	}
 	m_set.insert(inReplacementInterval);
 	return *this;
+}
+
+template<typename Interval>
+typename Set<Interval>::iterator Set<Interval>::begin()
+{
+    return m_set.begin();
+}
+
+template<typename Interval>
+typename Set<Interval>::const_iterator Set<Interval>::begin() const
+{
+    return m_set.begin();
+}
+
+template<typename Interval>
+typename Set<Interval>::iterator Set<Interval>::end()
+{
+    return m_set.end();
+}
+
+template<typename Interval>
+typename Set<Interval>::const_iterator Set<Interval>::end() const
+{
+    return m_set.end();
 }
 
 #endif	// #ifndef Set_hpp

@@ -56,6 +56,14 @@ public:
 	virtual Set<Interval>& remove(const Interval& inInterval);
 	virtual Set<Interval>& replace(const Interval& inIntervalToReplace, const Interval& inReplacementInterval);
     
+    typedef typename std::set<Interval>::iterator iterator;
+    typedef typename std::set<Interval>::const_iterator const_iterator;
+    
+    iterator begin();
+    const_iterator begin() const;
+    iterator end();
+    const_iterator end() const;
+    
 protected:
 	
 	// only used for construction of static Sets

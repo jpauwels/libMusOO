@@ -29,6 +29,9 @@ public:
 	Chord();
 	Chord(const Chroma& inRoot, const ChordType& inChordType);
 
+    static const Chord chordFromChromas(const Chroma& inRoot, const std::set<Chroma>& inChromas, const Chroma& inBass = Chroma::undefined());
+    static const std::set<Chord> allChordsFromChromas(const std::set<Chroma>& inChromas, const Chroma& inBass = Chroma::undefined());
+    
 	//copy constructor
 	//Chord(const Chord& inChord) = default;
 
@@ -38,6 +41,7 @@ public:
 	/** Operators */
 	bool operator==(const Chord& inChord) const;
 	bool operator!=(const Chord& inChord) const;
+    bool operator<(const Chord& inChord) const;
 
 	Chroma& root();
 	const Chroma& root() const;

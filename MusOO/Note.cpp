@@ -23,7 +23,7 @@ Note::Note()
 
 }
 
-Note::Note(Chroma inChroma, ptrdiff_t inOctave)
+Note::Note(const Chroma& inChroma, const ptrdiff_t inOctave)
 : m_Chroma(inChroma), m_Octave(inOctave)
 {
 
