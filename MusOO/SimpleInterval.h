@@ -98,6 +98,10 @@ private:
 	static const std::vector<std::string> s_MajorDegrees;
 	static const std::vector<std::string> s_MinorDegrees;
 
+    const ptrdiff_t wrapIntoRange(const ptrdiff_t inValue, const ptrdiff_t inStartIncluded, const ptrdiff_t inEndExcluded);
+    const ptrdiff_t mod(const ptrdiff_t inValue, const ptrdiff_t inModulo);
+    const ptrdiff_t mod12(const ptrdiff_t inValue);
+
 };
 }
 #endif	// #ifndef SimpleInterval_h
