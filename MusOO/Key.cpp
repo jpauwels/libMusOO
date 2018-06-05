@@ -12,8 +12,8 @@
 #include <vector>
 #include <set>
 #include "MusOO/Key.h"
-#include "MusOO/Chord.h"
-#include "MusOO/RelativeChord.h"
+#include "MusOO/ChordAbstract.h"
+#include "MusOO/RelativeChordAbstract.h"
 
 using std::string;
 using std::vector;
@@ -102,13 +102,15 @@ const size_t Key::chromaticCOFDistance(const Key& inKey) const
 	return mode().chromaticCOFDistance(SimpleInterval(tonic(), inKey.tonic()), inKey.mode());
 }
 
-Chord Key::chord(const RelativeChord& inRelChord) const
+template <typename Chord>
+const Chord Key::chord(const RelativeChordAbstract& inRelChord) const
 {
 	//return Chord(tonic()+inRelChord.rootInterval(), inRelChord.type());
-	return Chord(Chroma(tonic(),inRelChord.rootInterval()), inRelChord.type());
+	return Chord(Chroma(tonic(), inRelChord.rootInterval()), inRelChord.type());
 }
 
-RelativeChord Key::relativeChord(const Chord& inChord) const
+template <typename RelativeChord>
+const RelativeChord Key::relativeChord(const ChordAbstract& inChord) const
 {
 	return RelativeChord(SimpleInterval(tonic(), inChord.root()), inChord.type());
 }

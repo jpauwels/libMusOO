@@ -10,11 +10,11 @@
  */
 //============================================================================
 #include <string>
-#include "MusOO/Chord.h"
+#include "MusOO/ChordAbstract.h"
 
 namespace MusOO
 {
-class ChordQuaero : public Chord
+class ChordQuaero : public ChordAbstract
 {
 public:
     
@@ -22,9 +22,10 @@ public:
 	
 	/** Default constructor. */
 	ChordQuaero();
-	ChordQuaero(const std::string& inChordString);
+    ChordQuaero(const std::string& inChordString);
+    using ChordAbstract::ChordAbstract;
 	// copy constructor
-	ChordQuaero(const Chord& inChord);
+	ChordQuaero(const ChordAbstract& inChord);
 	
 	/** Destructor. */
 	virtual ~ChordQuaero();
@@ -32,6 +33,7 @@ public:
 	const std::string str() const;
 	
 protected:
+    virtual const std::unique_ptr<ChordAbstract> create(const Chroma& inRoot, const ChordType& inChordType);
 	
 	
 private:

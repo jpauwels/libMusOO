@@ -35,12 +35,12 @@ ChordChordino::ChordChordino(std::string inChordString)
 	if (!inChordString.compare(0,1,"S"))
 	{
 		// Silence
-		*this = Chord::silence();
+		*this = silence<ChordChordino>();
 	}
 	else if (!inChordString.compare(0,1,"N"))
 	{
 		// No-chord
-		*this = Chord::none();
+		*this = none<ChordChordino>();
 	}
 	else
 	{
@@ -76,9 +76,14 @@ ChordChordino::ChordChordino(std::string inChordString)
 	}
 }
 
-ChordChordino::ChordChordino(const Chord& inChord)
-: Chord(inChord)
+ChordChordino::ChordChordino(const ChordAbstract& inChord)
+: ChordAbstract(inChord)
 {
+}
+
+const std::unique_ptr<ChordAbstract> ChordChordino::create(const Chroma& inRoot, const ChordType& inChordType)
+{
+    return std::unique_ptr<ChordAbstract>(new ChordChordino(inRoot, inChordType));
 }
 
 ChordChordino::~ChordChordino()

@@ -19,7 +19,6 @@ class Set
 {
 public:
     
-	friend class LerdahlDistance; //to access m_set in LerdahlDistance::basicSpace()
 	/** Default constructor. */
 	Set();
     //Set(Set inSet) = default

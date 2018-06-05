@@ -16,8 +16,8 @@
 
 namespace MusOO
 {
-class RelativeChord;
-class Chord;
+class RelativeChordAbstract;
+class ChordAbstract;
 
 class Key
 {
@@ -48,9 +48,11 @@ public:
 	const size_t chromaticCOFDistance(const Key& inKey) const;
 	
 	/** Returns the chord that arises from interpreting a given relative chord in this key */
-	Chord chord(const RelativeChord& inRelChord) const;
+    template <typename Chord>
+	const Chord chord(const RelativeChordAbstract& inRelChord) const;
 	/* Returns the relative chord that arises from interpreting a given chord in this key */
-	RelativeChord relativeChord(const Chord& inChord) const;
+    template <typename RelativeChord>
+	const RelativeChord relativeChord(const ChordAbstract& inChord) const;
     
     const bool isTrueKey() const;
     

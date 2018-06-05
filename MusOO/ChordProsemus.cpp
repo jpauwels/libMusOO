@@ -38,8 +38,13 @@ ChordProsemus::ChordProsemus(const std::string& inChordString)
 	}
 }
 
-ChordProsemus::ChordProsemus(const Chord& inChord)
-: Chord(inChord)
+const std::unique_ptr<ChordAbstract> ChordProsemus::create(const Chroma& inRoot, const ChordType& inChordType)
+{
+    return std::unique_ptr<ChordAbstract>(new ChordProsemus(inRoot, inChordType));
+}
+
+ChordProsemus::ChordProsemus(const ChordAbstract& inChord)
+: ChordAbstract(inChord)
 {
 }
 

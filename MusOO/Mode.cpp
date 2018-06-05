@@ -9,7 +9,7 @@
 
 // Includes
 #include "MusOO/Mode.h"
-#include "MusOO/RelativeChord.h"
+#include "MusOO/RelativeChordAbstract.h"
 #include <cstdlib>
 #include <sstream>
 #include <algorithm>
@@ -152,6 +152,7 @@ ptrdiff_t Mode::diatonicPosition(const ptrdiff_t inDiatonicNumber) const
 	return 2 * (inDiatonicNumber % 4) + inDiatonicNumber / 4;
 }
 
+template <typename RelativeChord>
 RelativeChord Mode::diatonicTriad(size_t inDegree) const
 {
 	SimpleInterval theRootInterval = getDiatonicInterval(inDegree);

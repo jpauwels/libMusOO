@@ -29,12 +29,12 @@ RelativeChordQMUL::RelativeChordQMUL(const std::string& inString, const Mode& in
 	if (!inString.compare(0,1,"S"))
 	{
 		// Silence
-		*this = RelativeChord::silence();
+		*this = silence<RelativeChordQMUL>();
 	}
 	else if (!inString.compare(0,1,"N"))
 	{
 		// No-chord
-		*this = RelativeChord::none();
+		*this = none<RelativeChordQMUL>();
 	}
 	else
 	{
@@ -62,26 +62,26 @@ RelativeChordQMUL::RelativeChordQMUL(const std::string& inString, const Mode& in
 				theType = ChordTypeQMUL("maj"+inString.substr(theSlash));
 			}
 		}
-		*this = RelativeChord(theRootDegree, theType, inMode);
+		*this = RelativeChordQMUL(theRootDegree, theType, inMode);
 	}
 }
 
-RelativeChordQMUL::RelativeChordQMUL(const RelativeChord& inRelativeChord)
-	: RelativeChord(inRelativeChord)
+RelativeChordQMUL::RelativeChordQMUL(const RelativeChordAbstract& inRelativeChord)
+	: RelativeChordAbstract(inRelativeChord)
 {
 }
 
 const std::string RelativeChordQMUL::asDegree(const Mode& inMode) const
 {
-    if (*this == RelativeChord::unknown())
+    if (*this == unknown<RelativeChordQMUL>())
     {
         return "X";
     }
-    else if (*this == RelativeChord::none())
+    else if (*this == none<RelativeChordQMUL>())
     {
         return "N";
     }
-    else if (*this == RelativeChord::silence())
+    else if (*this == silence<RelativeChordQMUL>())
     {
         return "S";
     }

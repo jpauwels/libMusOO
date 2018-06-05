@@ -35,17 +35,17 @@ ChordQMUL::ChordQMUL(const std::string& inChordString)
 	if (!inChordString.compare(0,1,"S"))
 	{
 		// Silence
-		*this = Chord::silence();
+		*this = silence<ChordQMUL>();
 	}
 	else if (!inChordString.compare(0,1,"N"))
 	{
 		// No-chord
-		*this = Chord::none();
+		*this = none<ChordQMUL>();
 	}
 	else if (inChordString == "X")
 	{
 		// Undefined
-		*this = Chord::undefined();
+		*this = undefined<ChordQMUL>();
 	}
 	else
 	{
@@ -75,8 +75,13 @@ ChordQMUL::ChordQMUL(const std::string& inChordString)
 	}
 }
 
-ChordQMUL::ChordQMUL(const Chord& inChord)
-: Chord(inChord)
+const std::unique_ptr<ChordAbstract> ChordQMUL::create(const Chroma& inRoot, const ChordType& inChordType)
+{
+    return std::unique_ptr<ChordAbstract>(new ChordQMUL(inRoot, inChordType));
+}
+
+ChordQMUL::ChordQMUL(const ChordAbstract& inChord)
+: ChordAbstract(inChord)
 {
 }
 

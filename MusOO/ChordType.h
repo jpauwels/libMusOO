@@ -68,7 +68,7 @@ public:
 	static ChordType power();
 	static ChordType tristan();
 
-	friend class Chord; //to access m_set in Chord::chromas() and m_Bass in Chord::bass()
+    friend class ChordAbstract; //to access m_Bass in ChordAbstract::bass()
 
 	ChordType();
 	~ChordType();

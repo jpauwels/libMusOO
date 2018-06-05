@@ -31,7 +31,7 @@ ChordQuaero::ChordQuaero(const std::string& inChordName)
 {
     if (inChordName == "I ")
     {
-        *this = Chord::undefined();
+        *this = ChordQuaero::undefined<ChordQuaero>();
         return;
     }
     else
@@ -62,8 +62,13 @@ ChordQuaero::ChordQuaero(const std::string& inChordName)
     }
 }
 
-ChordQuaero::ChordQuaero(const Chord& inChord)
-: Chord(inChord)
+const std::unique_ptr<ChordAbstract> ChordQuaero::create(const Chroma& inRoot, const ChordType& inChordType)
+{
+    return std::unique_ptr<ChordAbstract>(new ChordQuaero(inRoot, inChordType));
+}
+
+ChordQuaero::ChordQuaero(const ChordAbstract& inChord)
+: ChordAbstract(inChord)
 {
 }
 

@@ -10,16 +10,17 @@
 	@date		20101222
 */
 //============================================================================
-#include "MusOO/RelativeChord.h"
+#include "MusOO/RelativeChordAbstract.h"
 
 namespace MusOO
 {
-class RelativeChordQMUL : public RelativeChord
+class RelativeChordQMUL : public RelativeChordAbstract
 {
 public:
 	RelativeChordQMUL();
 	RelativeChordQMUL(const std::string& inString, const Mode& inMode);
-	RelativeChordQMUL(const RelativeChord& inRelativeChord);
+    using RelativeChordAbstract::RelativeChordAbstract;
+	RelativeChordQMUL(const RelativeChordAbstract& inRelativeChord);
 
 	//assignment operator
 // 		RelativeChordQMUL& operator=(const RelativeChord& inRelativeChord);

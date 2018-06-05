@@ -11,19 +11,20 @@
 //============================================================================
 #include <string>
 #include <map>
-#include "MusOO/Chord.h"
+#include "MusOO/ChordAbstract.h"
 
 namespace MusOO
 {
-class ChordQMUL : public Chord
+class ChordQMUL : public ChordAbstract
 {
 public:
 
 	/** Default constructor. */
 	ChordQMUL();
-	ChordQMUL(const std::string& inChordString);
+    ChordQMUL(const std::string& inChordString);
+    using ChordAbstract::ChordAbstract;
 	// copy constructor
-	ChordQMUL(const Chord& inChord);
+	ChordQMUL(const ChordAbstract& inChord);
 
 	/** Destructor. */
 	virtual ~ChordQMUL();
@@ -31,6 +32,7 @@ public:
 	const std::string str() const;
 
 protected:
+    virtual const std::unique_ptr<ChordAbstract> create(const Chroma& inRoot, const ChordType& inChordType);
 
 
 private:
