@@ -30,7 +30,7 @@ public:
 	virtual ~ChordQMUL();
 
 	const std::string str() const;
-
+    
 protected:
     virtual const std::unique_ptr<ChordAbstract> create(const Chroma& inRoot, const ChordType& inChordType);
 
