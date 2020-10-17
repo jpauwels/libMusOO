@@ -38,5 +38,8 @@ private:
 
 
 };
+
+std::ostream& operator<<(std::ostream& inOutputStream, const ChordProsemus& inChord);
+std::istream& operator>>(std::istream& inInputStream, ChordProsemus& inChord);
 }
 #endif	// #ifndef ChordProsemus_h

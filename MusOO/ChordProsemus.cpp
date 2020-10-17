@@ -56,3 +56,17 @@ const std::string ChordProsemus::str() const
 {
 	return ChromaLetter(m_Root).str() + ChordTypeProsemus(m_Type).str();
 }
+
+std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ChordProsemus& inChord)
+{
+    inOutputStream << inChord.str();
+    return inOutputStream;
+}
+
+std::istream& MusOO::operator>>(std::istream& inInputStream, ChordProsemus& inChord)
+{
+    string theChordString;
+    inInputStream >> theChordString;
+    inChord = ChordProsemus(theChordString);
+    return inInputStream;
+}
