@@ -170,6 +170,10 @@ Chroma::Chroma(const Chroma& inReference, const SimpleInterval& inInterval)
         m_LinePosition = inInterval.m_LinePosition;
         m_HasSpelling = true;
     }
+    if (!m_HasSpelling)
+    {
+        m_LinePosition = wrapIntoRange(m_LinePosition, -1, 11);
+    }
 }
 
 Chroma::~Chroma()
