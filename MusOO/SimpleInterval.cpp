@@ -57,6 +57,11 @@ SimpleInterval SimpleInterval::unison()
 	static const SimpleInterval prime(0, true, 0);
 	return prime;
 }
+SimpleInterval SimpleInterval::diminishedSecond()
+{
+    static const SimpleInterval diminishedSecond(-12, true, 0);
+    return diminishedSecond;
+}
 SimpleInterval SimpleInterval::minorSecond()
 {
 	static const SimpleInterval minorSecond(-5, true, 0);
@@ -72,6 +77,11 @@ SimpleInterval SimpleInterval::augmentedSecond()
     static const SimpleInterval augmentedSecond(9, true, 0);
     return augmentedSecond;
 }
+SimpleInterval SimpleInterval::diminishedThird()
+{
+    static const SimpleInterval diminishedThird(-10, true, 0);
+    return diminishedThird;
+}
 SimpleInterval SimpleInterval::minorThird()
 {
 	static const SimpleInterval minorThird(-3, true, 0);
@@ -81,6 +91,11 @@ SimpleInterval SimpleInterval::majorThird()
 {
 	static const SimpleInterval majorThird(4, true, 0);
 	return majorThird;
+}
+SimpleInterval SimpleInterval::augmentedThird()
+{
+    static const SimpleInterval augmentedThird(11, true, 0);
+    return augmentedThird;
 }
 SimpleInterval SimpleInterval::diminishedFourth()
 {
@@ -112,6 +127,11 @@ SimpleInterval SimpleInterval::augmentedFifth()
 	static const SimpleInterval augmentedFifth(8, true, 0);
 	return augmentedFifth;
 }
+SimpleInterval SimpleInterval::diminishedSixth()
+{
+    static const SimpleInterval diminishedSixth(-11, true, 0);
+    return diminishedSixth;
+}
 SimpleInterval SimpleInterval::minorSixth()
 {
 	static const SimpleInterval minorSixth(-4, true, 0);
@@ -141,6 +161,11 @@ SimpleInterval SimpleInterval::majorSeventh()
 {
 	static const SimpleInterval majorSeventh(5, true, 0);
 	return majorSeventh;
+}
+SimpleInterval SimpleInterval::augmentedSeventh()
+{
+    static const SimpleInterval augmentedSeventh(12, true, 0);
+    return augmentedSeventh;
 }
 
 const std::string majorDegrees[] = {"I", "bII", "II", "bIII", "III", "IV", "bV", "V", "bVI", "VI", "bVII", "VII"};

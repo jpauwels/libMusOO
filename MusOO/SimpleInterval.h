@@ -26,23 +26,28 @@ public:
 	static const SimpleInterval& none();
 	static const SimpleInterval& undefined();
 	static SimpleInterval unison(); //1
+    static SimpleInterval diminishedSecond(); //bb2
 	static SimpleInterval minorSecond(); //b2
     static SimpleInterval majorSecond(); //2
     static SimpleInterval augmentedSecond(); //#2
+    static SimpleInterval diminishedThird(); //bb3
 	static SimpleInterval minorThird(); //b3
     static SimpleInterval majorThird(); //3
+    static SimpleInterval augmentedThird(); //#3
     static SimpleInterval diminishedFourth(); //b4
 	static SimpleInterval perfectFourth(); //4
 	static SimpleInterval augmentedFourth(); //#4
 	static SimpleInterval diminishedFifth(); //b5
 	static SimpleInterval perfectFifth(); //5
 	static SimpleInterval augmentedFifth(); //#5
+    static SimpleInterval diminishedSixth(); //bb6
 	static SimpleInterval minorSixth(); //b6
 	static SimpleInterval majorSixth(); //6
 	static SimpleInterval augmentedSixth(); //#6
 	static SimpleInterval diminishedSeventh(); //bb7
 	static SimpleInterval minorSeventh(); //b7
 	static SimpleInterval majorSeventh(); //7
+    static SimpleInterval augmentedSeventh(); //#7
 
 	friend class Chroma; 
 	//to access m_LinePosition in Chroma::operator+=(SimpleInterval), Chroma::operator+=(SimpleInterval) and Chroma::Chroma(Chroma, SimpleInterval)
