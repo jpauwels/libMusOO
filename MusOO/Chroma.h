@@ -77,6 +77,9 @@ public:
 protected:
 
 	static const ptrdiff_t stringModifierToCircleSteps(const std::string& inStringModifier);
+    static const ptrdiff_t wrapIntoRange(const ptrdiff_t inValue, const ptrdiff_t inStartIncluded, const ptrdiff_t inEndExcluded);
+    static const ptrdiff_t mod(const ptrdiff_t inValue, const ptrdiff_t inModulo);
+    static const ptrdiff_t mod12(const ptrdiff_t inValue);
 
 	ptrdiff_t m_LinePosition;
 	bool m_HasSpelling;

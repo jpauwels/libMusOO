@@ -280,3 +280,19 @@ const bool Chroma::isTrueChroma() const
 {
 	return m_LinePosition < numeric_limits<ptrdiff_t>::max()-2;
 }
+
+const ptrdiff_t Chroma::wrapIntoRange(const ptrdiff_t inValue, const ptrdiff_t inStartIncluded, const ptrdiff_t inEndExcluded)
+{
+    return inStartIncluded + mod(inValue - inStartIncluded, inEndExcluded - inStartIncluded);
+}
+
+const ptrdiff_t Chroma::mod(const ptrdiff_t inValue, const ptrdiff_t inModulo)
+{
+    const ptrdiff_t rem = inValue % inModulo;
+    return (rem < 0)?inModulo+rem:rem;
+}
+
+const ptrdiff_t Chroma::mod12(const ptrdiff_t inValue)
+{
+    return mod(inValue, 12);
+}

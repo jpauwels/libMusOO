@@ -173,7 +173,7 @@ SimpleInterval::SimpleInterval(const Chroma& inRoot, const Chroma& inOther, cons
 		m_HasSpelling = inRoot.hasSpelling() && inOther.hasSpelling();
         if (!m_HasSpelling)
         {
-            m_LinePosition = wrapIntoRange(m_LinePosition, -6, 6);
+            m_LinePosition = Chroma::wrapIntoRange(m_LinePosition, -6, 6);
         }
 	}
 }
@@ -418,20 +418,4 @@ const std::string SimpleInterval::asDegree(const Mode& inMode) const
 	{
 		return s_MinorDegrees[((semiTonesUp() % 12) + 12) % 12];
 	}
-}
-
-const ptrdiff_t SimpleInterval::wrapIntoRange(const ptrdiff_t inValue, const ptrdiff_t inStartIncluded, const ptrdiff_t inEndExcluded)
-{
-    return inStartIncluded + mod(inValue - inStartIncluded, inEndExcluded - inStartIncluded);
-}
-
-const ptrdiff_t SimpleInterval::mod(const ptrdiff_t inValue, const ptrdiff_t inModulo)
-{
-    const ptrdiff_t rem = inValue % inModulo;
-    return (rem < 0)?inModulo+rem:rem;
-}
-
-const ptrdiff_t SimpleInterval::mod12(const ptrdiff_t inValue)
-{
-    return mod(inValue, 12);
 }
