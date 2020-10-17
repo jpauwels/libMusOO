@@ -139,7 +139,7 @@ Set<Interval>& Set<Interval>::ignoreSpelling()
     if (hasSpelling())
     {
         set<Interval> theSet;
-        std::transform(m_set.begin(), m_set.end(), std::inserter(theSet, theSet.begin()), std::mem_fun_ref(&Interval::withoutSpelling));
+        std::transform(m_set.begin(), m_set.end(), std::inserter(theSet, theSet.begin()), std::mem_fn(&Interval::withoutSpelling));
         m_set = theSet;
     }
 	return *this;
