@@ -21,7 +21,7 @@ public:
 	
 	/** Default constructor. */
     ChromaLetter();
-    ChromaLetter(const std::string& inName, const bool inHasSpelling = true);
+    ChromaLetter(const std::string& inName);
 	ChromaLetter(const Chroma& inReference, const SimpleInterval& inInterval);
 	/** Copy constructor. */
 	ChromaLetter(const Chroma& inChroma);

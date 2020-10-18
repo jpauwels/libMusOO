@@ -23,7 +23,7 @@ ChromaLetter::ChromaLetter()
 {
 }
 
-ChromaLetter::ChromaLetter(const std::string& inName, const bool inHasSpelling /*= true*/)
+ChromaLetter::ChromaLetter(const std::string& inName)
 {
     if (inName.empty())
     {
@@ -37,7 +37,7 @@ ChromaLetter::ChromaLetter(const std::string& inName, const bool inHasSpelling /
     m_LinePosition = s_NameToLinePosition.find(inName[0])->second;
     //convert modifier
     m_LinePosition += stringModifierToCircleSteps(inName.substr(1));
-    m_HasSpelling = inHasSpelling;
+    m_HasSpelling = true;
 }
 
 ChromaLetter::ChromaLetter(const Chroma& inReference, const SimpleInterval& inInterval)

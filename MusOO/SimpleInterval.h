@@ -51,6 +51,7 @@ public:
 
 	friend class Chroma; 
 	//to access m_LinePosition in Chroma::operator+=(SimpleInterval), Chroma::operator+=(SimpleInterval) and Chroma::Chroma(Chroma, SimpleInterval)
+    friend class ComplexInterval; // to access SimpleInterval::SimpleInterval(const ptrdiff_t, const bool) from ComplexInterval::ComplexInterval
 
 	/** Default constructor. */
 	SimpleInterval();
@@ -95,7 +96,7 @@ protected:
 
 private:
 	//only for creation of static distances
-	SimpleInterval(const ptrdiff_t inCircleSteps, const bool inHasSpelling, const size_t inOctaves);
+	SimpleInterval(const ptrdiff_t inCircleSteps, const bool inHasSpelling);
 	ptrdiff_t m_LinePosition;
 	bool m_HasSpelling;
 	static const std::map<size_t,ptrdiff_t> s_MajorDegreeToCircleSteps;

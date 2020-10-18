@@ -23,6 +23,7 @@ public:
 	KeyQMUL(std::string inKeyString);
 	// copy constructor
 	KeyQMUL(const Key& inKey);
+    KeyQMUL(const Chroma& inTonic, const Mode& inMode);
 
 	/** Destructor. */
 	virtual ~KeyQMUL();

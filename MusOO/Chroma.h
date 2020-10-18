@@ -73,6 +73,7 @@ public:
 	//const Chroma operator-(const SimpleInterval& inInterval) const;
 
 	friend class SimpleInterval; //to access stringModifierToCircleSteps() and m_LinePosition in SimpleInterval::SimpleInterval()
+    friend class ComplexInterval; //to access m_LinePosition in ComplexInterval::ComplexInterval()
 
 protected:
 

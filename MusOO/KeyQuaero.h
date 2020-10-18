@@ -22,6 +22,7 @@ public:
 	KeyQuaero(const std::string& inKeyString);
 	// copy constructor
 	KeyQuaero(const Key& inKey);
+    KeyQuaero(const Chroma& inTonic, const Mode& inMode);
     
 	/** Destructor. */
 	virtual ~KeyQuaero();

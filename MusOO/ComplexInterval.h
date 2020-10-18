@@ -58,7 +58,7 @@ public:
 
 	/** Default constructor. */
 	ComplexInterval();
-//	ComplexInterval(const Chroma& inRoot, const Chroma& inOther, const bool inUp = true);
+	ComplexInterval(const Chroma& inRoot, const Chroma& inOther, const bool inUp = true);
 //	ComplexInterval(const std::string& inMajorDegree, const bool inUp = true);
 //	ComplexInterval(const std::string& inDegree, const Mode& inMode);
 	ComplexInterval(const ptrdiff_t inSemiTones);

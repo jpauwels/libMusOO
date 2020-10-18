@@ -67,6 +67,11 @@ KeyQMUL::KeyQMUL(const Key& inKey)
 {
 }
 
+KeyQMUL::KeyQMUL(const Chroma& inTonic, const Mode& inMode)
+: Key(inTonic, ModeQMUL(inMode))
+{
+}
+
 KeyQMUL::~KeyQMUL()
 {
 	// Nothing to do...

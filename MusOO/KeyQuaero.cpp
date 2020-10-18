@@ -66,6 +66,11 @@ KeyQuaero::KeyQuaero(const Key& inKey)
 {
 }
 
+KeyQuaero::KeyQuaero(const Chroma& inTonic, const Mode& inMode)
+: Key(inTonic, ModeQuaero(inMode))
+{
+}
+
 KeyQuaero::~KeyQuaero()
 {
 	// Nothing to do...

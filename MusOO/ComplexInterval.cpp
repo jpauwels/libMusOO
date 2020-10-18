@@ -172,27 +172,28 @@ ComplexInterval::ComplexInterval()
 {
 }
 
-//ComplexInterval::ComplexInterval(const Chroma& inRoot, const Chroma& inOther, const bool inUp /*= true*/)
-//: m_Octaves(0)
-//{
-//	if (!inRoot.isTrueChroma() || !inOther.isTrueChroma())
-//	{
-//		*this = undefined();
-//	}
-//	else
-//	{
-//		if (inUp)
-//		{
-//			m_LinePosition = inOther.m_LinePosition - inRoot.m_LinePosition;
-//		}
-//		else
-//		{
-//			m_LinePosition = inRoot.m_LinePosition - inOther.m_LinePosition;
-//		}
-//		m_HasSpelling = inRoot.hasSpelling() && inOther.hasSpelling();
-//	}
-//}
-//
+ComplexInterval::ComplexInterval(const Chroma& inRoot, const Chroma& inOther, const bool inUp /*= true*/)
+: m_Octaves(0)
+{
+	if (!inRoot.isTrueChroma() || !inOther.isTrueChroma())
+	{
+		*this = undefined();
+	}
+	else
+	{
+        ptrdiff_t linePosition;
+		if (inUp)
+		{
+			linePosition = inOther.m_LinePosition - inRoot.m_LinePosition;
+		}
+		else
+		{
+			linePosition = inRoot.m_LinePosition - inOther.m_LinePosition;
+		}
+		m_simpleInterval = SimpleInterval(linePosition, inRoot.hasSpelling() && inOther.hasSpelling());
+	}
+}
+
 //ComplexInterval::ComplexInterval(const std::string& inMajorDegree, const bool inUp /*= true*/)
 //{
 //	//check for not allowed characters
@@ -231,11 +232,6 @@ ComplexInterval::ComplexInterval()
 //	m_LinePosition = ((7*theSemiTones % 12) + 12) % 12;
 //	m_Octaves = 0;
 //	m_HasSpelling = false;
-//}
-
-//ComplexInterval::ComplexInterval(int inCircleSteps, const bool inHasSpelling, const size_t inOctaves)
-//: m_LinePosition(inCircleSteps), m_Octaves(inOctaves), m_HasSpelling(inHasSpelling)
-//{
 //}
 
 ComplexInterval::ComplexInterval(const ptrdiff_t inSemiTones)

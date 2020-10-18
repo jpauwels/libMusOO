@@ -93,20 +93,11 @@ const std::string RelativeChordQMUL::asDegree(const Mode& inMode) const
 
 /*const std::string RelativeChordQMUL::str() const
  {
-	if (*this == RelativeChord::unknown())
-	{
- return "X";
-	}
-	else if (*this == RelativeChord::none())
-	{
- return "N";
-	}
-	else if (*this == RelativeChord::silence())
-	{
- return "S";
-	}
-	ostringstream theStringStream;
-	theStringStream << IntervalRoman(m_RootInterval).str() << ":" << ChordTypeQMUL(m_Type).str();
-	return theStringStream.str();
+     string theRelChordString = IntervalRoman(m_RootInterval).str();
+     if (m_Type != ChordTypeQMUL::none())
+     {
+         theRelChordString += ":" + ChordTypeQMUL(m_Type).str();
+     }
+     return theRelChordString;
  }*/
 

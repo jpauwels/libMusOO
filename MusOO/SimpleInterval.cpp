@@ -39,132 +39,132 @@ const map<ptrdiff_t,size_t> SimpleInterval::s_CircleStepsToMajorDegree(circleSte
 
 const SimpleInterval& SimpleInterval::silence()
 {
-	static const SimpleInterval silence(std::numeric_limits<ptrdiff_t>::max(), true, 0);
+	static const SimpleInterval silence(std::numeric_limits<ptrdiff_t>::max(), true);
 	return silence;
 }
 const SimpleInterval& SimpleInterval::none()
 {
-	static const SimpleInterval none(std::numeric_limits<ptrdiff_t>::max()-1, true, 0);
+	static const SimpleInterval none(std::numeric_limits<ptrdiff_t>::max()-1, true);
 	return none;
 }
 const SimpleInterval& SimpleInterval::undefined()
 {
-	static const SimpleInterval undefined(std::numeric_limits<ptrdiff_t>::max()-2, true, 0);
+	static const SimpleInterval undefined(std::numeric_limits<ptrdiff_t>::max()-2, true);
 	return undefined;
 }
 SimpleInterval SimpleInterval::unison()
 {
-	static const SimpleInterval prime(0, true, 0);
+	static const SimpleInterval prime(0, true);
 	return prime;
 }
 SimpleInterval SimpleInterval::diminishedSecond()
 {
-    static const SimpleInterval diminishedSecond(-12, true, 0);
+    static const SimpleInterval diminishedSecond(-12, true);
     return diminishedSecond;
 }
 SimpleInterval SimpleInterval::minorSecond()
 {
-	static const SimpleInterval minorSecond(-5, true, 0);
+	static const SimpleInterval minorSecond(-5, true);
 	return minorSecond;
 }
 SimpleInterval SimpleInterval::majorSecond()
 {
-	static const SimpleInterval majorSecond(2, true, 0);
+	static const SimpleInterval majorSecond(2, true);
 	return majorSecond;
 }
 SimpleInterval SimpleInterval::augmentedSecond()
 {
-    static const SimpleInterval augmentedSecond(9, true, 0);
+    static const SimpleInterval augmentedSecond(9, true);
     return augmentedSecond;
 }
 SimpleInterval SimpleInterval::diminishedThird()
 {
-    static const SimpleInterval diminishedThird(-10, true, 0);
+    static const SimpleInterval diminishedThird(-10, true);
     return diminishedThird;
 }
 SimpleInterval SimpleInterval::minorThird()
 {
-	static const SimpleInterval minorThird(-3, true, 0);
+	static const SimpleInterval minorThird(-3, true);
 	return minorThird;
 }
 SimpleInterval SimpleInterval::majorThird()
 {
-	static const SimpleInterval majorThird(4, true, 0);
+	static const SimpleInterval majorThird(4, true);
 	return majorThird;
 }
 SimpleInterval SimpleInterval::augmentedThird()
 {
-    static const SimpleInterval augmentedThird(11, true, 0);
+    static const SimpleInterval augmentedThird(11, true);
     return augmentedThird;
 }
 SimpleInterval SimpleInterval::diminishedFourth()
 {
-    static const SimpleInterval diminishedFourth(-8, true, 0);
+    static const SimpleInterval diminishedFourth(-8, true);
     return diminishedFourth;
 }
 SimpleInterval SimpleInterval::perfectFourth()
 {
-	static const SimpleInterval perfectFourth(-1, true, 0);
+	static const SimpleInterval perfectFourth(-1, true);
 	return perfectFourth;
 }
 SimpleInterval SimpleInterval::augmentedFourth()
 {
-	static const SimpleInterval augmentedFourth(6, true, 0);
+	static const SimpleInterval augmentedFourth(6, true);
 	return augmentedFourth;
 }
 SimpleInterval SimpleInterval::diminishedFifth()
 {
-	static const SimpleInterval diminishedFifth(-6, true, 0);
+	static const SimpleInterval diminishedFifth(-6, true);
 	return diminishedFifth;
 }
 SimpleInterval SimpleInterval::perfectFifth()
 {
-	static const SimpleInterval perfectFifth(1, true, 0);
+	static const SimpleInterval perfectFifth(1, true);
 	return perfectFifth;
 }
 SimpleInterval SimpleInterval::augmentedFifth()
 {
-	static const SimpleInterval augmentedFifth(8, true, 0);
+	static const SimpleInterval augmentedFifth(8, true);
 	return augmentedFifth;
 }
 SimpleInterval SimpleInterval::diminishedSixth()
 {
-    static const SimpleInterval diminishedSixth(-11, true, 0);
+    static const SimpleInterval diminishedSixth(-11, true);
     return diminishedSixth;
 }
 SimpleInterval SimpleInterval::minorSixth()
 {
-	static const SimpleInterval minorSixth(-4, true, 0);
+	static const SimpleInterval minorSixth(-4, true);
 	return minorSixth;
 }
 SimpleInterval SimpleInterval::majorSixth()
 {
-	static const SimpleInterval majorSixth(3, true, 0);
+	static const SimpleInterval majorSixth(3, true);
 	return majorSixth;
 }
 SimpleInterval SimpleInterval::augmentedSixth()
 {
-	static const SimpleInterval augmentedSixth(10, true, 0);
+	static const SimpleInterval augmentedSixth(10, true);
 	return augmentedSixth;
 }
 SimpleInterval SimpleInterval::diminishedSeventh()
 {
-	static const SimpleInterval diminishedSeventh(-9, true, 0);
+	static const SimpleInterval diminishedSeventh(-9, true);
 	return diminishedSeventh;
 }
 SimpleInterval SimpleInterval::minorSeventh()
 {
-	static const SimpleInterval minorSeventh(-2, true, 0);
+	static const SimpleInterval minorSeventh(-2, true);
 	return minorSeventh;
 }
 SimpleInterval SimpleInterval::majorSeventh()
 {
-	static const SimpleInterval majorSeventh(5, true, 0);
+	static const SimpleInterval majorSeventh(5, true);
 	return majorSeventh;
 }
 SimpleInterval SimpleInterval::augmentedSeventh()
 {
-    static const SimpleInterval augmentedSeventh(12, true, 0);
+    static const SimpleInterval augmentedSeventh(12, true);
     return augmentedSeventh;
 }
 
@@ -241,7 +241,7 @@ SimpleInterval::SimpleInterval(const std::string& inDegree, const Mode& inMode)
 	m_HasSpelling = false;
 }
 
-SimpleInterval::SimpleInterval(ptrdiff_t inCircleSteps, const bool inHasSpelling, const size_t inOctaves)
+SimpleInterval::SimpleInterval(const ptrdiff_t inCircleSteps, const bool inHasSpelling)
 : m_LinePosition(inCircleSteps), m_HasSpelling(inHasSpelling)
 {
 }

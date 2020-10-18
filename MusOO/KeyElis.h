@@ -22,6 +22,7 @@ public:
 	KeyElis(const std::string& inKeyString);
 	// copy constructor
 	KeyElis(const Key& inKey);
+    KeyElis(const Chroma& inTonic, const Mode& inMode);
 
 	/** Destructor. */
 	virtual ~KeyElis();

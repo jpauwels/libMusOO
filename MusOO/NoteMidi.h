@@ -19,6 +19,7 @@ public:
 
 	/** Default constructor. */
 	NoteMidi();
+    using Note::Note;
 	NoteMidi(const std::string& inNoteMidiNumber);
 	NoteMidi(const ptrdiff_t inNoteMidiNumber);
 	NoteMidi(const Note& inNote);

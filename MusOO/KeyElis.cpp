@@ -35,9 +35,13 @@ KeyElis::KeyElis(const std::string& inKeyString)
 }
 
 KeyElis::KeyElis(const Key& inKey)
+: Key(inKey.tonic(), ModeElis(inKey.mode()))
 {
-	m_Tonic = inKey.tonic();
-	m_Mode = inKey.mode();
+}
+
+KeyElis::KeyElis(const Chroma& inTonic, const Mode& inMode)
+: Key(inTonic,  ModeElis(inMode))
+{
 }
 
 KeyElis::~KeyElis()
