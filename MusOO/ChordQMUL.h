@@ -9,38 +9,22 @@
 	@date		20090119
 */
 //============================================================================
-#include <string>
-#include <map>
 #include "MusOO/ChordAbstract.h"
+#include "MusOO/ChromaLetter.h"
+#include "MusOO/ChordTypeQMUL.h"
 
 namespace MusOO
 {
-class ChordQMUL : public ChordAbstract
+class ChordQMUL : public ChordAbstract<ChordQMUL, ChromaLetter, ChordTypeQMUL>
 {
 public:
 
-	/** Default constructor. */
-	ChordQMUL();
+    using ChordAbstract<ChordQMUL, ChromaLetter, ChordTypeQMUL>::ChordAbstract;
     ChordQMUL(const std::string& inChordString);
-    using ChordAbstract::ChordAbstract;
-	// copy constructor
-	ChordQMUL(const ChordAbstract& inChord);
-
-	/** Destructor. */
-	virtual ~ChordQMUL();
 
 	const std::string str() const;
-    
-protected:
-    virtual const std::unique_ptr<ChordAbstract> create(const Chroma& inRoot, const ChordType& inChordType);
-
-
-private:
-
 
 };
 
-std::ostream& operator<<(std::ostream& inOutputStream, const ChordQMUL& inChord);
-std::istream& operator>>(std::istream& inInputStream, ChordQMUL& inChord);
 }
 #endif	// #ifndef ChordQMUL_h

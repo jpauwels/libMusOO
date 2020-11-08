@@ -10,34 +10,22 @@
 	@date		20100330
 */
 //============================================================================
-#include "MusOO/Key.h"
+#include "MusOO/KeyAbstract.h"
+#include "MusOO/ChromaLetter.h"
+#include "MusOO/ModeQMUL.h"
 
 namespace MusOO
 {
-class KeyQMUL : public Key
+class KeyQMUL : public KeyAbstract<KeyQMUL, ChromaLetter, ModeQMUL>
 {
 public:
 
-	/** Default constructor. */
-	KeyQMUL();
+    using KeyAbstract<KeyQMUL, ChromaLetter, ModeQMUL>::KeyAbstract;
 	KeyQMUL(std::string inKeyString);
-	// copy constructor
-	KeyQMUL(const Key& inKey);
-    KeyQMUL(const Chroma& inTonic, const Mode& inMode);
-
-	/** Destructor. */
-	virtual ~KeyQMUL();
 
 	const std::string str() const;
 
-protected:
-
-
-private:
-
-
 };
 
-std::ostream& operator<<(std::ostream& inOutputStream, const KeyQMUL& inKey);
 }
 #endif	// #ifndef KeyQMUL_h

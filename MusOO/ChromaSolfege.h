@@ -9,26 +9,18 @@
  @date		20120720
  */
 //============================================================================
-#include <string>
+#include "MusOO/ChromaAbstract.h"
 #include <map>
-#include "MusOO/Chroma.h"
 
 namespace MusOO
 {
-class ChromaSolfege : public Chroma
+class ChromaSolfege : public ChromaAbstract<ChromaSolfege>
 {
 public:
 	
-	/** Default constructor. */
-	ChromaSolfege();
-	ChromaSolfege(const std::string& inName);
-	ChromaSolfege(const Chroma& inReference, const SimpleInterval& inInterval);
-	/** Copy constructor. */
-	ChromaSolfege(const Chroma& inChroma);
-	
-	/** Destructor. */
-	virtual ~ChromaSolfege();
-	
+	using ChromaAbstract<ChromaSolfege>::ChromaAbstract;
+    ChromaSolfege(const std::string& inName);
+
 	const std::string str() const;
 	
 protected:
@@ -38,8 +30,6 @@ private:
 	static const std::string s_linePositionToString[];
 	static const std::map<std::string,ptrdiff_t> s_stringToLinePositionMap;
 };
-    
-std::ostream& operator<<(std::ostream& inOutputStream, const ChromaSolfege& inChroma);
-std::istream& operator>>(std::istream& inInputStream, ChromaSolfege& inChroma);
+
 }
 #endif	// #ifndef ChromaSolfege_h

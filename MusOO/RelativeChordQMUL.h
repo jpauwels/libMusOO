@@ -11,22 +11,20 @@
 */
 //============================================================================
 #include "MusOO/RelativeChordAbstract.h"
+#include "MusOO/ChordTypeQMUL.h"
+#include "MusOO/ModeQMUL.h"
 
 namespace MusOO
 {
-class RelativeChordQMUL : public RelativeChordAbstract
+class RelativeChordQMUL : public RelativeChordAbstract<RelativeChordQMUL, ChordTypeQMUL>
 {
 public:
-	RelativeChordQMUL();
-	RelativeChordQMUL(const std::string& inString, const Mode& inMode);
-    using RelativeChordAbstract::RelativeChordAbstract;
-	RelativeChordQMUL(const RelativeChordAbstract& inRelativeChord);
-
-	//assignment operator
-// 		RelativeChordQMUL& operator=(const RelativeChord& inRelativeChord);
     
-    //const std::string str() const;
-    const std::string asDegree(const Mode& inMode) const;
+    using RelativeChordAbstract<RelativeChordQMUL, ChordTypeQMUL>::RelativeChordAbstract;
+	RelativeChordQMUL(const std::string& inString, const ModeQMUL& inMode);
+
+    const std::string str() const;
+    const std::string asDegree(const ModeQMUL& inMode) const;
 };
 }
 #endif	// #ifndef RelativeChordQMUL_h

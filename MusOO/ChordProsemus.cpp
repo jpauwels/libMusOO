@@ -15,13 +15,8 @@
 #include "MusOO/ChordTypeProsemus.h"
 
 using std::map;
-using std::pair;
 using std::string;
 using namespace MusOO;
-
-ChordProsemus::ChordProsemus()
-{
-}
 
 ChordProsemus::ChordProsemus(const std::string& inChordString)
 {
@@ -30,7 +25,7 @@ ChordProsemus::ChordProsemus(const std::string& inChordString)
 	m_Root = ChromaLetter(inChordString.substr(0,theRootIndex));
 	if (theRootIndex == string::npos)
 	{
-		m_Type = ChordType::major();
+		m_Type = ChordTypeProsemus::major();
 	}
 	else
 	{
@@ -38,35 +33,7 @@ ChordProsemus::ChordProsemus(const std::string& inChordString)
 	}
 }
 
-const std::unique_ptr<ChordAbstract> ChordProsemus::create(const Chroma& inRoot, const ChordType& inChordType)
-{
-    return std::unique_ptr<ChordAbstract>(new ChordProsemus(inRoot, inChordType));
-}
-
-ChordProsemus::ChordProsemus(const ChordAbstract& inChord)
-: ChordAbstract(inChord)
-{
-}
-
-ChordProsemus::~ChordProsemus()
-{
-}
-
 const std::string ChordProsemus::str() const
 {
-	return ChromaLetter(m_Root).str() + ChordTypeProsemus(m_Type).str();
-}
-
-std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ChordProsemus& inChord)
-{
-    inOutputStream << inChord.str();
-    return inOutputStream;
-}
-
-std::istream& MusOO::operator>>(std::istream& inInputStream, ChordProsemus& inChord)
-{
-    string theChordString;
-    inInputStream >> theChordString;
-    inChord = ChordProsemus(theChordString);
-    return inInputStream;
+	return ChromaLetter(m_Root).str() + m_Type.str();
 }

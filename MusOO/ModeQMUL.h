@@ -10,21 +10,20 @@
 	@date		20100330
 */
 //============================================================================
-#include "MusOO/Mode.h"
+#include "MusOO/ModeAbstract.h"
 
 namespace MusOO
 {
-class ModeQMUL : public Mode
+class ModeQMUL : public ModeAbstract<ModeQMUL>
 {
 public:
-	ModeQMUL();
-	ModeQMUL(const Mode& inMode);
-	ModeQMUL(const std::string& inString);
-
+    
+    using ModeAbstract<ModeQMUL>::ModeAbstract;
+    ModeQMUL(const std::string& inString);
+    
 	const std::string str() const;
 
 };
 
-std::ostream& operator<<(std::ostream& inOutputStream, const ModeQMUL& inMode);
 }
 #endif	// #ifndef ModeQMUL_h

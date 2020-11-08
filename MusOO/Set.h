@@ -14,20 +14,23 @@
 
 namespace MusOO
 {
-template<typename Interval>
+template<typename Interval, typename BaseT>
 class Set
 {
 public:
     
+    template <typename OtherInterval, typename OtherT> friend class Set; // to access m_set from other Set types
+    
 	/** Default constructor. */
 	Set();
-    //Set(Set inSet) = default
+    template <typename OtherT>
+    Set(const Set<Interval, OtherT>& inSet);
 	virtual ~Set() = 0;
     
 	// operator= default implementation
-	virtual bool operator==(const Set<Interval>& inSet) const;
-	virtual bool operator!=(const Set<Interval>& inSet) const;
-	virtual bool operator<(const Set<Interval>& inSet) const;
+	virtual bool operator==(const Set<Interval, BaseT>& inSet) const;
+	virtual bool operator!=(const Set<Interval, BaseT>& inSet) const;
+	virtual bool operator<(const Set<Interval, BaseT>& inSet) const;
     
     /**
         Checks if this set contains all the notes of a given Set
@@ -35,7 +38,7 @@ public:
         @param		inSet		the set contained by this set
         @return		true if this set contains all interval classes of <inSet>
     */
-	const bool contains(const Set<Interval>& inSet) const;
+	const bool contains(const BaseT& inSet) const;
 	
 	const bool contains(const Interval& inInterval) const;
     
@@ -49,11 +52,12 @@ public:
 	const Interval& getDiatonicInterval(const size_t inDiatonicNumber) const;
     
     virtual const bool hasSpelling() const;
-    virtual Set<Interval>& ignoreSpelling();
-    
-	virtual Set<Interval>& add(const Interval& inInterval);
-	virtual Set<Interval>& remove(const Interval& inInterval);
-	virtual Set<Interval>& replace(const Interval& inIntervalToReplace, const Interval& inReplacementInterval);
+    virtual BaseT withoutSpelling() const;
+    virtual BaseT& ignoreSpelling();
+
+	virtual BaseT& add(const Interval& inInterval);
+	virtual BaseT& remove(const Interval& inInterval);
+	virtual BaseT& replace(const Interval& inIntervalToReplace, const Interval& inReplacementInterval);
     
     typedef typename std::set<Interval>::iterator iterator;
     typedef typename std::set<Interval>::const_iterator const_iterator;

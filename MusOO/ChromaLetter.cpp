@@ -19,10 +19,6 @@ static const pair<ptrdiff_t,char> theLinePositionToName[] = {pair<ptrdiff_t,char
     pair<ptrdiff_t,char>(7,'B')};
 const map<ptrdiff_t,char> ChromaLetter::s_LinePositionToName(theLinePositionToName, theLinePositionToName+7);
 
-ChromaLetter::ChromaLetter()
-{
-}
-
 ChromaLetter::ChromaLetter(const std::string& inName)
 {
     if (inName.empty())
@@ -38,20 +34,6 @@ ChromaLetter::ChromaLetter(const std::string& inName)
     //convert modifier
     m_LinePosition += stringModifierToCircleSteps(inName.substr(1));
     m_HasSpelling = true;
-}
-
-ChromaLetter::ChromaLetter(const Chroma& inReference, const SimpleInterval& inInterval)
-: Chroma(inReference, inInterval)
-{
-}
-
-ChromaLetter::ChromaLetter(const Chroma& inChroma)
-: Chroma(inChroma)
-{
-}
-
-ChromaLetter::~ChromaLetter()
-{
 }
 
 const std::string ChromaLetter::str() const
@@ -83,18 +65,4 @@ const std::string ChromaLetter::str() const
     }
     //convert the range-limited circle position to the basic note string
     return s_LinePositionToName.find(theRangeLimitedLinePosition)->second + theModifierString;
-}
-
-std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ChromaLetter& inChroma)
-{
-    inOutputStream << inChroma.str();
-    return inOutputStream;
-}
-
-std::istream& MusOO::operator>>(std::istream& inInputStream, ChromaLetter& outChroma)
-{
-    std::string theString;
-    inInputStream >> theString;
-    outChroma = ChromaLetter(theString);
-    return inInputStream;
 }

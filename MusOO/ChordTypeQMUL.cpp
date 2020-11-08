@@ -14,84 +14,78 @@ Implementation file for ChordTypeQMUL.h
 #include "MusOO/ChordTypeQMUL.h"
 #include "MusOO/ComplexInterval.h"
 
-using std::string;
-using std::vector;
-using std::map;
 using std::pair;
-using std::invalid_argument;
-using std::istringstream;
-using std::ostringstream;
 using std::min;
 using std::set;
 using namespace MusOO;
 
 
-static const pair<string,ChordType> typeStringMap[] = {
-	pair<string,ChordType>("",ChordType::none()),
+static const pair<std::string,ChordTypeQMUL> typeStringMap[] = {
+	pair<std::string,ChordTypeQMUL>("",ChordTypeQMUL::none()),
 	//triads
-	pair<string,ChordType>("maj",ChordType::major()), 
-	pair<string,ChordType>("min",ChordType::minor()),
-	pair<string,ChordType>("dim",ChordType::diminished()), 
-	pair<string,ChordType>("aug",ChordType::augmented()),
+	pair<std::string,ChordTypeQMUL>("maj",ChordTypeQMUL::major()),
+	pair<std::string,ChordTypeQMUL>("min",ChordTypeQMUL::minor()),
+	pair<std::string,ChordTypeQMUL>("dim",ChordTypeQMUL::diminished()),
+	pair<std::string,ChordTypeQMUL>("aug",ChordTypeQMUL::augmented()),
 	//seventh chords
-	pair<string,ChordType>("maj7",ChordType::majorSeventh()), 
-	pair<string,ChordType>("min7",ChordType::minorSeventh()),
-	pair<string,ChordType>("7",ChordType::dominantSeventh()), 
-	pair<string,ChordType>("dim7",ChordType::diminishedSeventh()),
-	pair<string,ChordType>("hdim7",ChordType::halfDiminished()), 
-	pair<string,ChordType>("minmaj7",ChordType::minorMajorSeventh()),
+	pair<std::string,ChordTypeQMUL>("maj7",ChordTypeQMUL::majorSeventh()),
+	pair<std::string,ChordTypeQMUL>("min7",ChordTypeQMUL::minorSeventh()),
+	pair<std::string,ChordTypeQMUL>("7",ChordTypeQMUL::dominantSeventh()),
+	pair<std::string,ChordTypeQMUL>("dim7",ChordTypeQMUL::diminishedSeventh()),
+	pair<std::string,ChordTypeQMUL>("hdim7",ChordTypeQMUL::halfDiminished()),
+	pair<std::string,ChordTypeQMUL>("minmaj7",ChordTypeQMUL::minorMajorSeventh()),
 	//sixth chords
-	pair<string,ChordType>("maj6",ChordType::majorSixth()), 
-	pair<string,ChordType>("min6",ChordType::minorSixth()),
+	pair<std::string,ChordTypeQMUL>("maj6",ChordTypeQMUL::majorSixth()),
+	pair<std::string,ChordTypeQMUL>("min6",ChordTypeQMUL::minorSixth()),
 	//extended chords
-	pair<string,ChordType>("9",ChordType::dominantNinth()), 
-	pair<string,ChordType>("maj9",ChordType::majorNinth()),
-	pair<string,ChordType>("min9",ChordType::minorNinth()),
+	pair<std::string,ChordTypeQMUL>("9",ChordTypeQMUL::dominantNinth()),
+	pair<std::string,ChordTypeQMUL>("maj9",ChordTypeQMUL::majorNinth()),
+	pair<std::string,ChordTypeQMUL>("min9",ChordTypeQMUL::minorNinth()),
 	//suspended chords
-	pair<string,ChordType>("sus4",ChordType::suspendedFourth()),
+	pair<std::string,ChordTypeQMUL>("sus4",ChordTypeQMUL::suspendedFourth()),
 	//additions Rik
-	pair<string,ChordType>("sus2",ChordType::suspendedSecond()), 
-	pair<string,ChordType>("7sus4",ChordType::suspendedFourthSeventh()),
-	pair<string,ChordType>("aug7",ChordType::augmentedSeventh()),
+	pair<std::string,ChordTypeQMUL>("sus2",ChordTypeQMUL::suspendedSecond()),
+	pair<std::string,ChordTypeQMUL>("7sus4",ChordTypeQMUL::suspendedFourthSeventh()),
+	pair<std::string,ChordTypeQMUL>("aug7",ChordTypeQMUL::augmentedSeventh()),
     //billboard additions
-    pair<string,ChordType>("1",ChordType::rootOnly()),
-    pair<string,ChordType>("5",ChordType::power()),
-    pair<string,ChordType>("maj11",ChordType::majorEleventh()),
-    pair<string,ChordType>("11",ChordType::dominantEleventh()),
-    pair<string,ChordType>("min11",ChordType::minorEleventh()),
-    pair<string,ChordType>("maj13",ChordType::majorThirteenth()),
-    pair<string,ChordType>("13",ChordType::dominantThirteenth()),
-    pair<string,ChordType>("min13",ChordType::minorThirteenth())};
-const map<string,ChordType> ChordTypeQMUL::s_TypeStringMap(typeStringMap, typeStringMap+28);
+    pair<std::string,ChordTypeQMUL>("1",ChordTypeQMUL::rootOnly()),
+    pair<std::string,ChordTypeQMUL>("5",ChordTypeQMUL::power()),
+    pair<std::string,ChordTypeQMUL>("maj11",ChordTypeQMUL::majorEleventh()),
+    pair<std::string,ChordTypeQMUL>("11",ChordTypeQMUL::dominantEleventh()),
+    pair<std::string,ChordTypeQMUL>("min11",ChordTypeQMUL::minorEleventh()),
+    pair<std::string,ChordTypeQMUL>("maj13",ChordTypeQMUL::majorThirteenth()),
+    pair<std::string,ChordTypeQMUL>("13",ChordTypeQMUL::dominantThirteenth()),
+    pair<std::string,ChordTypeQMUL>("min13",ChordTypeQMUL::minorThirteenth())};
+const std::map<std::string,ChordTypeQMUL> ChordTypeQMUL::s_TypeStringMap(typeStringMap, typeStringMap+28);
 
 ChordTypeQMUL::ChordTypeQMUL(std::string inName)
 {
 	//find borders of base type
 	size_t theBaseNameEnd = inName.find_first_of("(/");
 	//convert basic type to circle steps formula
-	map<string,ChordType>::const_iterator theMapPos = 
+	std::map<std::string,ChordTypeQMUL>::const_iterator theMapPos =
 		s_TypeStringMap.find(inName.substr(0,theBaseNameEnd));
 	if (theMapPos != s_TypeStringMap.end()) {
 		*this = theMapPos->second;
 	} else {
-		throw invalid_argument("Unknown QMUL chord type '" + inName.substr(0,theBaseNameEnd) + "'");
+		throw std::invalid_argument("Unknown QMUL chord type '" + inName.substr(0,theBaseNameEnd) + "'");
 	}
 	//check for formula modifiers
 	size_t theOpenBracket = inName.find("(");
-	if (theOpenBracket != string::npos)
+	if (theOpenBracket != std::string::npos)
 	{
 		//isolate formula modifiers and parse them
 		size_t theCloseBracket = inName.find(")");
-		if (theCloseBracket == string::npos)
+		if (theCloseBracket == std::string::npos)
 		{
-			throw invalid_argument("No closing bracket present in '" + inName + "'");
+			throw std::invalid_argument("No closing bracket present in '" + inName + "'");
 		}
-		string theFormulaModifiers = inName.substr(theOpenBracket+1,theCloseBracket-theOpenBracket-1);
+		std::string theFormulaModifiers = inName.substr(theOpenBracket+1,theCloseBracket-theOpenBracket-1);
 		size_t theComma = theFormulaModifiers.find(",");
-		while (theComma != string::npos)
+		while (theComma != std::string::npos)
 		{
 			parseFormulaModifier(theFormulaModifiers.substr(0,theComma));
-			theFormulaModifiers = theFormulaModifiers.substr(theComma+1,string::npos);
+			theFormulaModifiers = theFormulaModifiers.substr(theComma+1,std::string::npos);
 			theComma = theFormulaModifiers.find(",");
 		}
 		parseFormulaModifier(theFormulaModifiers);
@@ -102,31 +96,17 @@ ChordTypeQMUL::ChordTypeQMUL(std::string inName)
     {
         *this = ChordTypeQMUL::major();
     }
-	if (theSlash != string::npos)
+	if (theSlash != std::string::npos)
 	{
 		addBassNote(inName.substr(theSlash+1));
 	}
-}
-
-ChordTypeQMUL::ChordTypeQMUL()
-{
-}
-
-ChordTypeQMUL::ChordTypeQMUL(const ChordType& inChordType)
-: ChordType(inChordType)
-{
-}
-
-ChordTypeQMUL::~ChordTypeQMUL()
-{
-	// Nothing to do...
 }
 
 void ChordTypeQMUL::parseFormulaModifier(std::string inFormulaModifier)
 {
 	if (!inFormulaModifier.substr(0,1).compare("*"))
 	{
-		deleteNote(inFormulaModifier.substr(1,string::npos));
+		deleteNote(inFormulaModifier.substr(1,std::string::npos));
 	}
 	else
 	{
@@ -136,31 +116,31 @@ void ChordTypeQMUL::parseFormulaModifier(std::string inFormulaModifier)
 
 void ChordTypeQMUL::addNote(const std::string& inDegree)
 {
-	addInterval(ComplexInterval(inDegree).simpleInterval());
+	*this = addInterval(ComplexInterval(inDegree).simpleInterval());
 }
 
 void ChordTypeQMUL::addBassNote(const std::string& inDegree)
 {
-	addBass(ComplexInterval(inDegree).simpleInterval());
+	*this = addBass(ComplexInterval(inDegree).simpleInterval());
 }
 
 void ChordTypeQMUL::replaceNote(const std::string& inToBeReplaced, const std::string& inReplacement)
 {
-	replaceInterval(ComplexInterval(inToBeReplaced).simpleInterval(), ComplexInterval(inReplacement).simpleInterval());
+	*this = replaceInterval(ComplexInterval(inToBeReplaced).simpleInterval(), ComplexInterval(inReplacement).simpleInterval());
 }
 
 void ChordTypeQMUL::deleteNote(const std::string& inDegree)
 {
-	deleteInterval(ComplexInterval(inDegree).simpleInterval());
+	*this = deleteInterval(ComplexInterval(inDegree).simpleInterval());
 }
 
 const std::string ChordTypeQMUL::str() const
 {
- 	string theString;
-    set<SimpleInterval> theRestIntervals;
-    set<SimpleInterval> theMissingIntervals;
+ 	std::string theString;
+    std::set<SimpleInterval> theRestIntervals;
+    std::set<SimpleInterval> theMissingIntervals;
 
-    if (*this == ChordType::none())
+    if (*this == ChordTypeQMUL::none())
 	{
 		return "";
 	}
@@ -371,18 +351,4 @@ const std::string ChordTypeQMUL::str() const
 		theString += "/" + this->m_Bass.majorDegreeString();
 	}
 	return theString;
-}
-
-std::istream& MusOO::operator>>(std::istream& inInputStream, ChordTypeQMUL& outChordType)
-{
-	std::string theString;
-	inInputStream >> theString;
-	outChordType = ChordTypeQMUL(theString);
-	return inInputStream;
-}
-
-std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ChordTypeQMUL& inChordType)
-{
-	inOutputStream << inChordType.str();
-	return inOutputStream;
 }

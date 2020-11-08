@@ -15,11 +15,9 @@
 #include <limits>
 #include <algorithm>
 #include "MusOO/ComplexInterval.h"
-#include "MusOO/Chroma.h"
-#include "MusOO/Mode.h"
+#include "MusOO/ModeAbstract.h"
 
 using std::map;
-using std::pair;
 using std::string;
 using std::invalid_argument;
 using std::istringstream;
@@ -172,66 +170,9 @@ ComplexInterval::ComplexInterval()
 {
 }
 
-ComplexInterval::ComplexInterval(const Chroma& inRoot, const Chroma& inOther, const bool inUp /*= true*/)
-: m_Octaves(0)
-{
-	if (!inRoot.isTrueChroma() || !inOther.isTrueChroma())
-	{
-		*this = undefined();
-	}
-	else
-	{
-        ptrdiff_t linePosition;
-		if (inUp)
-		{
-			linePosition = inOther.m_LinePosition - inRoot.m_LinePosition;
-		}
-		else
-		{
-			linePosition = inRoot.m_LinePosition - inOther.m_LinePosition;
-		}
-		m_simpleInterval = SimpleInterval(linePosition, inRoot.hasSpelling() && inOther.hasSpelling());
-	}
-}
-
-//ComplexInterval::ComplexInterval(const std::string& inMajorDegree, const bool inUp /*= true*/)
+//ComplexInterval::ComplexInterval(const std::string& inMajorDegree)
+//: m_simpleInterval(SimpleInterval(inMajorDegree)), m_Octaves(0)
 //{
-//	//check for not allowed characters
-//	if (inMajorDegree.find_first_not_of("#b1234567890") != string::npos)
-//	{
-//		throw invalid_argument("Major degree '" + inMajorDegree + "' contains unknown characters");
-//	}
-//	m_HasSpelling = true;
-//	//split into modifiers and base degree
-//	size_t theSplit = inMajorDegree.find_first_of("1234567890");
-//	//convert base degree from string to int
-//	size_t theBaseDegree;
-//	istringstream (inMajorDegree.substr(theSplit,string::npos)) >> theBaseDegree;
-//	//convert int base degree to distance in circle steps
-//	m_LinePosition = s_MajorDegreeToCircleSteps.find(((theBaseDegree-1)%7)+1)->second;;
-//	//apply modifiers
-//	m_LinePosition += Chroma::stringModifierToCircleSteps(inMajorDegree.substr(0,theSplit));
-//	m_Octaves = 0;
-//	if (!inUp)
-//	{
-//		m_LinePosition = -m_LinePosition;
-//	}
-//}
-
-//ComplexInterval::ComplexInterval(const std::string& inDegree, const Mode& inMode)
-//{
-//	ptrdiff_t theSemiTones;
-//	if (inMode.isMajor())
-//	{
-//		theSemiTones = std::find(s_MajorDegrees.begin(), s_MajorDegrees.end(), inDegree) - s_MajorDegrees.begin();
-//	}
-//	else
-//	{
-//		theSemiTones = std::find(s_MinorDegrees.begin(), s_MinorDegrees.end(), inDegree) - s_MinorDegrees.begin();
-//	}
-//	m_LinePosition = ((7*theSemiTones % 12) + 12) % 12;
-//	m_Octaves = 0;
-//	m_HasSpelling = false;
 //}
 
 ComplexInterval::ComplexInterval(const ptrdiff_t inSemiTones)
@@ -381,11 +322,6 @@ const ComplexInterval ComplexInterval::operator+(const ComplexInterval& inComple
 const ComplexInterval ComplexInterval::operator-(const ComplexInterval& inComplexInterval) const
 {
 	return ComplexInterval(*this) -= inComplexInterval;
-}
-
-const std::string ComplexInterval::asDegree(const Mode& inMode) const
-{
-    return m_simpleInterval.asDegree(inMode);
 }
 
 const SimpleInterval& ComplexInterval::simpleInterval() const

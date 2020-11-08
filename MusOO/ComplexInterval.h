@@ -17,8 +17,6 @@
 
 namespace MusOO
 {
-class Chroma;
-class Mode;
 
 class ComplexInterval
 {
@@ -53,14 +51,16 @@ public:
 	static ComplexInterval minorThirteenth(); //b13
 	static ComplexInterval majorThirteenth(); //13
 
-	friend class Chroma; 
+	template <typename Chroma> friend class ChromaAbstract;
 	//to access m_LinePosition in Chroma::operator+=(ComplexInterval), Chroma::operator+=(ComplexInterval) and Chroma::Chroma(Chroma, ComplexInterval)
 
 	/** Default constructor. */
 	ComplexInterval();
-	ComplexInterval(const Chroma& inRoot, const Chroma& inOther, const bool inUp = true);
-//	ComplexInterval(const std::string& inMajorDegree, const bool inUp = true);
-//	ComplexInterval(const std::string& inDegree, const Mode& inMode);
+    template <typename Chroma, typename OtherChroma>
+	ComplexInterval(const ChromaAbstract<Chroma>& inRoot, const ChromaAbstract<OtherChroma>& inOther, const bool inUp = true);
+//	ComplexInterval(const std::string& inMajorDegree); const bool inUp = true);
+    template <typename Mode>
+	ComplexInterval(const std::string& inDegree, const ModeAbstract<Mode>& inMode);
 	ComplexInterval(const ptrdiff_t inSemiTones);
     ComplexInterval(const SimpleInterval& inSimpleInterval, const size_t inOctaves = 0);
 
@@ -83,7 +83,8 @@ public:
 	const std::string majorDegreeString() const;
 	const ptrdiff_t diatonicNumber() const;
 
-	const std::string asDegree(const Mode& inMode) const;
+    template <typename Mode>
+	const std::string asDegree(const ModeAbstract<Mode>& inMode) const;
 
 	/** Destructor. */
 	virtual ~ComplexInterval();
@@ -103,5 +104,41 @@ private:
 	size_t m_Octaves;
 
 };
+
+template <typename Chroma, typename OtherChroma>
+ComplexInterval::ComplexInterval(const ChromaAbstract<Chroma>& inRoot, const ChromaAbstract<OtherChroma>& inOther, const bool inUp /*= true*/)
+: m_Octaves(0)
+{
+    if (!inRoot.isTrueChroma() || !inOther.isTrueChroma())
+    {
+        *this = undefined();
+    }
+    else
+    {
+        ptrdiff_t linePosition;
+        if (inUp)
+        {
+            linePosition = inOther.m_LinePosition - inRoot.m_LinePosition;
+        }
+        else
+        {
+            linePosition = inRoot.m_LinePosition - inOther.m_LinePosition;
+        }
+        m_simpleInterval = SimpleInterval(linePosition, inRoot.hasSpelling() && inOther.hasSpelling());
+    }
+}
+
+template <typename Mode>
+ComplexInterval::ComplexInterval(const std::string& inDegree, const ModeAbstract<Mode>& inMode)
+: m_simpleInterval(SimpleInterval(inDegree, inMode)), m_Octaves(0)
+{
+}
+
+template <typename Mode>
+const std::string ComplexInterval::asDegree(const ModeAbstract<Mode>& inMode) const
+{
+    return m_simpleInterval.asDegree(inMode);
+}
+
 }
 #endif	// #ifndef ComplexInterval_h

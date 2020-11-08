@@ -9,24 +9,17 @@
 	@date		20090119
 */
 //============================================================================
-#include <string>
+#include "MusOO/ChordTypeAbstract.h"
 #include <map>
-#include "MusOO/ChordType.h"
 
 namespace MusOO
 {
-class ChordTypeQMUL : public ChordType
+class ChordTypeQMUL : public ChordTypeAbstract<ChordTypeQMUL>
 {
 public:
 
-	/** Default constructor. */
-	ChordTypeQMUL();
+	using ChordTypeAbstract<ChordTypeQMUL>::ChordTypeAbstract;
 	ChordTypeQMUL(std::string inName);
-	/** Copy constructor */
-	ChordTypeQMUL(const ChordType& inChordType);
-
-	/** Destructor. */
-	virtual ~ChordTypeQMUL();
 
 	const std::string str() const;
 
@@ -41,10 +34,8 @@ protected:
 
 private:
 
-	static const std::map<std::string,ChordType> s_TypeStringMap;
+	static const std::map<std::string,ChordTypeQMUL> s_TypeStringMap;
 };
 
-std::ostream& operator<<(std::ostream& inOutputStream, const ChordTypeQMUL& inChordType);
-std::istream& operator>>(std::istream& inInputStream, ChordTypeQMUL& inChordType);
 }
 #endif	// #ifndef ChordTypeQMUL_h

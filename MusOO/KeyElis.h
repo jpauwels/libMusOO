@@ -9,33 +9,22 @@
 	@date		20100330
 */
 //============================================================================
-#include "MusOO/Key.h"
+#include "MusOO/KeyAbstract.h"
+#include "MusOO/ChromaLetter.h"
+#include "MusOO/ModeElis.h"
 
 namespace MusOO
 {
-class KeyElis : public Key
+class KeyElis : public KeyAbstract<KeyElis, ChromaLetter, ModeElis>
 {
 public:
 
-	/** Default constructor. */
-	KeyElis();
+    using KeyAbstract<KeyElis, ChromaLetter, ModeElis>::KeyAbstract;
 	KeyElis(const std::string& inKeyString);
-	// copy constructor
-	KeyElis(const Key& inKey);
-    KeyElis(const Chroma& inTonic, const Mode& inMode);
-
-	/** Destructor. */
-	virtual ~KeyElis();
 
 	const std::string str() const;
 
-protected:
-
-private:
-
-
 };
 
-std::ostream& operator<<(std::ostream& inOutputStream, const KeyElis& inKey);
 }
 #endif	// #ifndef KeyElis_h

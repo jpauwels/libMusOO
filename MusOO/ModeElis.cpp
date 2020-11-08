@@ -18,10 +18,6 @@ using std::string;
 using std::invalid_argument;
 using namespace MusOO;
 
-ModeElis::ModeElis() 
-{
-}
-
 ModeElis::ModeElis(const std::string& inString)
 {
 	if (inString == "major")
@@ -48,11 +44,6 @@ ModeElis::ModeElis(const std::string& inString)
 	{
 		throw invalid_argument("Unknown Elis mode name '" + inString + "'");
 	}
-}
-
-ModeElis::ModeElis(const Mode& inMode)
-: Mode(inMode)
-{
 }
 
 const std::string ModeElis::str() const
@@ -91,12 +82,6 @@ const std::string ModeElis::str() const
 	}
 	else
 	{
-		return Mode::str();
+		return ModeElis::str();
 	}
-}
-
-std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ModeElis& inMode)
-{
-	inOutputStream << inMode.str();
-	return inOutputStream;
 }

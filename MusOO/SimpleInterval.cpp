@@ -15,8 +15,7 @@
 #include <limits>
 #include <algorithm>
 #include "MusOO/SimpleInterval.h"
-#include "MusOO/Chroma.h"
-#include "MusOO/Mode.h"
+#include "MusOO/ChromaLetter.h"
 
 using std::map;
 using std::pair;
@@ -179,30 +178,6 @@ SimpleInterval::SimpleInterval()
 {
 }
 
-SimpleInterval::SimpleInterval(const Chroma& inRoot, const Chroma& inOther, const bool inUp /*= true*/)
-{
-	if (!inRoot.isTrueChroma() || !inOther.isTrueChroma())
-	{
-		*this = undefined();
-	}
-	else
-	{
-		if (inUp)
-		{
-			m_LinePosition = inOther.m_LinePosition - inRoot.m_LinePosition;
-		}
-		else
-		{
-			m_LinePosition = inRoot.m_LinePosition - inOther.m_LinePosition;
-		}
-		m_HasSpelling = inRoot.hasSpelling() && inOther.hasSpelling();
-        if (!m_HasSpelling)
-        {
-            m_LinePosition = Chroma::wrapIntoRange(m_LinePosition, -6, 6);
-        }
-	}
-}
-
 SimpleInterval::SimpleInterval(const std::string& inMajorDegree, const bool inUp /*= true*/)
 {
 	//check for not allowed characters
@@ -219,26 +194,11 @@ SimpleInterval::SimpleInterval(const std::string& inMajorDegree, const bool inUp
 	//convert int base degree to distance in circle steps
 	m_LinePosition = s_MajorDegreeToCircleSteps.find(((theBaseDegree-1)%7)+1)->second;;
 	//apply modifiers
-	m_LinePosition += Chroma::stringModifierToCircleSteps(inMajorDegree.substr(0,theSplit));
+	m_LinePosition += ChromaLetter::stringModifierToCircleSteps(inMajorDegree.substr(0,theSplit));
 	if (!inUp)
 	{
 		m_LinePosition = -m_LinePosition;
 	}
-}
-
-SimpleInterval::SimpleInterval(const std::string& inDegree, const Mode& inMode)
-{
-	ptrdiff_t theSemiTones;
-	if (inMode.isMajor())
-	{
-		theSemiTones = std::find(s_MajorDegrees.begin(), s_MajorDegrees.end(), inDegree) - s_MajorDegrees.begin();
-	}
-	else
-	{
-		theSemiTones = std::find(s_MinorDegrees.begin(), s_MinorDegrees.end(), inDegree) - s_MinorDegrees.begin();
-	}
-	m_LinePosition = ((7*theSemiTones % 12) + 12) % 12;
-	m_HasSpelling = false;
 }
 
 SimpleInterval::SimpleInterval(const ptrdiff_t inCircleSteps, const bool inHasSpelling)
@@ -431,16 +391,4 @@ const SimpleInterval SimpleInterval::operator+(const SimpleInterval& inSimpleInt
 const SimpleInterval SimpleInterval::operator-(const SimpleInterval& inSimpleInterval) const
 {
 	return SimpleInterval(*this) -= inSimpleInterval;
-}
-
-const std::string SimpleInterval::asDegree(const Mode& inMode) const
-{
-	if (inMode.isMajor())
-	{
-		return s_MajorDegrees[((semiTonesUp() % 12) + 12) % 12];
-	}
-	else
-	{
-		return s_MinorDegrees[((semiTonesUp() % 12) + 12) % 12];
-	}
 }

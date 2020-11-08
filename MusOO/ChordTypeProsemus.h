@@ -9,30 +9,24 @@
 	@date		20101220
 */
 //============================================================================
-#include <string>
-#include "MusOO/ChordType.h"
+#include "MusOO/ChordTypeAbstract.h"
 
 namespace MusOO
 {
-class ChordTypeProsemus : public ChordType
+class ChordTypeProsemus : public ChordTypeAbstract<ChordTypeProsemus>
 {
 public:
 
-	/** Default constructor. */
-	ChordTypeProsemus();
+    using ChordTypeAbstract<ChordTypeProsemus>::ChordTypeAbstract;
 	ChordTypeProsemus(std::string inName);
-	/** Copy constructor */
-	ChordTypeProsemus(const ChordType& inChordType);
-
-	/** Destructor. */
-	virtual ~ChordTypeProsemus();
 
 	const std::string str() const;
 
 private:
 
-	static const std::map<std::string,ChordType> s_TypeStringMap;
+	static const std::map<const std::string,const ChordTypeProsemus> s_TypeStringMap;
 
 };
+
 }
 #endif	// #ifndef ChordTypeProsemus_h

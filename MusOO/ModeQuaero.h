@@ -9,24 +9,26 @@
      @date		20130417
  */
 //============================================================================
-#include "MusOO/Mode.h"
-#include "MusOO/Chroma.h"
+#include "MusOO/ModeAbstract.h"
+#include <string>
 
 namespace MusOO
 {
-class ModeQuaero : public Mode
+class ChromaSolfege;
+
+class ModeQuaero : public ModeAbstract<ModeQuaero>
 {
 public:
-	ModeQuaero();
-	ModeQuaero(const Mode& inMode);
-	ModeQuaero(const std::string& inString);
     
-	const std::string str(const Chroma& inTonicChroma = Chroma::undefined()) const;
+    using ModeAbstract<ModeQuaero>::ModeAbstract;
+    ModeQuaero(const std::string& inString);
+    
+    const std::string str() const;
+	const std::string str(const ChromaSolfege& inTonicChroma) const;
     
 private:
-    static const std::map<std::string,Mode> s_ModeStringMap;
+    static const std::map<std::string,ModeQuaero> s_ModeStringMap;
 };
 
-std::ostream& operator<<(std::ostream& inOutputStream, const ModeQuaero& inMode);
 }
 #endif	// #ifndef ModeQuaero_h

@@ -17,21 +17,16 @@
 #include <algorithm>
 
 using std::map;
-using std::pair;
 using std::string;
 using std::min;
 using std::set;
 using namespace MusOO;
 
-ChordQuaero::ChordQuaero()
-{
-}
-
 ChordQuaero::ChordQuaero(const std::string& inChordName)
 {
     if (inChordName == "I ")
     {
-        *this = ChordQuaero::undefined<ChordQuaero>();
+        *this = ChordQuaero::undefined();
         return;
     }
     else
@@ -62,20 +57,6 @@ ChordQuaero::ChordQuaero(const std::string& inChordName)
     }
 }
 
-const std::unique_ptr<ChordAbstract> ChordQuaero::create(const Chroma& inRoot, const ChordType& inChordType)
-{
-    return std::unique_ptr<ChordAbstract>(new ChordQuaero(inRoot, inChordType));
-}
-
-ChordQuaero::ChordQuaero(const ChordAbstract& inChord)
-: ChordAbstract(inChord)
-{
-}
-
-ChordQuaero::~ChordQuaero()
-{
-}
-
 const std::string ChordQuaero::str() const
 {
 	return ChromaLetter(m_Root).str() + ChordTypeQuaero(m_Type).str(m_Root);
@@ -85,18 +66,4 @@ const std::string ChordQuaero::trimRight(const std::string& inString)
 {
 	const size_t theEndIdx = inString.find_last_not_of(" ");
     return inString.substr(0, theEndIdx+1);
-}
-
-std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ChordQuaero& inChord)
-{
-	inOutputStream << inChord.str();
-	return inOutputStream;
-}
-
-std::istream& MusOO::operator>>(std::istream& inInputStream, ChordQuaero& inChord)
-{
-	string theChordString;
-	inInputStream >> theChordString;
-	inChord = ChordQuaero(theChordString);
-	return inInputStream;
 }

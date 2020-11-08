@@ -20,16 +20,12 @@ using std::ostringstream;
 using std::invalid_argument;
 using namespace MusOO;
 
-KeyQMUL::KeyQMUL()
-{
-}
-
 KeyQMUL::KeyQMUL(std::string inKeyString)
 {
 	if (!inKeyString.compare(0,1,"S") || !inKeyString.compare("N"))
 	{
 		// Silence
-		*this = Key::silence();
+		*this = KeyQMUL::silence();
 	}
 	else
 	{
@@ -43,7 +39,7 @@ KeyQMUL::KeyQMUL(std::string inKeyString)
 		}
 		if (!inKeyString.compare("N"))
 		{
-			*this = Key::silence();
+			*this = KeyQMUL::silence();
 		}
 		else
 		{
@@ -52,7 +48,7 @@ KeyQMUL::KeyQMUL(std::string inKeyString)
 			m_Tonic = ChromaLetter(inKeyString.substr(0,theColon));
 			if (theColon == string::npos)
 			{
-				m_Mode = Mode::major();
+				m_Mode = ModeQMUL::major();
 			}
 			else
 			{
@@ -62,41 +58,20 @@ KeyQMUL::KeyQMUL(std::string inKeyString)
 	}
 }
 
-KeyQMUL::KeyQMUL(const Key& inKey)
-: Key(inKey.tonic(), ModeQMUL(inKey.mode()))
-{
-}
-
-KeyQMUL::KeyQMUL(const Chroma& inTonic, const Mode& inMode)
-: Key(inTonic, ModeQMUL(inMode))
-{
-}
-
-KeyQMUL::~KeyQMUL()
-{
-	// Nothing to do...
-}
-
 const std::string KeyQMUL::str() const
 {
 	string theKeyString;
-	if (*this == Key::silence())
+	if (*this == KeyQMUL::silence())
 	{
 		theKeyString = "Silence";
 	}
 	else
 	{
 		theKeyString = "Key " + ChromaLetter(m_Tonic).str();
-		if (m_Mode != Mode::major())
+		if (m_Mode != ModeQMUL::major())
 		{
 			theKeyString += ":" + ModeQMUL(m_Mode).str();
 		}
 	}
 	return theKeyString;
-}
-
-std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const KeyQMUL& inKey)
-{
-	inOutputStream << inKey.str();
-	return inOutputStream;
 }

@@ -9,39 +9,31 @@
  @date		20120719
  */
 //============================================================================
+#include "MusOO/ChordTypeAbstract.h"
 #include <string>
-#include "MusOO/ChordType.h"
-#include "MusOO/Chroma.h"
 
 namespace MusOO
 {
 class ChromaSolfege;
     
-class ChordTypeQuaero : public ChordType
+class ChordTypeQuaero : public ChordTypeAbstract<ChordTypeQuaero>
 {
 public:
     
     friend class ModeQuaero; // to access getConstrainedString() in ModeQuaero::str
 	
-	/** Default constructor. */
-	ChordTypeQuaero();
+	using ChordTypeAbstract<ChordTypeQuaero>::ChordTypeAbstract;
 	ChordTypeQuaero(std::string inName);
-	/** Copy constructor */
-	ChordTypeQuaero(const ChordType& inChordType);
-	
-	/** Destructor. */
-	virtual ~ChordTypeQuaero();
-	
-	const std::string str(const Chroma& inRootChroma = Chroma::undefined()) const;
+
+    const std::string str() const;
+	const std::string str(const ChromaSolfege& inRootChroma) const;
 	
 private:
 	
-	static const std::map<std::string,ChordType> s_TypeStringMap;
-	static const std::string getConstrainedString(const ChromaSolfege& inChromaSolfege);
+	static const std::map<std::string,ChordTypeQuaero> s_TypeStringMap;
+	static const std::string getConstrainedString(const ChromaSolfege& inChroma);
 	
 };
 
-std::ostream& operator<<(std::ostream& inOutputStream, const ChordTypeQuaero& inChordType);
-std::istream& operator>>(std::istream& inInputStream, ChordTypeQuaero& inChordType);
 }
 #endif	// #ifndef ChordTypeQuaero_h

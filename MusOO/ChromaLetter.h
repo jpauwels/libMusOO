@@ -9,26 +9,18 @@
  @date		20120720
  */
 //============================================================================
-#include <string>
+#include "MusOO/ChromaAbstract.h"
 #include <map>
-#include "MusOO/Chroma.h"
 
 namespace MusOO
 {
-class ChromaLetter : public Chroma
+class ChromaLetter : public ChromaAbstract<ChromaLetter>
 {
 public:
 	
-	/** Default constructor. */
-    ChromaLetter();
+	using ChromaAbstract<ChromaLetter>::ChromaAbstract;
     ChromaLetter(const std::string& inName);
-	ChromaLetter(const Chroma& inReference, const SimpleInterval& inInterval);
-	/** Copy constructor. */
-	ChromaLetter(const Chroma& inChroma);
-	
-	/** Destructor. */
-	virtual ~ChromaLetter();
-	
+
 	const std::string str() const;
 	
 protected:
@@ -39,8 +31,6 @@ private:
     static const std::map<ptrdiff_t,char> s_LinePositionToName;
     
 };
-    
-std::ostream& operator<<(std::ostream& inOutputStream, const ChromaLetter& inChroma);
-std::istream& operator>>(std::istream& inInputStream, ChromaLetter& inChroma);
+
 }
 #endif	// #ifndef ChromaLetter_h

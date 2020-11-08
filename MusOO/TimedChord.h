@@ -9,9 +9,9 @@
 	@date		20100603
 */
 //============================================================================
-#include <vector>
 #include "MusOO/TimedLabel.h"
-#include "MusOO/Chord.h"
+#include "MusOO/ChordAbstract.h"
+#include <vector>
 
 namespace MusOO
 {

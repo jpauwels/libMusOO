@@ -16,7 +16,6 @@
 #include "MusOO/ChordQuaero.h"
 #include "MusOO/KeyQuaero.h"
 
-using std::pair;
 using std::map;
 using std::istringstream;
 using std::ostringstream;
@@ -24,19 +23,15 @@ using std::invalid_argument;
 using std::string;
 using namespace MusOO;
 
-KeyQuaero::KeyQuaero()
-{
-}
-
 KeyQuaero::KeyQuaero(const std::string& inKeyString)
 {
     if (inKeyString == "I ")
     {
-        *this = Key::undefined();
+        *this = KeyQuaero::undefined();
     }
     else if (inKeyString == "M ")
     {
-        *this = Key::none();
+        *this = KeyQuaero::none();
     }
     else
     {
@@ -61,28 +56,13 @@ KeyQuaero::KeyQuaero(const std::string& inKeyString)
     }
 }
 
-KeyQuaero::KeyQuaero(const Key& inKey)
-: Key(inKey.tonic(), ModeQuaero(inKey.mode()))
-{
-}
-
-KeyQuaero::KeyQuaero(const Chroma& inTonic, const Mode& inMode)
-: Key(inTonic, ModeQuaero(inMode))
-{
-}
-
-KeyQuaero::~KeyQuaero()
-{
-	// Nothing to do...
-}
-
 const std::string KeyQuaero::str() const
 {
-	if (*this == Key::undefined())
+	if (*this == KeyQuaero::undefined())
 	{
 		return "I ";
 	}
-    else if (*this == Key::none())
+    else if (*this == KeyQuaero::none())
 	{
 		return "M ";
 	}
@@ -90,10 +70,4 @@ const std::string KeyQuaero::str() const
 	{
         return ChromaLetter(m_Tonic).str() + ModeQuaero(m_Mode).str(m_Tonic);
 	}
-}
-
-std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const KeyQuaero& inKey)
-{
-	inOutputStream << inKey.str();
-	return inOutputStream;
 }

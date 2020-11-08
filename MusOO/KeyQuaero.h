@@ -9,34 +9,22 @@
  @date		20130417
  */
 //============================================================================
-#include "MusOO/Key.h"
+#include "MusOO/KeyAbstract.h"
+#include "MusOO/ChromaSolfege.h"
+#include "MusOO/ModeQuaero.h"
 
 namespace MusOO
 {
-class KeyQuaero : public Key
+class KeyQuaero : public KeyAbstract<KeyQuaero, ChromaSolfege, ModeQuaero>
 {
 public:
-    
-	/** Default constructor. */
-	KeyQuaero();
+
+    using KeyAbstract<KeyQuaero, ChromaSolfege, ModeQuaero>::KeyAbstract;
 	KeyQuaero(const std::string& inKeyString);
-	// copy constructor
-	KeyQuaero(const Key& inKey);
-    KeyQuaero(const Chroma& inTonic, const Mode& inMode);
-    
-	/** Destructor. */
-	virtual ~KeyQuaero();
-    
+
 	const std::string str() const;
-    
-protected:
-    
-    
-private:
-    
-    
+
 };
 
-std::ostream& operator<<(std::ostream& inOutputStream, const KeyQuaero& inKey);
 }
 #endif	// #ifndef KeyQuaero_h

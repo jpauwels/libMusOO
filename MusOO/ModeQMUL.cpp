@@ -18,15 +18,6 @@ using std::ostringstream;
 using std::invalid_argument;
 using namespace MusOO;
 
-ModeQMUL::ModeQMUL()
-{
-}
-
-ModeQMUL::ModeQMUL(const Mode& inMode)
-: Mode(inMode)
-{
-}
-
 ModeQMUL::ModeQMUL(const std::string& inString)
 {
 	if (inString == "" || inString == "major")
@@ -121,10 +112,4 @@ const std::string ModeQMUL::str() const
         theModeStream << ")";
         return theModeStream.str();
 	}
-}
-
-std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ModeQMUL& inMode)
-{
-	inOutputStream << inMode.str();
-	return inOutputStream;
 }

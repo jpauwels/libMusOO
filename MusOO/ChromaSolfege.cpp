@@ -25,10 +25,6 @@ static const pair<string,ptrdiff_t> stringPositionMap[] =
 
 const map<string,ptrdiff_t> ChromaSolfege::s_stringToLinePositionMap(stringPositionMap, stringPositionMap+9);
 
-ChromaSolfege::ChromaSolfege()
-{
-}
-
 ChromaSolfege::ChromaSolfege(const std::string& inName)
 {
 	const size_t theModPosition = inName.find_first_of("#b");
@@ -48,31 +44,17 @@ ChromaSolfege::ChromaSolfege(const std::string& inName)
 	m_HasSpelling = true;
 }
 
-ChromaSolfege::ChromaSolfege(const Chroma& inReference, const SimpleInterval& inInterval)
-: Chroma(inReference, inInterval)
-{
-}
-
-ChromaSolfege::ChromaSolfege(const Chroma& inChroma)
-: Chroma(inChroma)
-{
-}
-
-ChromaSolfege::~ChromaSolfege()
-{
-}
-
 const std::string ChromaSolfege::str() const
 {
-	if (*this == Chroma::silence())
+	if (*this == silence())
 	{
 		return "S";
 	}
-	else if (*this == Chroma::none())
+	else if (*this == none())
 	{
 		return "N";
 	}
-	else if (*this == Chroma::undefined())
+	else if (*this == undefined())
 	{
 		return "X";
 	}
@@ -89,18 +71,4 @@ const std::string ChromaSolfege::str() const
 			return theBaseString + string(-theNumOfModifiers, 'b');
 		}
 	}
-}
-
-std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ChromaSolfege& inChroma)
-{
-    inOutputStream << inChroma.str();
-    return inOutputStream;
-}
-
-std::istream& MusOO::operator>>(std::istream& inInputStream, ChromaSolfege& outChroma)
-{
-    std::string theString;
-    inInputStream >> theString;
-    outChroma = ChromaSolfege(theString);
-    return inInputStream;
 }

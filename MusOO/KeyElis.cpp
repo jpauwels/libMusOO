@@ -20,10 +20,6 @@ using std::string;
 using std::invalid_argument;
 using namespace MusOO;
 
-KeyElis::KeyElis()
-{
-}
-
 KeyElis::KeyElis(const std::string& inKeyString)
 {
 	istringstream theStringStream(inKeyString);
@@ -34,20 +30,6 @@ KeyElis::KeyElis(const std::string& inKeyString)
 	m_Mode = ModeElis(theString);
 }
 
-KeyElis::KeyElis(const Key& inKey)
-: Key(inKey.tonic(), ModeElis(inKey.mode()))
-{
-}
-
-KeyElis::KeyElis(const Chroma& inTonic, const Mode& inMode)
-: Key(inTonic,  ModeElis(inMode))
-{
-}
-
-KeyElis::~KeyElis()
-{
-}
-
 const std::string KeyElis::str() const
 {
     string theKeyString = ChromaLetter(m_Tonic).str();
@@ -56,10 +38,4 @@ const std::string KeyElis::str() const
 		theKeyString += "\t" + ModeElis(m_Mode).str();
 	}
 	return theKeyString;
-}
-
-std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const KeyElis& inKey)
-{
-	inOutputStream << inKey.str();
-	return inOutputStream;
 }

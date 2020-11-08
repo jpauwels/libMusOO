@@ -23,33 +23,23 @@ using std::invalid_argument;
 using std::string;
 using namespace MusOO;
 
-static const pair<string,Mode> modeStringMap[] =
+static const pair<string,ModeQuaero> modeStringMap[] =
 {
-	pair<string,Mode>("M", Mode::major()),
-	pair<string,Mode>("mix", Mode::mixolydian()),
-	pair<string,Mode>("m", Mode::minorNatural()),
-	pair<string,Mode>("harmo", Mode::minorHarmonic()),
-	pair<string,Mode>("meloa", Mode::minorMelodic()),
-	pair<string,Mode>("melod", Mode::minorNatural().addInterval(SimpleInterval::majorSixth())),
-	pair<string,Mode>("dor", Mode::dorian()),
-	pair<string,Mode>("blues", Mode::mixolydian().addInterval(SimpleInterval::minorThird()).addInterval(SimpleInterval::diminishedFifth())),
-	pair<string,Mode>("bluesm", Mode::dorian().addInterval(SimpleInterval::diminishedFifth()))
+	pair<string,ModeQuaero>("M", ModeQuaero::major()),
+	pair<string,ModeQuaero>("mix", ModeQuaero::mixolydian()),
+	pair<string,ModeQuaero>("m", ModeQuaero::minorNatural()),
+	pair<string,ModeQuaero>("harmo", ModeQuaero::minorHarmonic()),
+	pair<string,ModeQuaero>("meloa", ModeQuaero::minorMelodic()),
+	pair<string,ModeQuaero>("melod", ModeQuaero::minorNatural().addInterval(SimpleInterval::majorSixth())),
+	pair<string,ModeQuaero>("dor", ModeQuaero::dorian()),
+	pair<string,ModeQuaero>("blues", ModeQuaero::mixolydian().addInterval(SimpleInterval::minorThird()).addInterval(SimpleInterval::diminishedFifth())),
+	pair<string,ModeQuaero>("bluesm", ModeQuaero::dorian().addInterval(SimpleInterval::diminishedFifth()))
 };
-const map<string,Mode> ModeQuaero::s_ModeStringMap(modeStringMap, modeStringMap+9);
-
-ModeQuaero::ModeQuaero()
-{
-    Mode t(Mode::minorNatural().addInterval(SimpleInterval::majorSixth()));
-}
-
-ModeQuaero::ModeQuaero(const Mode& inMode)
-: Mode(inMode)
-{
-}
+const map<string,ModeQuaero> ModeQuaero::s_ModeStringMap(modeStringMap, modeStringMap+9);
 
 ModeQuaero::ModeQuaero(const std::string& inString)
 {
-    const map<string,Mode>::const_iterator theMapPos = s_ModeStringMap.find(inString);
+    const map<string,ModeQuaero>::const_iterator theMapPos = s_ModeStringMap.find(inString);
 	if (theMapPos != s_ModeStringMap.end())
 	{
 		*this = theMapPos->second;
@@ -60,7 +50,12 @@ ModeQuaero::ModeQuaero(const std::string& inString)
 	}
 }
 
-const std::string ModeQuaero::str(const Chroma& inTonicChroma /*= Chroma::undefined()*/) const
+const std::string ModeQuaero::str() const
+{
+    return str(ChromaSolfege::undefined());
+}
+
+const std::string ModeQuaero::str(const ChromaSolfege& inTonicChroma) const
 {
 	if (*this == major())
 	{
@@ -111,10 +106,4 @@ const std::string ModeQuaero::str(const Chroma& inTonicChroma /*= Chroma::undefi
         }
         return theModeStream.str();
 	}
-}
-
-std::ostream& MusOO::operator<<(std::ostream& inOutputStream, const ModeQuaero& inMode)
-{
-	inOutputStream << inMode.str();
-	return inOutputStream;
 }

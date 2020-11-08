@@ -10,7 +10,7 @@
 // Includes
 #include "MusOO/RelativeChordQMUL.h"
 #include "MusOO/ChordTypeQMUL.h"
-#include "MusOO/Mode.h"
+#include "MusOO/ModeQMUL.h"
 #include <sstream>
 #include <stdexcept>
 #include <algorithm>
@@ -20,21 +20,17 @@ using std::ostringstream;
 using namespace MusOO;
 
 
-RelativeChordQMUL::RelativeChordQMUL()
-{
-}
-
-RelativeChordQMUL::RelativeChordQMUL(const std::string& inString, const Mode& inMode)
+RelativeChordQMUL::RelativeChordQMUL(const std::string& inString, const ModeQMUL& inMode)
 {
 	if (!inString.compare(0,1,"S"))
 	{
 		// Silence
-		*this = silence<RelativeChordQMUL>();
+		*this = RelativeChordQMUL::silence();
 	}
 	else if (!inString.compare(0,1,"N"))
 	{
 		// No-chord
-		*this = none<RelativeChordQMUL>();
+		*this = RelativeChordQMUL::none();
 	}
 	else
 	{
@@ -54,7 +50,7 @@ RelativeChordQMUL::RelativeChordQMUL(const std::string& inString, const Mode& in
 			if (theSlash == string::npos)
 			{
 				//no explicit type, no slash
-				theType = ChordType::major();
+				theType = ChordTypeQMUL::major();
 			}
 			else
 			{
@@ -66,22 +62,17 @@ RelativeChordQMUL::RelativeChordQMUL(const std::string& inString, const Mode& in
 	}
 }
 
-RelativeChordQMUL::RelativeChordQMUL(const RelativeChordAbstract& inRelativeChord)
-	: RelativeChordAbstract(inRelativeChord)
+const std::string RelativeChordQMUL::asDegree(const ModeQMUL& inMode) const
 {
-}
-
-const std::string RelativeChordQMUL::asDegree(const Mode& inMode) const
-{
-    if (*this == unknown<RelativeChordQMUL>())
+    if (*this == RelativeChordQMUL::unknown())
     {
         return "X";
     }
-    else if (*this == none<RelativeChordQMUL>())
+    else if (*this == RelativeChordQMUL::none())
     {
         return "N";
     }
-    else if (*this == silence<RelativeChordQMUL>())
+    else if (*this == RelativeChordQMUL::silence())
     {
         return "S";
     }
@@ -91,13 +82,13 @@ const std::string RelativeChordQMUL::asDegree(const Mode& inMode) const
     }
 }
 
-/*const std::string RelativeChordQMUL::str() const
+const std::string RelativeChordQMUL::str() const
  {
-     string theRelChordString = IntervalRoman(m_RootInterval).str();
+     string theRelChordString = std::to_string(m_RootInterval.diatonicNumber());//IntervalRoman(m_RootInterval).str();
      if (m_Type != ChordTypeQMUL::none())
      {
          theRelChordString += ":" + ChordTypeQMUL(m_Type).str();
      }
      return theRelChordString;
- }*/
+ }
 
